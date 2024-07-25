@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @SuppressWarnings("unused")
 public class MITEITEMod implements ModInitializer {
+    public static String ITENameSpace = "MITE-ITE";
     private final ConfigRegistry configRegistry = new ConfigRegistry(Configs.ROOT, Configs.CONFIG_FILE);
     public void onInitialize() {
         EventListeners.registerAllEvents();

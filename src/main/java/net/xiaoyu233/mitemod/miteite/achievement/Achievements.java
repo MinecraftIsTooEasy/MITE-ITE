@@ -2,7 +2,7 @@ package net.xiaoyu233.mitemod.miteite.achievement;
 
 import net.minecraft.Achievement;
 import net.minecraft.AchievementList;
-import net.xiaoyu233.fml.util.IdUtil;
+import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.block.Blocks;
 import net.xiaoyu233.mitemod.miteite.item.Items;
 

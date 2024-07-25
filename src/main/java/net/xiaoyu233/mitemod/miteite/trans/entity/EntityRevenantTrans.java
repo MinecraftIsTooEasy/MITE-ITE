@@ -4,6 +4,7 @@ import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
 import net.xiaoyu233.mitemod.miteite.util.MonsterUtil;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -14,8 +15,9 @@ public class EntityRevenantTrans extends EntityZombie {
       super(world);
    }
 
-   @Inject(method = "addRandomEquipment", at = @At("HEAD"), cancellable = true)
-   protected void addRandomEquipment(CallbackInfo ci) {
+   @Overwrite
+   protected void addRandomEquipment() {
+      this.addRandomWeapon();
       int day = this.getWorld().getDayOfOverworld();
       if (day < 128) {
          this.setBoots((new ItemStack(Item.bootsRustedIron)).randomizeForMob(this, true));
@@ -25,7 +27,6 @@ public class EntityRevenantTrans extends EntityZombie {
       } else {
          MonsterUtil.addDefaultArmor(day, this, true);
       }
-      ci.cancel();
 
    }
 

@@ -3,6 +3,7 @@ package net.xiaoyu233.mitemod.miteite.events;
 import com.google.common.eventbus.Subscribe;
 import net.minecraft.*;
 import net.xiaoyu233.fml.reload.event.*;
+import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.achievement.Achievements;
 import net.xiaoyu233.mitemod.miteite.block.Blocks;
 import net.xiaoyu233.mitemod.miteite.entity.*;
@@ -213,12 +214,12 @@ public class MITEITEEvents {
 
     @Subscribe
     public void onEntityRegister(EntityRegisterEvent event){
-        event.register(EntityAncientDragon.class, "EntityTest", 201);
-        event.register(EntityRideMarker.class, "EntityMarker", 202);
-        event.register(EntityZombieLord.class, "EntityZombieLord", 203, 0xffffff, 0xcccccc);
-        event.register(EntityZombiePigmanLord.class, "EntityZombiePigmanLord", 204, 0xffffff, 0xcccccc);
-        event.register(EntityAnnihilationSkeleton.class, "EntityAnnihilationSkeleton", 205, 0xffffff, 0xcccccc);
-        event.register(EntityWanderingWitch.class, "EntityWanderingWitch", 206, 0xffffff, 0xcccccc);
+        event.register(EntityAncientDragon.class, MITEITEMod.ITENameSpace, "EntityTest", 201);
+        event.register(EntityRideMarker.class, MITEITEMod.ITENameSpace, "EntityMarker", 202);
+        event.register(EntityZombieLord.class, MITEITEMod.ITENameSpace, "EntityZombieLord", 203, 0xffffff, 0xcccccc);
+        event.register(EntityZombiePigmanLord.class, MITEITEMod.ITENameSpace, "EntityZombiePigmanLord", 204, 0xffffff, 0xcccccc);
+        event.register(EntityAnnihilationSkeleton.class, MITEITEMod.ITENameSpace, "EntityAnnihilationSkeleton", 205, 0xffffff, 0xcccccc);
+        event.register(EntityWanderingWitch.class, MITEITEMod.ITENameSpace, "EntityWanderingWitch", 206, 0xffffff, 0xcccccc);
     }
 
     @Subscribe

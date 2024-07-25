@@ -3,8 +3,7 @@ package net.xiaoyu233.mitemod.miteite.item.enchantment;
 import net.minecraft.Enchantment;
 import net.minecraft.EnumRarity;
 import net.xiaoyu233.fml.reload.event.EnchantmentRegistryEvent;
-import net.xiaoyu233.fml.util.IdUtil;
-import net.xiaoyu233.mitemod.miteite.api.ITEEnchantment;
+import net.xiaoyu233.fml.reload.utils.IdUtil;
 
 import java.util.ArrayList;
 import java.util.List;

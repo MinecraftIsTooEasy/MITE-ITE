@@ -127,14 +127,14 @@ public class Configs {
                     addEntry(ConfigCategory.of("Nether").
                             addEntry(ConfigEntry.of("nether_adamantium_max_count_per_chunk",WorldGen.Nether.NETHER_ADAMANTIUM_MAX_COUNT_PER_CHUNK).withComment("地狱艾德曼每个区块最大生成数量")).
                             addEntry(ConfigEntry.of("nether_adamantium_max_count_per_vein",WorldGen.Nether.NETHER_ADAMANTIUM_MAX_COUNT_PER_VEIN).withComment("地狱艾德曼每个矿脉最大矿物生成数量")))).
-            addEntry(ConfigCategory.of("Client").
-                    addEntry(ConfigCategory.of("Gui").
-                            addEntry(ConfigEntry.of("health_bar_x_offset",Client.Gui.HEALTH_BAR_X_OFFSET).withComment("营养条GUI横向偏移")).
-                            addEntry(ConfigEntry.of("health_bar_y_offset",Client.Gui.HEALTH_BAR_Y_OFFSET).withComment("营养条GUI纵向偏移")))).
+//            addEntry(ConfigCategory.of("Client").
+//                    addEntry(ConfigCategory.of("Gui").
+//                            addEntry(ConfigEntry.of("health_bar_x_offset",Client.Gui.HEALTH_BAR_X_OFFSET).withComment("营养条GUI横向偏移")).
+//                            addEntry(ConfigEntry.of("health_bar_y_offset",Client.Gui.HEALTH_BAR_Y_OFFSET).withComment("营养条GUI纵向偏移")))).
             addEntry(ConfigCategory.of("Misc").
                     addEntry(ConfigEntry.of("log_players_interact_with_portal",Misc.LOG_PLAYERS_INTERACT_WITH_PORTAL).withComment("玩家通过传送门时发送警告(开关)")));
 
-    public static class Block{
+    public static class Block {
 
         public static final FieldReference<Boolean> MOB_SPAWNER_SPEED_UP_WITH_PLAYERS = new FieldReference<>(true);
     }

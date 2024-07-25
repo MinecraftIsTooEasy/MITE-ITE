@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.SoftOverride;
 
 @Mixin(ItemShovel.class)
-public abstract class ItemShovelTrans extends ItemToolTrans{
+public abstract class ItemShovelTrans extends ItemToolTrans {
     @Override
     @SoftOverride
     protected int getExpForBlockBreak(BlockBreakInfo blockBreakInfo) {

@@ -38,7 +38,7 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
    private boolean willChangeWeapon;
 
    @Shadow
-   protected void addRandomEquipment(){
+   protected void addRandomEquipment() {
    }
 
    public EntitySkeletonTrans(World par1World) {
@@ -202,12 +202,12 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
    }
 
    @Unique
-   public void initStockedWeapon(){
+   public void initStockedWeapon() {
       this.willChangeWeapon = this.willChangeWeapon();
       int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
       if (this.getHeldItem() instanceof ItemBow) {
          this.stowed_item_stack = (new ItemStack(this.getWeapon(day))).randomizeForMob(this, true);
-      }else if (this.getHeldItem() instanceof ItemSword){
+      } else if (this.getHeldItem() instanceof ItemSword) {
          this.stowed_item_stack = (new ItemStack(this.getWeapon(day))).randomizeForMob(this, true);
       }
    }
@@ -365,11 +365,11 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
       return false;
    }
 
-   @Inject(method = "setCurrentItemOrArmor", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityMob;setCurrentItemOrArmor(ILnet/minecraft/ItemStack;)V"), cancellable = true)
+   @Inject(method = "setCurrentItemOrArmor", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityMob;setCurrentItemOrArmor(ILnet/minecraft/ItemStack;)V"))
    public void injectAlwaysReloadTasks(int par1, ItemStack par2ItemStack, CallbackInfo ci) {
       if (this.getHeldItemStack() != null) {
          this.setCombatTask();
       }
-      ci.cancel();
+//      ci.cancel();
    }
 }

@@ -7,7 +7,7 @@ import net.minecraft.Item;
 import net.minecraft.ItemArmor;
 import net.minecraft.ResourceLocation;
 import net.xiaoyu233.fml.FishModLoader;
-import net.xiaoyu233.fml.util.IdUtil;
+import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.item.Items;
 
 public class Constant {

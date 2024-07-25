@@ -5,7 +5,8 @@ import net.xiaoyu233.fml.api.block.AnvilBlock;
 import net.xiaoyu233.fml.api.block.StrongBoxBlock;
 import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
 import net.xiaoyu233.fml.reload.event.RecipeRegistryEvent;
-import net.xiaoyu233.fml.util.IdUtil;
+import net.xiaoyu233.fml.reload.utils.IdUtil;
+import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.item.Items;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
@@ -30,13 +31,13 @@ public class Blocks extends Block{
 
     public static void registerItemBlocks(ItemRegistryEvent registryEvent){
         anvilVibranium.stepSound = Block.soundAnvilFootstep;
-        registryEvent.registerAnvil(anvilVibranium,"anvil_vibranium");
-        registryEvent.registerItemBlock(blockVibranium,"block_vibranium");
-        registryEvent.registerItemBlock(furnaceVibraniumIdle,"furnace_vibranium_idle");
-        registryEvent.registerItemBlock(furnaceVibraniumBurning,"furnace_vibranium_burning");
-        registryEvent.registerItemBlock(blockForgingTable,"block_forging_table");
-        registryEvent.registerItemBlock(netherAdamantiumOre,"nether_adamantium_ore");
-        registryEvent.registerItemBlock(chestVibranium,"vibranium_chest");
+        registryEvent.registerAnvil(MITEITEMod.ITENameSpace, "anvil_vibranium", anvilVibranium);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "block_vibranium", blockVibranium);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace,"furnace_vibranium_idle", furnaceVibraniumIdle);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "furnace_vibranium_burning", furnaceVibraniumBurning);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "block_forging_table", blockForgingTable);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "nether_adamantium_ore", netherAdamantiumOre);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "vibranium_chest", chestVibranium);
     }
 
     public static void registerRecipes(RecipeRegistryEvent register) {

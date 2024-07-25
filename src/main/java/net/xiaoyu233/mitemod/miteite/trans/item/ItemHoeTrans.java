@@ -13,12 +13,12 @@ public abstract class ItemHoeTrans extends ItemToolTrans{
     @SoftOverride
     protected int getExpForBlockBreak(BlockBreakInfo blockBreakInfo) {
         Block block = blockBreakInfo.block;
-        if (block instanceof BlockCrops){
+        if (block instanceof BlockCrops) {
             if (((BlockCrops) block).isMature(blockBreakInfo.getMetadata())) {
                 return 8;
             }
         }
-        if (this.materials_effective_against.contains(block)){
+        if (this.materials_effective_against.contains(block)) {
             return 3;
         }
         return 0;
