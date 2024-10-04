@@ -1,7 +1,6 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.api.ITEMaterial;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlayer;
 import net.xiaoyu233.mitemod.miteite.gui.GuiForgingTable;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;

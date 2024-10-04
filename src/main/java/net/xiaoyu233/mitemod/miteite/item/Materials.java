@@ -10,7 +10,7 @@ public class Materials extends Material {
 
     static {
         Class<EnumEquipmentMaterial> enumEquipmentMaterialClass = EnumEquipmentMaterial.class;
-        vibranium = (Materials) new Materials(EnumEquipmentMaterials.VIBRANIUM).setMetal(false)
+        vibranium = (Materials) new Materials(EnumEquipmentMaterials.MITE_ITE_VIBRANIUM).setMetal(false)
                 .setHarmedByLava(false)
                 .setMinHarvestLevel(6);
     }

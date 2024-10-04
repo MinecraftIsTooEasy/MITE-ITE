@@ -3,12 +3,14 @@
   "id": "mite_ite",
   "version": "${version}",
   "depends": {
-    "fishmodloader": ">=3.3.2"
+    "mite": "~1.6.4",
+    "fishmodloader": ">=3.3.2",
+    "rusted_iron_core": ">=1.3.0"
   },
   "environment": "*",
   "name": "MITE-ITE",
   "description": "A hard mod for MITE",
-  "authors": ["XiaoYu233"],
+  "authors": ["XiaoYu233", "Xy_Lose"],
   "entrypoints": {
     "preLaunch": ["net.xiaoyu233.mitemod.miteite.EarlyRiser"],
     "main": ["net.xiaoyu233.mitemod.miteite.MITEITEMod"]
@@ -16,7 +18,13 @@
   "mixins": [
     "miteite.mixin.json"
   ],
+  "icon": "miteite_icon.png",
   "accessWidener": "miteite.accesswidener",
+  "contact": {
+    "homepage": "https://github.com/ysesiq/MITE-ITE",
+    "issues": "https://github.com/ysesiq/MITE-ITE/issues",
+    "sources": "https://github.com/ysesiq/MITE-ITE"
+  },
   "custom": {
     "loom:injected_interfaces": {
       "net/minecraft/Item": ["net/xiaoyu233/mitemod/miteite/api/ITEItem"],

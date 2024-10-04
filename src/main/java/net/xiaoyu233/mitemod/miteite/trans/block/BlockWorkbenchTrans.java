@@ -1,7 +1,6 @@
 package net.xiaoyu233.mitemod.miteite.trans.block;
 
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.api.ITEMaterial;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;

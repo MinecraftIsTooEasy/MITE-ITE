@@ -30,15 +30,15 @@ public abstract class EntityVillagerTrans extends EntityAgeable implements IMerc
 
    }
 
-   @Redirect(method = "addDefaultEquipmentAndRecipies",
-           at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityVillager;addMerchantItem(Lnet/minecraft/MerchantRecipeList;ILjava/util/Random;F)V"),
-           slice = @Slice(
-                   from = @At(value = "FIELD", target = "Lnet/minecraft/Block;cloth:Lnet/minecraft/Block;"),
-                   to = @At(value = "FIELD", target = "Lnet/minecraft/Item;chickenRaw:Lnet/minecraft/ItemMeat;")
-           )
-   )
-   private void redirectMakeWoolToEmeraldShard(MerchantRecipeList par0MerchantRecipeList, int par1, Random par2Random, float par3) {
-      forEmeraldShard(par0MerchantRecipeList,par1,par2Random,par3);
-   }
+//   @Redirect(method = "addDefaultEquipmentAndRecipies",
+//           at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityVillager;addMerchantItem(Lnet/minecraft/MerchantRecipeList;ILjava/util/Random;F)V"),
+//           slice = @Slice(
+//                   from = @At(value = "FIELD", target = "Lnet/minecraft/Block;cloth:Lnet/minecraft/Block;"),
+//                   to = @At(value = "FIELD", target = "Lnet/minecraft/Item;chickenRaw:Lnet/minecraft/ItemMeat;")
+//           )
+//   )
+//   private void redirectMakeWoolToEmeraldShard(MerchantRecipeList par0MerchantRecipeList, int par1, Random par2Random, float par3) {
+//      forEmeraldShard(par0MerchantRecipeList,par1,par2Random,par3);
+//   }
 
 }

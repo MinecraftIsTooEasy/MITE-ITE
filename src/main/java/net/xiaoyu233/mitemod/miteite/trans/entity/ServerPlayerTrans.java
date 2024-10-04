@@ -7,7 +7,7 @@ import net.xiaoyu233.mitemod.miteite.inventory.container.ContainerChestMinecart;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ContainerForgingTable;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
 import net.xiaoyu233.mitemod.miteite.network.BiPacketUpdateDefense;
-import net.xiaoyu233.mitemod.miteite.network.SPacketUpdateNutrition;
+//import net.xiaoyu233.mitemod.miteite.network.SPacketUpdateNutrition;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -62,12 +62,12 @@ public abstract class ServerPlayerTrans extends EntityPlayer implements ICraftin
       }
    }
 
-   @Inject(method = "onUpdateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/ServerPlayer;getNutrition()I", shift = At.Shift.AFTER))
-   private void injectUpdateNurtrition(CallbackInfo ci){
-      if (this.phytonutrients != last_phytonutrients || this.protein != last_protein){
-         this.playerNetServerHandler.sendPacketToPlayer(new SPacketUpdateNutrition(phytonutrients, protein));
-         this.last_phytonutrients = phytonutrients;
-         this.last_protein = protein;
-      }
-   }
+//   @Inject(method = "onUpdateEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/ServerPlayer;getNutrition()I", shift = At.Shift.AFTER))
+//   private void injectUpdateNurtrition(CallbackInfo ci){
+//      if (this.phytonutrients != last_phytonutrients || this.protein != last_protein){
+//         this.playerNetServerHandler.sendPacketToPlayer(new SPacketUpdateNutrition(phytonutrients, protein));
+//         this.last_phytonutrients = phytonutrients;
+//         this.last_protein = protein;
+//      }
+//   }
 }

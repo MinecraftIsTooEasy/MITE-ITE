@@ -28,6 +28,6 @@ public class NetworkManagerTrans implements ITENetHandler{
    public void handleUpdateDefense(BiPacketUpdateDefense packet){
    }
 
-   public void handleUpdateNutrition(SPacketUpdateNutrition packet){
-   }
+//   public void handleUpdateNutrition(SPacketUpdateNutrition packet){
+//   }
 }

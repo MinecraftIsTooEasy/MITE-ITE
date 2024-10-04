@@ -17,12 +17,12 @@ public abstract class WorldServerTrans extends World {
    public WorldServerTrans(ISaveHandler par1ISaveHandler, String par2Str, WorldProvider par3WorldProvider, WorldSettings par4WorldSettings, Profiler par5Profiler, ILogAgent par6ILogAgent, long world_creation_time, long total_world_time) {
       super(par1ISaveHandler, par2Str, par3WorldProvider, par4WorldSettings, par5Profiler, par6ILogAgent, world_creation_time, total_world_time);
    }
-   @Inject(method = "getSuitableCreature", at = @At(value = "INVOKE_ASSIGN", target = "Ljava/util/List;iterator()Ljava/util/Iterator;", shift = At.Shift.AFTER), cancellable = true)
-   private void injectGhastOverworldSpawnDay(EnumCreatureType creature_type, int x, int y, int z, CallbackInfoReturnable<Class<?>> cir){
-      if (!this.isBloodMoon(true) || (this.isOverworld() && this.getDayOfOverworld() < (Configs.GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY.get()))){
-         cir.setReturnValue(null);
-      }
-   }
+//   @Inject(method = "getSuitableCreature", at = @At(value = "INVOKE_ASSIGN", target = "Ljava/util/List;iterator()Ljava/util/Iterator;", shift = At.Shift.AFTER), cancellable = true)
+//   private void injectGhastOverworldSpawnDay(EnumCreatureType creature_type, int x, int y, int z, CallbackInfoReturnable<Class<?>> cir){
+//      if (!this.isBloodMoon(true) || (this.isOverworld() && this.getDayOfOverworld() < (Configs.GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY.get()))){
+//         cir.setReturnValue(null);
+//      }
+//   }
 
    @ModifyReturnValue(method = "getSuitableCreature", at = @At(value = "RETURN", ordinal = 2))
    private Class<?> modifyReturnForMobSpawnRestriction(Class<?> original){

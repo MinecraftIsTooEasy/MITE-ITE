@@ -1,5 +1,5 @@
 item.vibranium.name=振金锭
-item.obsidian_stick.name=黑曜石棒
+item.obsidian_stick.name=黑曜石棍
 item.vibranium_nugget.name=振金粒
 item.vibranium_helmet.name=振金头盔
 item.vibranium_chestplate.name=振金胸甲
@@ -35,7 +35,7 @@ tile.forging_table.mithril.name=秘银锻造台
 tile.forging_table.adamantium.name=艾德曼锻造台
 tile.forging_table.vibranium.name=振金锻造台
 tile.nether_adamantium_ore.name=地狱艾德曼矿
-tile.vibranium_chest.name=振金箱子
+tile.vibranium_chest.name=振金保险箱
 
 achievement.vibraniumIngot=那我岂不是要无敌了?
 achievement.vibraniumIngot.desc=制作出一个振金锭
@@ -86,4 +86,4 @@ gameplay.portal_door.interact=玩家§n%s正在通过传送门
 command.sleep_check.msg=还有以下玩家未睡觉:
 command.sleep_check.none=所有玩家均已躺下
 container.workbench.boost=合成速度提升:
-container.strongbox.vibranium=振金箱子
+container.strongbox.vibranium=振金保险箱

@@ -15,6 +15,6 @@ public class EarlyRiser implements PreLaunchEntrypoint {
         EnumExtends.CHAT_FORMATTING.addEnum("SILVER",'x', 209,236,246);
 //        EnumExtends.CHAT_FORMATTING.addEnum("DEEP_GREEN",'y',16,87,75);
 
-        EnumExtends.EQUIPMENT_MATERIAL.addEnum("VIBRANIUM", ()->new Object[]{512.0f, 120, net.minecraft.EnumQuality.legendary, "vibranium"});
+        EnumExtends.EQUIPMENT_MATERIAL.addEnum("MITE_ITE_VIBRANIUM", ()->new Object[]{512.0f, 120, net.minecraft.EnumQuality.legendary, "vibranium"});
     }
 }

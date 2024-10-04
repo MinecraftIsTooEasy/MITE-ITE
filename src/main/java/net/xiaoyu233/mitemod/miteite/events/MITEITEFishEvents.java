@@ -3,6 +3,7 @@ package net.xiaoyu233.mitemod.miteite.events;
 import com.google.common.eventbus.Subscribe;
 import net.minecraft.*;
 import net.xiaoyu233.fml.reload.event.*;
+import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.achievement.Achievements;
 import net.xiaoyu233.mitemod.miteite.block.Blocks;
@@ -18,7 +19,7 @@ import net.xiaoyu233.mitemod.miteite.render.entity.RenderAnnihilationSkeleton;
 import net.xiaoyu233.mitemod.miteite.render.entity.RenderWanderingWitch;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 
-public class MITEITEEvents {
+public class MITEITEFishEvents {
     @Subscribe
     public void handleChatCommand(HandleChatCommandEvent event) {
         String par2Str = event.getCommand();
@@ -180,7 +181,7 @@ public class MITEITEEvents {
         event.register(false, true, CPacketSyncItems.class);
         event.register(true, false, SPacketCraftingBoost.class);
         event.register(true, true, BiPacketUpdateDefense.class);
-        event.register(true,false, SPacketUpdateNutrition.class);
+//        event.register(true,false, SPacketUpdateNutrition.class);
     }
 
     @Subscribe
@@ -214,12 +215,12 @@ public class MITEITEEvents {
 
     @Subscribe
     public void onEntityRegister(EntityRegisterEvent event){
-        event.register(EntityAncientDragon.class, MITEITEMod.ITENameSpace, "EntityTest", 201);
-        event.register(EntityRideMarker.class, MITEITEMod.ITENameSpace, "EntityMarker", 202);
-        event.register(EntityZombieLord.class, MITEITEMod.ITENameSpace, "EntityZombieLord", 203, 0xffffff, 0xcccccc);
-        event.register(EntityZombiePigmanLord.class, MITEITEMod.ITENameSpace, "EntityZombiePigmanLord", 204, 0xffffff, 0xcccccc);
-        event.register(EntityAnnihilationSkeleton.class, MITEITEMod.ITENameSpace, "EntityAnnihilationSkeleton", 205, 0xffffff, 0xcccccc);
-        event.register(EntityWanderingWitch.class, MITEITEMod.ITENameSpace, "EntityWanderingWitch", 206, 0xffffff, 0xcccccc);
+        event.register(EntityAncientDragon.class, MITEITEMod.ITENameSpace, "EntityTest", IdUtil.getNextEntityID());
+        event.register(EntityRideMarker.class, MITEITEMod.ITENameSpace, "EntityMarker", IdUtil.getNextEntityID());
+        event.register(EntityZombieLord.class, MITEITEMod.ITENameSpace, "EntityZombieLord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
+        event.register(EntityZombiePigmanLord.class, MITEITEMod.ITENameSpace, "EntityZombiePigmanLord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
+        event.register(EntityAnnihilationSkeleton.class, MITEITEMod.ITENameSpace, "EntityAnnihilationSkeleton", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
+        event.register(EntityWanderingWitch.class, MITEITEMod.ITENameSpace, "EntityWanderingWitch", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
     }
 
     @Subscribe

@@ -17,5 +17,5 @@ public interface ITENetHandler {
 
     default void handleUpdateDefense(BiPacketUpdateDefense packet){}
 
-    default void handleUpdateNutrition(SPacketUpdateNutrition packet){};
+//    default void handleUpdateNutrition(SPacketUpdateNutrition packet){};
 }

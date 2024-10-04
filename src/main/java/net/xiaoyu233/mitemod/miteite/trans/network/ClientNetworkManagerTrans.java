@@ -55,13 +55,13 @@ public abstract class ClientNetworkManagerTrans extends NetHandler implements IT
       this.mc.thePlayer.setDefenseCooldown(packet.getTime());
    }
 
-   @Override
-   @Unique
-   public void handleUpdateNutrition(SPacketUpdateNutrition packet){
-      ITEClientPlayer clientPlayer = this.mc.thePlayer;
-      clientPlayer.setPhytonutrients(packet.getPhytonutrients());
-      clientPlayer.setProtein(packet.getProtein());
-   }
+//   @Override
+//   @Unique
+//   public void handleUpdateNutrition(SPacketUpdateNutrition packet){
+//      ITEClientPlayer clientPlayer = this.mc.thePlayer;
+//      clientPlayer.setPhytonutrients(packet.getPhytonutrients());
+//      clientPlayer.setProtein(packet.getProtein());
+//   }
 
 
    @SoftOverride
