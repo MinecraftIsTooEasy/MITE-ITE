@@ -1,5 +1,6 @@
 package net.xiaoyu233.mitemod.miteite.block;
 
+import moddedmite.rustedironcore.api.block.WorkbenchBlock;
 import net.minecraft.*;
 import net.xiaoyu233.fml.api.block.AnvilBlock;
 import net.xiaoyu233.fml.api.block.StrongBoxBlock;
@@ -21,6 +22,8 @@ public class Blocks extends Block{
     public static final Block furnaceVibraniumIdle = new BlockFurnaceVibranium(getNextBlockID(), false).setCreativeTab(CreativeTabs.tabDecorations).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep);
     public static final Block netherAdamantiumOre = new BlockNetherAdamantiumOre(getNextBlockID()).setCreativeTab(CreativeTabs.tabBlock).setHardness(4.0F).setStepSound(soundStoneFootstep).setUnlocalizedName("oreNetherAdamantium");
     public static final Block chestVibranium = new StrongBoxBlock(getNextBlockID(), Materials.vibranium).setStepSound(soundMetalFootstep);
+    public static final WorkbenchBlock vibraniumWorkBench = new WorkbenchBlock(getNextBlockID(), Materials.vibranium, 0.55F, Material.adamantium);
+
     protected Blocks(int par1, Material par2Material, BlockConstants constants) {
         super(par1, par2Material, constants);
     }
@@ -38,6 +41,8 @@ public class Blocks extends Block{
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "block_forging_table", blockForgingTable);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "nether_adamantium_ore", netherAdamantiumOre);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "vibranium_chest", chestVibranium);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "toolbench.vibranium", vibraniumWorkBench);
+
     }
 
     public static void registerRecipes(RecipeRegistryEvent register) {
@@ -83,6 +88,7 @@ public class Blocks extends Block{
         registerForgingTableUpgradeRecipes(register,ForgingTableLevel.MITHRIL,Item.ingotAdamantium);
         registerForgingTableUpgradeRecipes(register,ForgingTableLevel.ADAMANTIUM, VIBRANIUM_INGOT);
         FurnaceRecipes.smelting().addSmelting(Blocks.netherAdamantiumOre.blockID, new ItemStack(Item.ingotAdamantium));
+        vibraniumWorkBench.registerSimpleRecipe(register);
     }
 
     private static void registerForgingTableUpgradeRecipes(RecipeRegistryEvent register, ForgingTableLevel originalLevel, Item ingot){

@@ -9,11 +9,11 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class ItemBlockTrans extends Item{
     @Shadow public abstract Block getBlock();
 
-    @Override
-    public String getItemDisplayName(ItemStack item_stack) {
-        if (I18n.i18nLocale == null){
-            return super.getItemDisplayName(item_stack);
-        }
-        return this.getBlock().getItemDisplayName(item_stack);
-    }
+//    @Override
+//    public String getItemDisplayName(ItemStack item_stack) {
+//        if (I18n.i18nLocale == null){
+//            return super.getItemDisplayName(item_stack);
+//        }
+//        return this.getBlock().getItemDisplayName(item_stack);
+//    }
 }
