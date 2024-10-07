@@ -65,7 +65,7 @@ public abstract class EntityLivingTrans extends EntityLivingBase implements ITEL
          ItemStack stack = attacker.getHeldItemStack();
          if (stack != null) {
             Item item = stack.getItem();
-            if (attacker instanceof EntityPlayer && (item instanceof ItemSword || item instanceof ItemWarHammer || item instanceof ItemAxe)) {
+            if (attacker instanceof EntityPlayer && (item.isWeapon(item))) {
                int amp = 1;
                if (item instanceof ItemAxe && ReflectHelper.dyCast(this) instanceof EntityEarthElemental) {
                   amp = 10;

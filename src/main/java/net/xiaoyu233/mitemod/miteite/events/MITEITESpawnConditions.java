@@ -12,10 +12,22 @@ public class MITEITESpawnConditions implements Consumer<SpawnConditionRegisterEv
     @Override
     public void accept(SpawnConditionRegisterEvent event) {
         event.register(EntityGhast.class, (world, x, y, z) -> {
-            if (!world.isBloodMoon(true) || (world.isOverworld() && world.getDayOfOverworld() < (Configs.GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY.get()))){
+            if (!world.isBloodMoon(true) || (world.isOverworld() && world.getDayOfOverworld() < (Configs.GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY.get()))) {
                 return null;
             }
             return EntityGhast.class;
+        });
+        event.register(EntityGiantZombie.class, (world, x, y, z) -> {
+            if (world.isBloodMoon(false)) {
+                return EntityGiantZombie.class;
+            }
+            return null;
+        });
+        event.register(EntityAncientBoneLord.class, (world, x, y, z) -> {
+            if (world.isBloodMoon(false)) {
+                return EntityAncientBoneLord.class;
+            }
+            return null;
         });
     }
 }

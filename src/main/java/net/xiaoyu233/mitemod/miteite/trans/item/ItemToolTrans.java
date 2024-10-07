@@ -265,6 +265,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
       if (!(item_stack.getItem() instanceof ItemSword) && this.isEffectiveAgainstBlock(info.block, info.getMetadata()) &&!item_stack.getItem().isMaxToolLevel(item_stack)) {
          this.addExpForTool(info.getHarvesterItemStack(), info.getResponsiblePlayer(), this.getExpForBlockBreak(info));
       }
+      info.getHarvesterItemStack().tryDamageItem(DamageSource.generic, this.applyCalculateDurabilityModifier(this.getToolDecayFromBreakingBlock(info), info.getHarvesterItemStack()), info.getHarvester());
    }
 
    @Unique

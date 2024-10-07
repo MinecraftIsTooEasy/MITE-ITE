@@ -24,16 +24,16 @@ public abstract class WorldServerTrans extends World {
 //      }
 //   }
 
-   @ModifyReturnValue(method = "getSuitableCreature", at = @At(value = "RETURN", ordinal = 2))
-   private Class<?> modifyReturnForMobSpawnRestriction(Class<?> original){
-      boolean is_blood_moon_up = this.isBloodMoon(false);
-       if (original == EntityGiantZombie.class) {
-          return is_blood_moon_up ? original : null;
-      }else if (original == EntityAncientBoneLord.class){
-         return is_blood_moon_up ? original : null;
-      }
-       return original;
-   }
+//   @ModifyReturnValue(method = "getSuitableCreature", at = @At(value = "RETURN", ordinal = 2))
+//   private Class<?> modifyReturnForMobSpawnRestriction(Class<?> original){
+//      boolean is_blood_moon_up = this.isBloodMoon(false);
+//       if (original == EntityGiantZombie.class) {
+//          return is_blood_moon_up ? original : null;
+//      }else if (original == EntityAncientBoneLord.class){
+//         return is_blood_moon_up ? original : null;
+//      }
+//       return original;
+//   }
 
    @WrapWithCondition(method = "tick",at = @At(value = "INVOKE", target = "Lnet/minecraft/WorldServer;advanceTotalWorldTime(J)V"))
    private boolean wrapAdvanceWorldTime(WorldServer instance, long l){

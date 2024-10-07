@@ -36,7 +36,7 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
       int day = this.getWorld() != null ? Math.max(this.getWorld().getDayOfOverworld(), 0) : 0;
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 50.0D + (double)day / 16.0D);
+      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 40.0D + (double)day / 16.0D);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.25D);
       this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 12.0D + (double)day / 20.0D);
@@ -143,8 +143,8 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
                List<EntityPigZombie> nearbyZombie = this.worldObj.getEntitiesWithinAABB(EntityPigZombie.class, this.boundingBox.expand(16.0D, 8.0D, 16.0D));
 
                for (EntityPigZombie entityPigZombie : nearbyZombie) {
-                  entityPigZombie.addPotionEffect(new PotionEffect(1, 40 + day / 32 * 10, this.getRNG()
-                          .nextInt(Math.max((day - 96) / 96, 1)), false));
+//                  entityPigZombie.addPotionEffect(new PotionEffect(1, 40 + day / 32 * 10, this.getRNG()
+//                          .nextInt(Math.max((day - 96) / 96, 1)), false));
                   entityPigZombie.addPotionEffect(new PotionEffect(5, day / 32 * 10, this.getRNG()
                           .nextInt(Math.max((day - 128) / 96, 1)), false));
                }

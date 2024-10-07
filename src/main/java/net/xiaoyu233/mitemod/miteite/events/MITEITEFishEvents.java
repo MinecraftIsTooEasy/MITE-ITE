@@ -216,7 +216,7 @@ public class MITEITEFishEvents {
     @Subscribe
     public void onEntityRegister(EntityRegisterEvent event){
         event.register(EntityAncientDragon.class, MITEITEMod.ITENameSpace, "EntityTest", IdUtil.getNextEntityID());
-        event.register(EntityRideMarker.class, MITEITEMod.ITENameSpace, "EntityMarker", IdUtil.getNextEntityID());
+//        event.register(EntityRideMarker.class, MITEITEMod.ITENameSpace, "EntityMarker", IdUtil.getNextEntityID());
         event.register(EntityZombieLord.class, MITEITEMod.ITENameSpace, "EntityZombieLord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
         event.register(EntityZombiePigmanLord.class, MITEITEMod.ITENameSpace, "EntityZombiePigmanLord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
         event.register(EntityAnnihilationSkeleton.class, MITEITEMod.ITENameSpace, "EntityAnnihilationSkeleton", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);

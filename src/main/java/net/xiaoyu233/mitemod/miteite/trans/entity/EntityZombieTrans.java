@@ -32,7 +32,7 @@ class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.23000000417232513D);
       this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 8D + (double)day / 24.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 30D + (double)day / 16.0D);
+      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 15D + (double)day / 16.0D);
       this.setEntityAttribute(field_110186_bp, this.getRNG().nextDouble() * 0.10000000149011612D);
    }
 
