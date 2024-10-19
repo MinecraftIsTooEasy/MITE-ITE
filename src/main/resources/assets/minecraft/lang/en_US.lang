@@ -32,6 +32,7 @@ tile.furnace_vibranium_burning.name=Vibranium Furnace
 tile.nether_adamantium_ore.name=Nether Adamantium Ore
 tile.vibranium_chest.name=Vibranium Chest
 
+tile.block_forging_table.name=Forging Table
 tile.forging_table.iron.name=Iron Forging Table
 tile.forging_table.mithril.name=Mithril Forging Table
 tile.forging_table.adamantium.name=Adamantium Forging Table

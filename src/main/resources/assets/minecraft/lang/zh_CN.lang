@@ -30,6 +30,7 @@ tile.toolbench.vibranium.name=振金工作台
 tile.furnace_vibranium_idle.name=振金熔炉
 tile.furnace_vibranium_burning.name=振金熔炉
 
+tile.block_forging_table.name=锻造台
 tile.forging_table.iron.name=铁锻造台
 tile.forging_table.mithril.name=秘银锻造台
 tile.forging_table.adamantium.name=艾德曼锻造台

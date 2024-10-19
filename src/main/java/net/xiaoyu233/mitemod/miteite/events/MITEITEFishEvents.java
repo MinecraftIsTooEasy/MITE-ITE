@@ -194,7 +194,7 @@ public class MITEITEFishEvents {
     public void onRecipeRegister(RecipeRegistryEvent event){
         Items.registerRecipes(event);
         Blocks.registerRecipes(event);
-        ForgingTableRecipes.registerAll();
+//        ForgingTableRecipes.registerAll();
     }
 
     @Subscribe

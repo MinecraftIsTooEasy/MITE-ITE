@@ -7,3 +7,5 @@ accessible method net/minecraft/ItemIngot <init> (ILnet/minecraft/Material;)V
 accessible method net/minecraft/CraftingManager addShapelessRecipe (Lnet/minecraft/ItemStack;Z[Ljava/lang/Object;)Lnet/minecraft/ShapelessRecipes;
 accessible method net/minecraft/CraftingManager addShapelessRecipe (Lnet/minecraft/ItemStack;[Ljava/lang/Object;)Lnet/minecraft/ShapelessRecipes;
 accessible field net/minecraft/I18n i18nLocale Lnet/minecraft/Locale;
+accessible method net/minecraft/EntityVillager adjustProbability (F)F
+accessible field net/minecraft/Material min_harvest_level I

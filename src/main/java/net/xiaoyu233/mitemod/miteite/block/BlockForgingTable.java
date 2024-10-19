@@ -69,7 +69,7 @@ public class BlockForgingTable extends Block implements ITileEntityProvider,IBlo
             sideIconHolder.setTexture_top(par1IconRegister.registerIcon("forging_table/" + value.name().toLowerCase() + "/top"));
             sideIconHolder.setTexture_bottom(par1IconRegister.registerIcon("forging_table/" + value.name().toLowerCase() + "/bottom"));
             sideIconHolder.setTexture_side(par1IconRegister.registerIcon("forging_table/" + value.name().toLowerCase() + "/side"));
-            this.textureMap.put(value.ordinal(),sideIconHolder);
+            this.textureMap.put(value.ordinal(), sideIconHolder);
         }
     }
 

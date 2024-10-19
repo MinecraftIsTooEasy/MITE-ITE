@@ -1,5 +1,6 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.achievement.Achievements;
 import net.xiaoyu233.mitemod.miteite.api.*;
@@ -202,10 +203,10 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
       super.addPotionEffect(par1PotionEffect);
    }
 
-   @ModifyConstant(method = "getHealthLimit(I)I", constant = @Constant(intValue = 20))
-   private static int modifyMaxHealthByLevel(int constant){
-      return 40;
-   }
+//   @ModifyConstant(method = "getHealthLimit(I)I", constant = @Constant(intValue = 20))
+//   private static int modifyMaxHealthByLevel(int constant){
+//      return 40;
+//   }
 
    @Unique
    public boolean canDefense(){
@@ -338,17 +339,18 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
       player.setPositionAndUpdate(runegate_destination_coords[0], runegate_destination_coords[1], runegate_destination_coords[2]);
    }
 
-   @Redirect(
-           method = {"getCurrentPlayerStrVsBlock(IIIZ)F"},
-           at = @At(
-                   value = "INVOKE",
-                   target = "Lnet/minecraft/EnchantmentHelper;getAquaAffinityModifier(Lnet/minecraft/EntityLivingBase;)Z"
+   @ModifyExpressionValue(
+           method = {"getCurrentPlayerStrVsBlock"},
+           at = {
+                   @At(
+                           value = "INVOKE",
+                           target = "Lnet/minecraft/EnchantmentHelper;getAquaAffinityModifier(Lnet/minecraft/EntityLivingBase;)Z"
+                   )
+           }
            )
-   )
-   private boolean redirectCheckAquaEnchantment(EntityLivingBase player){
-      boolean aquaAffinityModifier = EnchantmentHelper.getAquaAffinityModifier(this);
-      boolean waterLike = this.getHeldItemStack() != null && ToolModifierTypes.AQUADYNAMIC_MODIFIER.getModifierLevel(this.getHeldItemStack().getTagCompound()) != 0;
-      return aquaAffinityModifier || waterLike;
+   private boolean aqua(boolean original) {
+      boolean waterLike = (getHeldItemStack() == null || ToolModifierTypes.AQUADYNAMIC_MODIFIER.getModifierLevel(getHeldItemStack().getTagCompound()) == 0) ? false : true;
+      return original || waterLike;
    }
 
    @Redirect(
@@ -537,11 +539,11 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
       par1NBTTagCompound.setInteger("DefenseCooldown",this.defenseCooldown);
    }
 
-   @Redirect(method = "getCurrentPlayerStrVsBlock",at = @At(value = "INVOKE",target = "Lnet/minecraft/Item;getStrVsBlock(Lnet/minecraft/Block;I)F"))
-   private float redirectGetStrVsBlock(Item caller,Block block,int metadata){
-      ItemStack heldItemStack = this.getHeldItemStack();
-      return heldItemStack.getItem().getStrVsBlock(block, metadata, heldItemStack, net.xiaoyu233.fml.util.ReflectHelper.dyCast(this));
-   }
+//   @Redirect(method = "getCurrentPlayerStrVsBlock",at = @At(value = "INVOKE",target = "Lnet/minecraft/Item;getStrVsBlock(Lnet/minecraft/Block;I)F"))
+//   private float redirectGetStrVsBlock(Item caller,Block block,int metadata){
+//      ItemStack heldItemStack = this.getHeldItemStack();
+//      return heldItemStack.getItem().getStrVsBlock(block, metadata, heldItemStack, net.xiaoyu233.fml.util.ReflectHelper.dyCast(this));
+//   }
 
    @Unique
    @Override

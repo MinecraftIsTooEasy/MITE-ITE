@@ -13,7 +13,8 @@
   "authors": ["XiaoYu233", "Xy_Lose"],
   "entrypoints": {
     "preLaunch": ["net.xiaoyu233.mitemod.miteite.EarlyRiser"],
-    "main": ["net.xiaoyu233.mitemod.miteite.MITEITEMod"]
+    "main": ["net.xiaoyu233.mitemod.miteite.MITEITEMod"],
+    "emi": ["net.xiaoyu233.mitemod.miteite.compat.MITEITEEmiPlugin"]
   },
   "mixins": [
     "miteite.mixin.json"
