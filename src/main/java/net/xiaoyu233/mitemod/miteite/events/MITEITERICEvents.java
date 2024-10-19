@@ -64,7 +64,7 @@ public class MITEITERICEvents extends Handlers {
             ItemProperties.HeatLevel.register(Items.BLAZE_COAL_POWDER, 5);
             ITERegistryImpl MITEITERegistry = new ITERegistryImpl();
             new ITEVanillaPlugin().register(MITEITERegistry);
-            FishModLoader.getEntrypointContainers("ga-higher", ITEPlugin.class).forEach(container -> {
+            FishModLoader.getEntrypointContainers("mite_ite", ITEPlugin.class).forEach(container -> {
                 container.getEntrypoint().register(MITEITERegistry);
             });
         });
