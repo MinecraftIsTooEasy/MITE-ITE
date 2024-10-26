@@ -90,13 +90,13 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
       this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
       this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
       this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, 0, false));
-      this.tasks.addTask(2, new EntityAIMoveToFoodItem(this, 1.0F, true));
+      this.tasks.addTask(2, new EntityAIMoveToFoodItem(this, 0.3F, true));
       if (Configs.Entities.ZOMBIE_PIGMAN_ATTACK_ANIMAILS.get()) {
          this.tasks.addTask(4, new EntityAIAttackOnCollide(this, EntityAnimal.class, 1.0, true));
          this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityAnimal.class, 10, true));
       }
 
-      this.tasks.addTask(3, new EntityAIMoveToTree(this, 1.0F));
+      this.tasks.addTask(3, new EntityAIMoveToTree(this, 0.3F));
    }
 
    @Inject(method = "addRandomEquipment",at = @At("HEAD"))
@@ -114,9 +114,10 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
       this.DATA_OBJ_ID_IS_BOOSTED = this.dataWatcher.addObject(this.dataWatcher.getNextAvailableId(), (byte)0);
    }
 
-   protected boolean isAIEnabled() {
-      return true;
-   }
+//   会导致猪人移动速度逆天
+//   protected boolean isAIEnabled() {
+//      return true;
+//   }
 
    @Inject(method = "onSpawnWithEgg", at = @At("RETURN"))
    public void onSpawnWithEgg(EntityLivingData par1EntityLivingData, CallbackInfoReturnable<EntityLivingData> cir) {
@@ -124,7 +125,7 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
       if (this.getWorld() != null && !this.getWorld().isRemote) {
          if (this.randomUseBow() && (Configs.Entities.ZOMBIE_PIGMAN_USE_BOW.get())) {
             this.tasks.addTask(4, this.arrowAttack);
-            this.tasks.addTask(3, new EntityAISeekFiringPosition(this, 1.0F, true));
+            this.tasks.addTask(3, new EntityAISeekFiringPosition(this, 0.3F, true));
             this.setCurrentItemOrArmor(0, (new ItemStack(Item.bow)).randomizeForMob(this, true));
          } else {
             this.tasks.addTask(4, this.meleeAttack);
@@ -143,8 +144,8 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
                List<EntityPigZombie> nearbyZombie = this.worldObj.getEntitiesWithinAABB(EntityPigZombie.class, this.boundingBox.expand(16.0D, 8.0D, 16.0D));
 
                for (EntityPigZombie entityPigZombie : nearbyZombie) {
-//                  entityPigZombie.addPotionEffect(new PotionEffect(1, 40 + day / 32 * 10, this.getRNG()
-//                          .nextInt(Math.max((day - 96) / 96, 1)), false));
+                  entityPigZombie.addPotionEffect(new PotionEffect(1, 40 + day / 32 * 10, this.getRNG()
+                          .nextInt(Math.max((day - 96) / 96, 1)), false));
                   entityPigZombie.addPotionEffect(new PotionEffect(5, day / 32 * 10, this.getRNG()
                           .nextInt(Math.max((day - 128) / 96, 1)), false));
                }
@@ -169,7 +170,7 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
       ItemStack var1 = this.getHeldItemStack();
       if (var1 != null && var1.getItem() instanceof ItemBow) {
          this.tasks.addTask(4, this.arrowAttack);
-         this.tasks.addTask(3, new EntityAISeekFiringPosition(this, 1.0F, true));
+         this.tasks.addTask(3, new EntityAISeekFiringPosition(this, 0.3F, true));
       } else {
          this.tasks.addTask(4, this.meleeAttack);
       }

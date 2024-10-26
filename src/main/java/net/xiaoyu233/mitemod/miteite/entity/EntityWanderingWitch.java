@@ -231,4 +231,9 @@ public class EntityWanderingWitch extends EntityWitch {
             this.cursedPlayer = par1NBTTagCompound.getBoolean("CursedPlayer");
         }
     }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 1;
+    }
 }

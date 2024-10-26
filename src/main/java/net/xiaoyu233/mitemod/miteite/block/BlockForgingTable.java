@@ -46,20 +46,14 @@ public class BlockForgingTable extends Block implements ITileEntityProvider,IBlo
     @Override
     public Icon getIcon(int side, int metadata) {
         SideIconHolder icon = this.textureMap.get(metadata);
-        switch (side){
+        return switch (side) {
             //top
-            case 1:
-                return icon.getTexture_top();
+            case 1 -> icon.getTexture_top();
             //bottom
-            case 0:
-                return icon.getTexture_bottom();
-            case 2:
-            case 3:
-            case 5:
-            case 4:
-                return icon.getTexture_side();
-        }
-        return super.getIcon(side, metadata);
+            case 0 -> icon.getTexture_bottom();
+            case 2, 3, 5, 4 -> icon.getTexture_side();
+            default -> super.getIcon(side, metadata);
+        };
     }
 
     @Override
@@ -108,7 +102,7 @@ public class BlockForgingTable extends Block implements ITileEntityProvider,IBlo
         return this.subtypes.getNames();
     }
 
-    public boolean isPortable(World world, EntityLiving entity_living_base, int x, int y, int z) {
+    public boolean isPortable(World world, EntityLivingBase entity_living_base, int x, int y, int z) {
         return true;
     }
 

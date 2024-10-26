@@ -1,16 +1,16 @@
 package net.xiaoyu233.mitemod.miteite.item;
 
+import moddedmite.rustedironcore.api.event.events.CraftingRecipeRegisterEvent;
 import net.minecraft.*;
 import net.xiaoyu233.fml.api.item.*;
 import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
-import net.xiaoyu233.fml.reload.event.RecipeRegistryEvent;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.block.Blocks;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 
 @SuppressWarnings("ConstantConditions")
-public class Items extends Item{
+public class Items extends Item {
     public static final Item BLAZE_COAL_POWDER = new ItemBlazeCoalPowder(Constant.getNextItemID());
     public static final Item DIAMOND_CHUNK = new Item(Constant.getNextItemID(), Material.diamond,"diamond_chunk").setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.diamond) /(float)4);
     public static final Item OBSIDIAN_STICK = new Item(Constant.getNextItemID(),Material.obsidian,"obsidian_stick");
@@ -58,7 +58,7 @@ public class Items extends Item{
         Constant.initItemArray();
     }
 
-    public static void registerRecipes(RecipeRegistryEvent register) {
+    public static void registerRecipes(CraftingRecipeRegisterEvent register) {
         register.registerShapedRecipe(new ItemStack(OBSIDIAN_STICK), true, "#", "#", '#', Block.obsidian);
         register.registerShapedRecipe(new ItemStack(VIBRANIUM_INGOT),
                 false,
@@ -88,27 +88,27 @@ public class Items extends Item{
                 "#A#",
                 "# #",
                 '#', VIBRANIUM_INGOT,
-                'A', Item.helmetAdamantium).extendsNBT();
+                'A', Item.helmetAdamantium).extendsNBT().keepQuality();
         register.registerShapedRecipe(new ItemStack(VIBRANIUM_CHESTPLATE),
                 true,
                 "# #",
                 "#A#",
                 "###",
                 '#', VIBRANIUM_INGOT,
-                'A', Item.plateAdamantium).extendsNBT();
+                'A', Item.plateAdamantium).extendsNBT().keepQuality();
         register.registerShapedRecipe(new ItemStack(VIBRANIUM_LEGGINGS),
                 true,
                 "#A#",
                 "# #",
                 "# #",
                 '#', VIBRANIUM_INGOT,
-                'A', Item.legsAdamantium).extendsNBT();
+                'A', Item.legsAdamantium).extendsNBT().keepQuality();
         register.registerShapedRecipe(new ItemStack(VIBRANIUM_BOOTS),
                 true,
                 "A #",
                 "# #",
                 '#', VIBRANIUM_INGOT,
-                'A', Item.bootsAdamantium).extendsNBT();
+                'A', Item.bootsAdamantium).extendsNBT().keepQuality();
         register.registerShapedRecipe(new ItemStack(VIBRANIUM_PICKAXE),
                 true,
                 "###",

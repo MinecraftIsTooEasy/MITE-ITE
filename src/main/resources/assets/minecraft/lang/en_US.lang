@@ -57,6 +57,7 @@ enchantment.beheading=Beheading
 enchantment.conqueror=Conqueror
 
 entity.EntityZombieLord.name=Zombie Lord
+entity.EntityZombiePigmanLord.name=Zombie Pigman Lord
 entity.EntityAnnihilationSkeleton.name=Annihilation Skeleton
 entity.EntityWanderingWitch.name=Wandering Witch
 

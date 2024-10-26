@@ -12,12 +12,13 @@ import org.spongepowered.asm.mixin.SoftOverride;
 public class EntityAnnihilationSkeleton extends EntitySkeleton {
     private boolean attackedByPlayer;
     private int despawnCount;
-    private final ItemStack weapon = Utils.safeMake(()-> {
+    private final ItemStack weapon = Utils.safeMake(() -> {
         ItemStack itemStack = new ItemStack(Items.VIBRANIUM_DAGGER);
         itemStack.addEnchantment(Enchantment.knockback,5);
         return itemStack;
     }, null);
     private int particleCount;
+
     public EntityAnnihilationSkeleton(World par1World) {
         super(par1World);
         this.setHeldItemStack(weapon);
@@ -173,7 +174,8 @@ public class EntityAnnihilationSkeleton extends EntitySkeleton {
                 || this.worldObj.getDayOfOverworld() > 32
                 && this.rand.nextInt(4) < 1
                 && this.worldObj.getClosestPlayerToEntity(this, 24.0, true) == null
-                && (Configs.GameMechanics.MobSpawning.ANNIHILATION_SKELETON_SPAWN_IN_LIGHT.get() || this.isValidLightLevel());
+                && (Configs.GameMechanics.MobSpawning.ANNIHILATION_SKELETON_SPAWN_IN_LIGHT.get() || this.isValidLightLevel())
+                && !this.worldObj.isOnlyWater(this.boundingBox.expand(2.0D, 2.0D, 2.0D));
     }
 
     @Override
@@ -184,6 +186,11 @@ public class EntityAnnihilationSkeleton extends EntitySkeleton {
     @Override
     protected void addRandomEquipment() {
         this.addRandomWeapon();
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 1;
     }
 
     @SoftOverride

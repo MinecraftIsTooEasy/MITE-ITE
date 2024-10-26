@@ -8,6 +8,7 @@ import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 
 public class PlayerCombatListener implements ICombatListener {
+    @Override
     public float onPlayerBlockReachModify(EntityPlayer player, Block block, int metadata, float original) {
         ItemStack item_stack = player.getHeldItemStack();
         if (item_stack == null) {
@@ -17,6 +18,7 @@ public class PlayerCombatListener implements ICombatListener {
         return original + (enchantmentLevel * 0.25f);
     }
 
+    @Override
     public float onPlayerEntityReachModify(EntityPlayer player, EnumEntityReachContext context, Entity entity, float original) {
         ItemStack item_stack = player.getHeldItemStack();
         if (item_stack == null) {
@@ -26,6 +28,7 @@ public class PlayerCombatListener implements ICombatListener {
         return original + (enchantmentLevel * 0.25f);
     }
 
+    @Override
     public float onPlayerReceiveKnockBackModify(EntityPlayer player, Entity attacker, float original) {
         ItemStack[] itemStacks = player.getWornItems();
         for (ItemStack stack : itemStacks) {
@@ -36,26 +39,27 @@ public class PlayerCombatListener implements ICombatListener {
         return original;
     }
 
+    @Override
     public float onPlayerRawMeleeDamageModify(EntityPlayer player, Entity target, boolean critical, boolean suspended_in_liquid, float original) {
-        ItemStack chestplate;
-        float critBouns = 0.0f;
-        ItemStack heldItemStack = player.getHeldItemStack();
-        int critLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.CRIT, heldItemStack);
-        if (critical) {
-            critBouns = (float) (critLevel * Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get());
-        }
-        float indomitableAmp = 1.0f;
-        float healthPercent = player.getHealth() / player.getMaxHealth();
-        if (healthPercent <= 0.5f && (chestplate = player.getCurrentArmor(1)) != null) {
-            float value = ArmorModifierTypes.INDOMITABLE.getModifierValue(chestplate.getTagCompound());
-            if (value != 0.0f) {
-                indomitableAmp = getIndomitableAmp(healthPercent);
+            ItemStack chestplate;
+            float critBouns = 0.0f;
+            ItemStack heldItemStack = player.getHeldItemStack();
+            int critLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.CRIT, heldItemStack);
+            if (critical) {
+                critBouns = (float) (critLevel * Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get());
             }
-        }
-        float demonHunterAmp = 1.0f;
-        if (!target.getWorld().isOverworld() && heldItemStack != null) {
-            demonHunterAmp = 1.0f + ToolModifierTypes.DEMON_POWER.getModifierValue(heldItemStack.getTagCompound());
-        }
+            float indomitableAmp = 1.0f;
+            float healthPercent = player.getHealth() / player.getMaxHealth();
+            if (healthPercent <= 0.5f && (chestplate = player.getCurrentArmor(1)) != null) {
+                float value = ArmorModifierTypes.INDOMITABLE.getModifierValue(chestplate.getTagCompound());
+                if (value != 0.0f) {
+                    indomitableAmp = getIndomitableAmp(healthPercent);
+                }
+            }
+            float demonHunterAmp = 1.0f;
+            if (!target.getWorld().isOverworld() && heldItemStack != null) {
+                demonHunterAmp = 1.0f + ToolModifierTypes.DEMON_POWER.getModifierValue(heldItemStack.getTagCompound());
+            }
         return (critBouns + original) * indomitableAmp * demonHunterAmp;
     }
 
@@ -75,6 +79,7 @@ public class PlayerCombatListener implements ICombatListener {
         return 1.0f;
     }
 
+    @Override
     public float onPlayerRawStrVsBlockModify(EntityPlayer player, Item tool, Block block, int metadata, float original) {
         if (tool.isEffectiveAgainstBlock(block, metadata) && (tool instanceof ItemTool)) {
             return getMultipliedHarvestEfficiency((ItemTool) tool, block, player.getHeldItemStack(), player);

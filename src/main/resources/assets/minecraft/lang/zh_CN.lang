@@ -57,6 +57,7 @@ enchantment.beheading=斩首
 enchantment.conqueror=征服者
 
 entity.EntityZombieLord.name=僵尸领主
+entity.EntityZombiePigmanLord.name=僵尸猪人领主
 entity.EntityAnnihilationSkeleton.name=湮灭骷髅
 entity.EntityWanderingWitch.name=流浪女巫
 

@@ -173,7 +173,7 @@ public class MITEITEFishEvents {
     }
 
     @Subscribe
-    public void onPacketRegister(PacketRegisterEvent event){
+    public void onPacketRegister(PacketRegisterEvent event) {
         event.register(false, true, CPacketStartForging.class);
         event.register(true, false, SPacketFinishForging.class);
         event.register(true, false, SPacketForgingTableInfo.class);
@@ -185,25 +185,25 @@ public class MITEITEFishEvents {
     }
 
     @Subscribe
-    public void onItemRegister(ItemRegistryEvent event){
+    public void onItemRegister(ItemRegistryEvent event) {
         Items.registerItems(event);
         Blocks.registerItemBlocks(event);
     }
 
     @Subscribe
-    public void onRecipeRegister(RecipeRegistryEvent event){
-        Items.registerRecipes(event);
+    public void onRecipeRegister(RecipeRegistryEvent event) {
+//        Items.registerRecipes(event);
         Blocks.registerRecipes(event);
 //        ForgingTableRecipes.registerAll();
     }
 
     @Subscribe
-    public void onEnchantmentRegister(EnchantmentRegistryEvent event){
+    public void onEnchantmentRegister(EnchantmentRegistryEvent event) {
         Enchantments.registerEnchantments(event);
     }
 
     @Subscribe
-    public void onAchievementRegister(AchievementRegistryEvent event){
+    public void onAchievementRegister(AchievementRegistryEvent event) {
         Achievements.registerAchievements();
     }
     
@@ -214,7 +214,7 @@ public class MITEITEFishEvents {
     }
 
     @Subscribe
-    public void onEntityRegister(EntityRegisterEvent event){
+    public void onEntityRegister(EntityRegisterEvent event) {
         event.register(EntityAncientDragon.class, MITEITEMod.ITENameSpace, "EntityTest", IdUtil.getNextEntityID());
 //        event.register(EntityRideMarker.class, MITEITEMod.ITENameSpace, "EntityMarker", IdUtil.getNextEntityID());
         event.register(EntityZombieLord.class, MITEITEMod.ITENameSpace, "EntityZombieLord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
@@ -224,7 +224,7 @@ public class MITEITEFishEvents {
     }
 
     @Subscribe
-    public void onEntityRendererRegister(EntityRendererRegistryEvent event){
+    public void onEntityRendererRegister(EntityRendererRegistryEvent event) {
         event.register(EntityAncientDragon.class, new RenderAncientDragon());
         event.register(EntityAnnihilationSkeleton.class, new RenderAnnihilationSkeleton());
         event.register(EntityWanderingWitch.class, new RenderWanderingWitch());

@@ -14,6 +14,7 @@ import net.xiaoyu233.mitemod.miteite.block.Blocks;
 import net.xiaoyu233.mitemod.miteite.events.listener.FurnaceExtend;
 import net.xiaoyu233.mitemod.miteite.events.listener.PlayerAttributeListener;
 import net.xiaoyu233.mitemod.miteite.events.listener.PlayerCombatListener;
+import net.xiaoyu233.mitemod.miteite.events.listener.CraftingRegistry;
 import net.xiaoyu233.mitemod.miteite.item.Items;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
@@ -57,6 +58,7 @@ public class MITEITERICEvents extends Handlers {
         });
         SpawnCondition.register(new MITEITESpawnConditions());
         Smelting.register(new FurnaceExtend());
+        Crafting.register(new CraftingRegistry());
         PropertiesRegistry.register(() -> {
             MaterialProperties.RepairItem.register(Materials.vibranium, Items.VIBRANIUM_NUGGET);
             MaterialProperties.HarvestEfficiency.register(Materials.vibranium, Float.valueOf(3.5f));

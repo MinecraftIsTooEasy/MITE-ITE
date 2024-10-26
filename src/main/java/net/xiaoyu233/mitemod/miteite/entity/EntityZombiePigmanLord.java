@@ -73,4 +73,9 @@ public class EntityZombiePigmanLord extends EntityPigZombie {
             }
         }
     }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 1;
+    }
 }

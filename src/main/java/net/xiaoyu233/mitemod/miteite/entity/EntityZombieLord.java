@@ -58,10 +58,15 @@ public class EntityZombieLord extends EntityZombie {
         if (!this.getWorld().isRemote){
             if (fx_counter > 0){
                 fx_counter--;
-            }else {
+            } else {
                 this.fx_counter = 60;
                 this.entityFX(EnumEntityFX.summoned);
             }
         }
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 1;
     }
 }
