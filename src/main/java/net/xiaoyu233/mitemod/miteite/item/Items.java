@@ -7,36 +7,39 @@ import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.block.Blocks;
+import net.xiaoyu233.mitemod.miteite.creativetab.CreativeTabsITE;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 
 @SuppressWarnings("ConstantConditions")
 public class Items extends Item {
-    public static final Item BLAZE_COAL_POWDER = new ItemBlazeCoalPowder(Constant.getNextItemID());
-    public static final Item DIAMOND_CHUNK = new Item(Constant.getNextItemID(), Material.diamond,"diamond_chunk").setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.diamond) /(float)4);
-    public static final Item OBSIDIAN_STICK = new Item(Constant.getNextItemID(),Material.obsidian,"obsidian_stick");
-    public static final ItemAxe VIBRANIUM_AXE = new AxeItem(Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemBattleAxe VIBRANIUM_BATTLE_AXE = new BattleAxeItem(Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemArmor VIBRANIUM_BOOTS = new ItemBoots(Constant.getNextItemID(), Materials.vibranium,false);
-    public static final ItemBow VIBRANIUM_BOW = new ItemBow(Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemArmor VIBRANIUM_CHESTPLATE = new ItemCuirass(Constant.getNextItemID(), Materials.vibranium, false);
-    public static final ItemDagger VIBRANIUM_DAGGER = ReflectHelper.createInstance(ItemDagger.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemArmor VIBRANIUM_HELMET = new ItemHelmet(Constant.getNextItemID(), Materials.vibranium,false);
-    public static final Item VIBRANIUM_INGOT = new ItemIngot(Constant.getNextItemID(),Materials.vibranium);
-    public static final ItemArmor VIBRANIUM_LEGGINGS = new ItemLeggings(Constant.getNextItemID(), Materials.vibranium,false);
-    public static final ItemNugget VIBRANIUM_NUGGET = new NuggetItem(Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemPickaxe VIBRANIUM_PICKAXE = ReflectHelper.createInstance(ItemPickaxe.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemShovel VIBRANIUM_SHOVEL = ReflectHelper.createInstance(ItemShovel.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemSword VIBRANIUM_SWORD = ReflectHelper.createInstance(ItemSword.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemWarHammer VIBRANIUM_WAR_HAMMER = ReflectHelper.createInstance(ItemWarHammer.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium);
-    public static final ItemEnhanceStone IRON_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.iron).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.iron) * 2f);
-    public static final ItemEnhanceStone MITHRIL_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.mithril).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.mithril) * 2f);
-    public static final ItemEnhanceStone ADAMANTIUM_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.adamantium).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.diamond) * 2f);
-    public static final ItemEnhanceStone UNIVERSAL_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.universal).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.ender_pearl) * 2f);
+    public static final CreativeTabs tabMITEITE = new CreativeTabsITE();
+
+    public static final Item BLAZE_COAL_POWDER = new ItemBlazeCoalPowder(Constant.getNextItemID()).setCreativeTab(tabMITEITE);
+    public static final Item DIAMOND_CHUNK = new Item(Constant.getNextItemID(), Material.diamond,"diamond_chunk").setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.diamond) /(float)4).setCreativeTab(tabMITEITE);
+    public static final Item OBSIDIAN_STICK = new Item(Constant.getNextItemID(),Material.obsidian,"obsidian_stick").setCreativeTab(tabMITEITE);
+    public static final ItemAxe VIBRANIUM_AXE = (ItemAxe) new AxeItem(Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemBattleAxe VIBRANIUM_BATTLE_AXE = (ItemBattleAxe) new BattleAxeItem(Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemArmor VIBRANIUM_BOOTS = (ItemArmor) new ItemBoots(Constant.getNextItemID(), Materials.vibranium,false).setCreativeTab(tabMITEITE);
+    public static final ItemBow VIBRANIUM_BOW = (ItemBow) new ItemBow(Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemArmor VIBRANIUM_CHESTPLATE = (ItemArmor) new ItemCuirass(Constant.getNextItemID(), Materials.vibranium, false).setCreativeTab(tabMITEITE);
+    public static final ItemDagger VIBRANIUM_DAGGER = (ItemDagger) ReflectHelper.createInstance(ItemDagger.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemArmor VIBRANIUM_HELMET = (ItemArmor) new ItemHelmet(Constant.getNextItemID(), Materials.vibranium,false).setCreativeTab(tabMITEITE);
+    public static final Item VIBRANIUM_INGOT = new ItemIngot(Constant.getNextItemID(),Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemArmor VIBRANIUM_LEGGINGS = (ItemArmor) new ItemLeggings(Constant.getNextItemID(), Materials.vibranium,false).setCreativeTab(tabMITEITE);
+    public static final ItemNugget VIBRANIUM_NUGGET = (ItemNugget) new NuggetItem(Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemPickaxe VIBRANIUM_PICKAXE = (ItemPickaxe) ReflectHelper.createInstance(ItemPickaxe.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemShovel VIBRANIUM_SHOVEL = (ItemShovel) ReflectHelper.createInstance(ItemShovel.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemSword VIBRANIUM_SWORD = (ItemSword) ReflectHelper.createInstance(ItemSword.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemWarHammer VIBRANIUM_WAR_HAMMER = (ItemWarHammer) ReflectHelper.createInstance(ItemWarHammer.class, new Class[]{int.class, Material.class}, Constant.getNextItemID(), Materials.vibranium).setCreativeTab(tabMITEITE);
+    public static final ItemEnhanceStone IRON_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.iron).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.iron) * 2f).setCreativeTab(tabMITEITE);
+    public static final ItemEnhanceStone MITHRIL_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.mithril).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.mithril) * 2f).setCreativeTab(tabMITEITE);
+    public static final ItemEnhanceStone ADAMANTIUM_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.adamantium).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.diamond) * 2f).setCreativeTab(tabMITEITE);
+    public static final ItemEnhanceStone UNIVERSAL_ENHANCE_STONE = (ItemEnhanceStone) new ItemEnhanceStone(ItemEnhanceStone.Types.universal).setCraftingDifficultyAsComponent(ItemRock.getCraftingDifficultyAsComponent(Material.ender_pearl) * 2f).setCreativeTab(tabMITEITE);
 
     public static void registerItems(ItemRegistryEvent event) {
-        event.register(MITEITEMod.ITENameSpace, "obsidian_stick", OBSIDIAN_STICK, CreativeTabs.tabMaterials);
-        event.register(MITEITEMod.ITENameSpace, "vibranium", VIBRANIUM_INGOT, CreativeTabs.tabMaterials);
-        event.register(MITEITEMod.ITENameSpace, "vibranium_nugget", VIBRANIUM_NUGGET, CreativeTabs.tabMaterials);
+        event.register(MITEITEMod.ITENameSpace, "obsidian_stick", OBSIDIAN_STICK);
+        event.register(MITEITEMod.ITENameSpace, "vibranium", VIBRANIUM_INGOT);
+        event.register(MITEITEMod.ITENameSpace, "vibranium_nugget", VIBRANIUM_NUGGET);
         event.register(MITEITEMod.ITENameSpace, "vibranium_helmet", VIBRANIUM_HELMET);
         event.register(MITEITEMod.ITENameSpace, "vibranium_chestplate", VIBRANIUM_CHESTPLATE);
         event.register(MITEITEMod.ITENameSpace, "vibranium_leggings", VIBRANIUM_LEGGINGS);
@@ -48,13 +51,13 @@ public class Items extends Item {
         event.register(MITEITEMod.ITENameSpace, "vibranium_dagger", VIBRANIUM_DAGGER);
         event.register(MITEITEMod.ITENameSpace, "vibranium_war_hammer", VIBRANIUM_WAR_HAMMER);
         event.register(MITEITEMod.ITENameSpace, "vibranium_battle_axe", VIBRANIUM_BATTLE_AXE);
-        event.register(MITEITEMod.ITENameSpace, "diamond_chunk", DIAMOND_CHUNK, CreativeTabs.tabMaterials);
-        event.register(MITEITEMod.ITENameSpace, "blaze_coal_powder", BLAZE_COAL_POWDER, CreativeTabs.tabMaterials);
+        event.register(MITEITEMod.ITENameSpace, "diamond_chunk", DIAMOND_CHUNK);
+        event.register(MITEITEMod.ITENameSpace, "blaze_coal_powder", BLAZE_COAL_POWDER);
         event.register(MITEITEMod.ITENameSpace, "bows/vibranium/", VIBRANIUM_BOW).setUnlocalizedName("vibranium_bow");
-        event.register(MITEITEMod.ITENameSpace, "enhance_stone/iron",IRON_ENHANCE_STONE , CreativeTabs.tabMaterials);
-        event.register(MITEITEMod.ITENameSpace, "enhance_stone/mithril",MITHRIL_ENHANCE_STONE , CreativeTabs.tabMaterials);
-        event.register(MITEITEMod.ITENameSpace, "enhance_stone/adamantium",ADAMANTIUM_ENHANCE_STONE , CreativeTabs.tabMaterials);
-        event.register(MITEITEMod.ITENameSpace, "enhance_stone/universal",UNIVERSAL_ENHANCE_STONE , CreativeTabs.tabMaterials);
+        event.register(MITEITEMod.ITENameSpace, "enhance_stone/iron",IRON_ENHANCE_STONE );
+        event.register(MITEITEMod.ITENameSpace, "enhance_stone/mithril",MITHRIL_ENHANCE_STONE );
+        event.register(MITEITEMod.ITENameSpace, "enhance_stone/adamantium",ADAMANTIUM_ENHANCE_STONE );
+        event.register(MITEITEMod.ITENameSpace, "enhance_stone/universal",UNIVERSAL_ENHANCE_STONE );
         Constant.initItemArray();
     }
 

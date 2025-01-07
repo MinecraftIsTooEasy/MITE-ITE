@@ -29,7 +29,7 @@ public class ItemGemsTrans extends Item {
       return Configs.Item.DIAMOND_EXP.get();
    }
 
-   @ModifyConstant(method = "getExperienceValueWhenSacrificed", constant = @Constant(intValue = 500))
+   @ModifyConstant(method = "getExperienceValueWhenSacrificed", constant = @Constant(intValue = 250))
    private static int modifyEmeraldExp(int constant){
       return Configs.Item.EMERALD_EXP.get();
    }

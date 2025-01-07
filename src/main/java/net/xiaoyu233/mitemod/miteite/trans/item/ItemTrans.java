@@ -7,11 +7,13 @@ import net.xiaoyu233.mitemod.miteite.api.ITEItem;
 import net.xiaoyu233.mitemod.miteite.item.ItemModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.Items;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -162,19 +164,24 @@ public class ItemTrans implements ITEItem {
    public void onItemLevelUp(NBTTagCompound tagCompound, EntityPlayer player, ItemStack stack) {
    }
 
-   @Inject(method = "getRepairItem", at = @At("HEAD"), cancellable = true)
-   public void injectVibraniumRepair(CallbackInfoReturnable<Item> cir) {
-      if (this.getMaterialForRepairs() == Materials.vibranium) cir.setReturnValue(Items.VIBRANIUM_NUGGET);
+   @Override
+   public boolean isMeat(Item item) {
+      return ITERegistryImpl.meatCriteria.stream().anyMatch(x -> {
+         return x.test(item);
+      });
    }
 
+//   @Inject(method = "getRepairItem", at = @At("HEAD"), cancellable = true)
+//   public void injectVibraniumRepair(CallbackInfoReturnable<Item> cir) {
+//      if (this.getMaterialForRepairs() == Materials.vibranium) cir.setReturnValue(Items.VIBRANIUM_NUGGET);
+//   }
 
-
-   @Inject(method = "getHeatLevel", at = @At("HEAD"), cancellable = true)
-   public void injectBlazeCoalHeat(ItemStack item_stack, CallbackInfoReturnable<Integer> cir) {
-      if (ReflectHelper.dyCast(this) == Items.BLAZE_COAL_POWDER) {
-         cir.setReturnValue(5);
-      }
-   }
+//   @Inject(method = "getHeatLevel", at = @At("HEAD"), cancellable = true)
+//   public void injectBlazeCoalHeat(ItemStack item_stack, CallbackInfoReturnable<Integer> cir) {
+//      if (ReflectHelper.dyCast(this) == Items.BLAZE_COAL_POWDER) {
+//         cir.setReturnValue(5);
+//      }
+//   }
 
    @Redirect(method = "getMaxDamage(Lnet/minecraft/EnumQuality;)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;hasQuality()Z"))
    public final boolean redirectDisableQuality(Item instance) {

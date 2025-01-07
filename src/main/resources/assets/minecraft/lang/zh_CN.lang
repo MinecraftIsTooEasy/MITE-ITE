@@ -89,3 +89,5 @@ command.sleep_check.msg=还有以下玩家未睡觉:
 command.sleep_check.none=所有玩家均已躺下
 container.workbench.boost=合成速度提升:
 container.strongbox.vibranium=振金保险箱
+
+itemGroup.MITE-ITE=MITE 不可能这么简单

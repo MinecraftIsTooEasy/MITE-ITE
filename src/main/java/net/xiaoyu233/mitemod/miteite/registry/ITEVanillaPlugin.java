@@ -1,9 +1,6 @@
 package net.xiaoyu233.mitemod.miteite.registry;
 
-import net.minecraft.ItemBattleAxe;
-import net.minecraft.ItemSword;
-import net.minecraft.ItemWarHammer;
-import net.minecraft.Material;
+import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlugin;
 import net.xiaoyu233.mitemod.miteite.api.ITERegistry;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
@@ -13,6 +10,7 @@ public class ITEVanillaPlugin implements ITEPlugin {
     @Override
     public void register(ITERegistry registry) {
         registry.registerWeaponCriteria(item -> item instanceof ItemSword || item instanceof ItemBattleAxe || item instanceof ItemWarHammer);
+        registry.registerWeaponCriteria(item -> item instanceof ItemMeat);
 
         registry.registerExpForLevel(Material.copper, 100, 50);
         registry.registerExpForLevel(Material.silver, 100, 50);

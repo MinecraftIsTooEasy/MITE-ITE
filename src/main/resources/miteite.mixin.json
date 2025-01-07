@@ -56,8 +56,6 @@
     "entity.EntityLongdeadGuardianTrans",
     "entity.EntityLongdeadTrans",
     "entity.EntityMagmaCubeTrans",
-    "entity.EntityMinecartChestTrans",
-    "entity.EntityMinecartContainerTrans",
     "entity.EntityMonsterTrans",
     "entity.EntityPigTrans",
     "entity.EntityPlayerTrans",

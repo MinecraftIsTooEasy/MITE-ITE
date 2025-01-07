@@ -10,6 +10,7 @@ import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
@@ -34,9 +35,14 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
    @Unique
    private BiFunction<Integer,Boolean,Integer> expForLevel;
 
+   @Unique
+   private final BiFunction<Integer, Boolean, Integer> defaultExp = (level, isWeapon) -> {
+      return Integer.valueOf(150 + (level.intValue() * 75 * (isWeapon.booleanValue() ? 2 : 1)));
+   };
+
    @Override
    public int getExpReqForLevel(int level, boolean isSword) {
-      return this.expForLevel.apply(level, isSword);
+      return ITERegistryImpl.expForLevelMap.getOrDefault(this.effective_material, this.defaultExp).apply(Integer.valueOf(level), Boolean.valueOf(isSword)).intValue();
    }
 
    @Override
@@ -71,7 +77,9 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
 
    @Override
    public boolean isWeapon(Item item) {
-      return item instanceof ItemSword || item instanceof ItemBattleAxe || item instanceof ItemWarHammer;
+      return ITERegistryImpl.weaponCriteria.stream().anyMatch(x -> {
+         return x.test(item);
+      });
    }
 
    @Override

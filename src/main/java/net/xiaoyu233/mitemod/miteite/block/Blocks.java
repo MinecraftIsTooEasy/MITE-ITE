@@ -1,6 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.block;
 
 import moddedmite.rustedironcore.api.block.WorkbenchBlock;
+import moddedmite.rustedironcore.api.event.events.CraftingRecipeRegisterEvent;
 import net.minecraft.*;
 import net.xiaoyu233.fml.api.block.AnvilBlock;
 import net.xiaoyu233.fml.api.block.StrongBoxBlock;
@@ -8,21 +9,22 @@ import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
 import net.xiaoyu233.fml.reload.event.RecipeRegistryEvent;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
+import net.xiaoyu233.mitemod.miteite.creativetab.CreativeTabsITE;
 import net.xiaoyu233.mitemod.miteite.item.Items;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
 
 import static net.xiaoyu233.mitemod.miteite.item.Items.VIBRANIUM_INGOT;
 
-public class Blocks extends Block{
-    public static final Block blockForgingTable = new BlockForgingTable(getNextBlockID()).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep);
-    public static final BlockAnvil anvilVibranium = new AnvilBlock(getNextBlockID(), Materials.vibranium);
-    public static final BlockOreStorage blockVibranium = new BlockOreStorage(getNextBlockID(),Materials.vibranium);
+public class Blocks extends Block {
+    public static final Block blockForgingTable = new BlockForgingTable(getNextBlockID()).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep).setCreativeTab(Items.tabMITEITE);
+    public static final BlockAnvil anvilVibranium = (BlockAnvil) new AnvilBlock(getNextBlockID(), Materials.vibranium).setCreativeTab(Items.tabMITEITE);
+    public static final BlockOreStorage blockVibranium = (BlockOreStorage) new BlockOreStorage(getNextBlockID(),Materials.vibranium).setCreativeTab(Items.tabMITEITE);
     public static final Block furnaceVibraniumBurning = new BlockFurnaceVibranium(getNextBlockID(), true).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep);
-    public static final Block furnaceVibraniumIdle = new BlockFurnaceVibranium(getNextBlockID(), false).setCreativeTab(CreativeTabs.tabDecorations).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep);
-    public static final Block netherAdamantiumOre = new BlockNetherAdamantiumOre(getNextBlockID()).setCreativeTab(CreativeTabs.tabBlock).setHardness(4.0F).setStepSound(soundStoneFootstep).setUnlocalizedName("oreNetherAdamantium");
-    public static final Block chestVibranium = new StrongBoxBlock(getNextBlockID(), Materials.vibranium).setStepSound(soundMetalFootstep);
-    public static final WorkbenchBlock vibraniumWorkBench = new WorkbenchBlock(getNextBlockID(), Materials.vibranium, 0.55F, Material.adamantium);
+    public static final Block furnaceVibraniumIdle = new BlockFurnaceVibranium(getNextBlockID(), false).setCreativeTab(CreativeTabs.tabDecorations).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep).setCreativeTab(Items.tabMITEITE);
+    public static final Block netherAdamantiumOre = new BlockNetherAdamantiumOre(getNextBlockID()).setCreativeTab(CreativeTabs.tabBlock).setHardness(4.0F).setStepSound(soundStoneFootstep).setUnlocalizedName("oreNetherAdamantium").setCreativeTab(Items.tabMITEITE);
+    public static final Block chestVibranium = new StrongBoxBlock(getNextBlockID(), Materials.vibranium).setStepSound(soundMetalFootstep).setCreativeTab(Items.tabMITEITE);
+    public static final WorkbenchBlock vibraniumWorkBench = (WorkbenchBlock) new WorkbenchBlock(getNextBlockID(), Materials.vibranium, 0.55F, Material.adamantium).setCreativeTab(Items.tabMITEITE);
 
     protected Blocks(int par1, Material par2Material, BlockConstants constants) {
         super(par1, par2Material, constants);
@@ -32,7 +34,7 @@ public class Blocks extends Block{
         return IdUtil.getNextBlockID();
     }
 
-    public static void registerItemBlocks(ItemRegistryEvent registryEvent){
+    public static void registerItemBlocks(ItemRegistryEvent registryEvent) {
         anvilVibranium.stepSound = Block.soundAnvilFootstep;
         registryEvent.registerAnvil(MITEITEMod.ITENameSpace, "anvil_vibranium", anvilVibranium);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "block_vibranium", blockVibranium);
@@ -45,7 +47,7 @@ public class Blocks extends Block{
 
     }
 
-    public static void registerRecipes(RecipeRegistryEvent register) {
+    public static void registerRecipes(CraftingRecipeRegisterEvent register) {
         register.registerShapedRecipe(new ItemStack(anvilVibranium),true,
                 "AVA",
                 " I ",
@@ -91,7 +93,7 @@ public class Blocks extends Block{
         vibraniumWorkBench.registerSimpleRecipe(register);
     }
 
-    private static void registerForgingTableUpgradeRecipes(RecipeRegistryEvent register, ForgingTableLevel originalLevel, Item ingot){
+    private static void registerForgingTableUpgradeRecipes(CraftingRecipeRegisterEvent register, ForgingTableLevel originalLevel, Item ingot){
         register.registerShapedRecipe(new ItemStack(Blocks.blockForgingTable,1,originalLevel.getLevel() + 1),true,
                 "III",
                 " T ",

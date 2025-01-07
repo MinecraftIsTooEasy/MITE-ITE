@@ -11,5 +11,7 @@ public interface ITERegistry {
 
     void registerWeaponCriteria(Predicate<Item> predicate);
 
+    void registerMeatCriteria(Predicate<Item> criteria);
+
     void registerForgingRecipe(Material material, ForgingTableLevel forgingTableLevel, int maxLevel);
 }

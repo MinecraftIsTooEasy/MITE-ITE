@@ -90,3 +90,5 @@ command.sleep_check.msg=The following players are not sleeping:
 command.sleep_check.none=All players are sleeping now
 container.workbench.boost=Crafting speed boost:
 container.strongbox.vibranium=Vibrantium Chest
+
+itemGroup.MITE-ITE=MITE-ITE

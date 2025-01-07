@@ -25,4 +25,5 @@ public interface ITEItem extends IUpgradableItem{
     boolean isWeapon(Item b);
     void onItemLevelUp(NBTTagCompound tagCompound, EntityPlayer player, ItemStack stack);
     float getStrVsBlock(Block block, int metadata, ItemStack itemStack, EntityPlayer user);
+    boolean isMeat(Item item);
 }

@@ -39,7 +39,7 @@ dependencies {
 	mappings loom.fmlMCPMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	implementation files("libs\\RustedIronCore-1.3.4.jar")
+	implementation files("libs\\RustedIronCore-1.3.5.jar")
 	implementation files("libs\\EMI-1.0.8.jar")
 	implementation files(loom.getFML().toPath())
 }

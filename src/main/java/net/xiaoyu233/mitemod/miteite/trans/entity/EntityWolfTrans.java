@@ -2,21 +2,25 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import com.google.common.collect.Lists;
 import net.minecraft.*;
+import net.xiaoyu233.mitemod.miteite.api.ITEItem;
+import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Mixin(EntityWolf.class)
 public class EntityWolfTrans extends EntityTameable {
-   @Unique
-   private static final List<Item> MEATS;
+//   @Unique
+//   private static final List<Item> MEATS;
 
-   static {
-      MEATS = Lists.newArrayList(new Item[]{Item.porkRaw, Item.beefRaw, Item.chickenRaw, Item.lambchopRaw});
-   }
+//   static {
+//      MEATS = Lists.newArrayList(new Item[]{Item.porkRaw, Item.beefRaw, Item.chickenRaw, Item.lambchopRaw});
+//   }
+
 
    public EntityWolfTrans(World par1World) {
       super(par1World);
@@ -53,14 +57,15 @@ public class EntityWolfTrans extends EntityTameable {
    private boolean hasMeatInHotbar(EntityPlayer par1EntityPlayer) {
       if (this.isDecoy()) {
          return false;
-      } else if (MEATS.contains(par1EntityPlayer.getHeldItemStack().getItem())) {
+      } else if (((ITEItem) par1EntityPlayer.getHeldItemStack().getItem()).isMeat(par1EntityPlayer.getHeldItemStack().getItem())) {
          return true;
       } else {
          int num_meats = 0;
-          for (Item item : MEATS) {
-              num_meats += par1EntityPlayer.inventory.getHotbarSlotContainItem(item);
-          }
-          return num_meats > 0 && this.rand.nextInt(2000) < num_meats;
+         Item item = par1EntityPlayer.getHeldItemStack().getItem();
+         while (item.isMeat(item)) {
+            num_meats += par1EntityPlayer.inventory.getHotbarSlotContainItem(item);
+         }
+         return num_meats > 0 && this.rand.nextInt(2000) < num_meats;
       }
    }
 

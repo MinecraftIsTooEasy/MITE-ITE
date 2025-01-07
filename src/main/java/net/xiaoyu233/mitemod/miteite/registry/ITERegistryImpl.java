@@ -16,6 +16,7 @@ import java.util.function.Predicate;
 public class ITERegistryImpl implements ITERegistry {
     public static final Map<Material, BiFunction<Integer, Boolean, Integer>> expForLevelMap = new HashMap();
     public static final List<Predicate<Item>> weaponCriteria = new ArrayList();
+    public static final List<Predicate<Item>> meatCriteria = new ArrayList();
 
     @Override
     public void registerExpForLevel(Material material, int base, int increase) {
@@ -31,6 +32,11 @@ public class ITERegistryImpl implements ITERegistry {
     @Override
     public void registerWeaponCriteria(Predicate<Item> criteria) {
         weaponCriteria.add(criteria);
+    }
+
+    @Override
+    public void registerMeatCriteria(Predicate<Item> criteria) {
+        meatCriteria.add(criteria);
     }
 
     @Override
