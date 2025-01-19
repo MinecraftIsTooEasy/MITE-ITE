@@ -13,7 +13,7 @@ public class RenderAnnihilationSkeleton extends RenderBiped {
 
     @Override
     protected void setTextures() {
-        this.setTexture(0, "textures/entity/skeleton/annihilation_skeleton");
+        this.setTexture(0, "miteite:textures/entity/skeleton/annihilation_skeleton");
     }
 
     protected ResourceLocation func_110856_a(EntityLiving par1EntityLiving) {

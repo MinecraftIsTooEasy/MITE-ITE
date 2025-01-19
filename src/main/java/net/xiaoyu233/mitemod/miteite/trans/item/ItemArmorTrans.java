@@ -28,21 +28,21 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
    @Unique
    private Function<Integer,Integer> expForLevel;
 
-   @Inject(method = "<init>",at = @At("RETURN"))
-   private void injectInitExpForLevel(int par1, Material material,int par2,boolean is_chain_mail, CallbackInfo callbackInfo){
+   @Inject(method = "<init>", at = @At("RETURN"))
+   private void injectInitExpForLevel(int par1, Material material, int par2, boolean is_chain_mail, CallbackInfo callbackInfo) {
       if (material == Material.copper || material == Material.silver){
          this.expForLevel = this.createExpForLevel(16,8);
-      }else if (material == Material.gold){
+      } else if (material == Material.gold) {
          this.expForLevel = this.createExpForLevel(18,9);
-      }else if (material == Material.iron || material == Material.ancient_metal){
+      } else if (material == Material.iron || material == Material.ancient_metal){
          this.expForLevel = this.createExpForLevel(20,10);
       } else if (material == Material.mithril) {
          this.expForLevel = this.createExpForLevel(24,12);
-      }else if (material == Material.adamantium){
+      } else if (material == Material.adamantium) {
          this.expForLevel = this.createExpForLevel(28,14);
-      }else if (material == Materials.vibranium){
+      } else if (material == Materials.vibranium) {
          this.expForLevel = this.createExpForLevel(32,16);
-      }else {
+      } else {
          this.expForLevel = this.createExpForLevel(150,75);
       }
    }
@@ -170,6 +170,8 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
    public abstract int getRepairCost();
 
    @Shadow public abstract int getMaterialProtection();
+
+   @Shadow public abstract String getArmorType();
 
    public boolean hasExpAndLevel() {
       return true;

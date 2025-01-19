@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiForgingTable extends GuiContainer implements ICrafting {
-    private static final ResourceLocation FORGING_TABLE_TEXTURE = new ResourceLocation("textures/gui/container/forging_table.png");
+    private static final ResourceLocation FORGING_TABLE_TEXTURE = new ResourceLocation("miteite", "textures/gui/container/forging_table.png");
     private final String axeCostInfo = StatCollector.translateToLocal("gui.forgingTable.axeCost");
     private final String chanceOfFailureInfo = StatCollector.translateToLocal("gui.forgingTable.chanceOfFailure");
     private final String hammerCostInfo = StatCollector.translateToLocal("gui.forgingTable.hammerCost");

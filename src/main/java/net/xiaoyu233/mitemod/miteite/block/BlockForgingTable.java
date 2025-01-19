@@ -60,9 +60,9 @@ public class BlockForgingTable extends Block implements ITileEntityProvider,IBlo
     public void registerIcons(IconRegister par1IconRegister) {
         for (ForgingTableLevel value : ForgingTableLevel.values()) {
             SideIconHolder sideIconHolder = new SideIconHolder();
-            sideIconHolder.setTexture_top(par1IconRegister.registerIcon("forging_table/" + value.name().toLowerCase() + "/top"));
-            sideIconHolder.setTexture_bottom(par1IconRegister.registerIcon("forging_table/" + value.name().toLowerCase() + "/bottom"));
-            sideIconHolder.setTexture_side(par1IconRegister.registerIcon("forging_table/" + value.name().toLowerCase() + "/side"));
+            sideIconHolder.setTexture_top(par1IconRegister.registerIcon("miteite:forging_table/" + value.name().toLowerCase() + "/top"));
+            sideIconHolder.setTexture_bottom(par1IconRegister.registerIcon("miteite:forging_table/" + value.name().toLowerCase() + "/bottom"));
+            sideIconHolder.setTexture_side(par1IconRegister.registerIcon("miteite:forging_table/" + value.name().toLowerCase() + "/side"));
             this.textureMap.put(value.ordinal(), sideIconHolder);
         }
     }

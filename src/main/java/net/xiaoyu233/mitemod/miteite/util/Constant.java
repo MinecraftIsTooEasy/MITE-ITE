@@ -12,10 +12,10 @@ import net.xiaoyu233.mitemod.miteite.item.Items;
 
 public class Constant {
     public static final double[] ENHANCE_FACTORS;
-    public static final ResourceLocation icons_ite = new ResourceLocation("textures/gui/icons_ite.png");
+    public static final ResourceLocation icons_ite = new ResourceLocation("miteite", "textures/gui/icons_ite.png");
     public static final String MITE_ITE_VERSION = FishModLoader.getModContainer("mite_ite").map(ModContainer::getMetadata).map(ModMetadata::getVersion).map(Version::getFriendlyString).orElse("v?.?.?");
     public static final int CONFIG_VERSION = 1;
-    public static final ResourceLocation RES_VIBRANIUM_SINGLE = new ResourceLocation("textures/entity/chest/vibranium_single.png");
+    public static final ResourceLocation RES_VIBRANIUM_SINGLE = new ResourceLocation("miteite", "textures/entity/chest/vibranium_single.png");
     public static ItemArmor[] HELMETS = null;
     public static ItemArmor[] CHESTPLATES = null;
     public static ItemArmor[] LEGGINGS = null;
@@ -26,7 +26,7 @@ public class Constant {
     static {
         ENHANCE_FACTORS = new double[Short.MAX_VALUE];
         for (int i = 0, enhance_factorsLength = ENHANCE_FACTORS.length; i < enhance_factorsLength; i++) {
-            ENHANCE_FACTORS[i] = Math.pow(1.028,i*2.28) - 1;
+            ENHANCE_FACTORS[i] = Math.pow(1.028, i * 2.28) - 1;
         }
     }
 

@@ -19,7 +19,7 @@ public class BlockStrongboxTrans extends Block {
     )
     private void injectTextureInit(IconRegister register, CallbackInfo callbackInfo) {
         if (this.blockMaterial == Materials.vibranium) {
-            this.blockIcon = register.registerIcon("block_vibranium");
+            this.blockIcon = register.registerIcon("miteite:block_vibranium");
         }
     }
 }

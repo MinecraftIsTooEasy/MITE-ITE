@@ -1,5 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -82,15 +84,12 @@ public abstract class EntityEarthElementalTrans extends EntityAnimalWatcher {
       return this.isWood();
    }
 
-   @Inject(method = "isImmuneTo", at = @At("HEAD"), cancellable = true)
-   public void modifyWoodImmune(DamageSource damage_source, CallbackInfoReturnable<Boolean> cir) {
-      if (this.isWood()) {
-         ItemStack item_stack = damage_source.getItemAttackedWith();
-         if (item_stack != null && item_stack.getItem() instanceof ItemTool && item_stack.getItemAsTool().isEffectiveAgainstBlock(this.getBlock(), 0)) {
-            cir.setReturnValue(false);
-         }
-         cir.setReturnValue(!damage_source.isLavaDamage() && !damage_source.isFireDamage());
+   @ModifyReturnValue(method = "isImmuneTo", at = @At(value = "RETURN", ordinal = 4))
+   public boolean modifyWoodImmune(boolean original, @Local(argsOnly = true) DamageSource damage_source) {
+      if (!this.isWood()) {
+         return !damage_source.isExplosion();
       }
+      return original;
    }
 
    @Inject(method = "isValidBlock", at = @At("HEAD"), cancellable = true)

@@ -4,7 +4,7 @@ import net.minecraft.RenderWitch;
 
 public class RenderWanderingWitch extends RenderWitch {
     protected void setTextures() {
-        this.setTexture(0, "textures/entity/wandering_witch");
+        this.setTexture(0, "miteite:textures/entity/wandering_witch");
     }
 
     protected boolean forceGlowOverride() {

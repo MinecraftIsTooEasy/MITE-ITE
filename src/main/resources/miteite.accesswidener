@@ -9,3 +9,5 @@ accessible method net/minecraft/CraftingManager addShapelessRecipe (Lnet/minecra
 accessible field net/minecraft/I18n i18nLocale Lnet/minecraft/Locale;
 accessible method net/minecraft/EntityVillager adjustProbability (F)F
 accessible field net/minecraft/Material min_harvest_level I
+accessible field net/minecraft/BlockAnvil anvilIconNames [Ljava/lang/String;
+accessible field net/minecraft/BlockAnvil iconArray [Lnet/minecraft/Icon;

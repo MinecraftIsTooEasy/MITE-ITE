@@ -18,13 +18,13 @@ import static net.xiaoyu233.mitemod.miteite.item.Items.VIBRANIUM_INGOT;
 
 public class Blocks extends Block {
     public static final Block blockForgingTable = new BlockForgingTable(getNextBlockID()).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep).setCreativeTab(Items.tabMITEITE);
-    public static final BlockAnvil anvilVibranium = (BlockAnvil) new AnvilBlock(getNextBlockID(), Materials.vibranium).setCreativeTab(Items.tabMITEITE);
+    public static final BlockAnvil anvilVibranium = (BlockAnvil) new BlockAnvilMITEITE(getNextBlockID(), Materials.vibranium).setCreativeTab(Items.tabMITEITE);
     public static final BlockOreStorage blockVibranium = (BlockOreStorage) new BlockOreStorage(getNextBlockID(),Materials.vibranium).setCreativeTab(Items.tabMITEITE);
     public static final Block furnaceVibraniumBurning = new BlockFurnaceVibranium(getNextBlockID(), true).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep);
     public static final Block furnaceVibraniumIdle = new BlockFurnaceVibranium(getNextBlockID(), false).setCreativeTab(CreativeTabs.tabDecorations).setHardness(8.0F).setResistance(0.875f).setStepSound(Block.soundStoneFootstep).setCreativeTab(Items.tabMITEITE);
     public static final Block netherAdamantiumOre = new BlockNetherAdamantiumOre(getNextBlockID()).setCreativeTab(CreativeTabs.tabBlock).setHardness(4.0F).setStepSound(soundStoneFootstep).setUnlocalizedName("oreNetherAdamantium").setCreativeTab(Items.tabMITEITE);
     public static final Block chestVibranium = new StrongBoxBlock(getNextBlockID(), Materials.vibranium).setStepSound(soundMetalFootstep).setCreativeTab(Items.tabMITEITE);
-    public static final WorkbenchBlock vibraniumWorkBench = (WorkbenchBlock) new WorkbenchBlock(getNextBlockID(), Materials.vibranium, 0.55F, Material.adamantium).setCreativeTab(Items.tabMITEITE);
+    public static final WorkbenchBlock vibraniumWorkBench = (WorkbenchBlock) new BlockWorkbenchMITEITE(getNextBlockID(), Materials.vibranium, 0.55F, Material.adamantium).setCreativeTab(Items.tabMITEITE);
 
     protected Blocks(int par1, Material par2Material, BlockConstants constants) {
         super(par1, par2Material, constants);
@@ -37,14 +37,13 @@ public class Blocks extends Block {
     public static void registerItemBlocks(ItemRegistryEvent registryEvent) {
         anvilVibranium.stepSound = Block.soundAnvilFootstep;
         registryEvent.registerAnvil(MITEITEMod.ITENameSpace, "anvil_vibranium", anvilVibranium);
-        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "block_vibranium", blockVibranium);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "miteite:block_vibranium", "block_vibranium", blockVibranium);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace,"furnace_vibranium_idle", furnaceVibraniumIdle);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "furnace_vibranium_burning", furnaceVibraniumBurning);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "block_forging_table", blockForgingTable);
-        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "nether_adamantium_ore", netherAdamantiumOre);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "miteite:nether_adamantium_ore", "nether_adamantium_ore", netherAdamantiumOre);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "vibranium_chest", chestVibranium);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "toolbench.vibranium", vibraniumWorkBench);
-
     }
 
     public static void registerRecipes(CraftingRecipeRegisterEvent register) {

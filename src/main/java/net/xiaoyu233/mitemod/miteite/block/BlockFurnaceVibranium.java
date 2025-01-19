@@ -11,9 +11,9 @@ public class BlockFurnaceVibranium extends BlockFurnace {
 
     @Override
     public void registerIcons(IconRegister mt) {
-        this.blockIcon = mt.registerIcon("furnace/vibranium/side");
-        this.furnaceIconFront = mt.registerIcon(this.isActive ? "furnace/vibranium/front_on" : "furnace/vibranium/front_off");
-        this.furnaceIconTop = mt.registerIcon("furnace/vibranium/top");
+        this.blockIcon = mt.registerIcon("miteite:furnace/vibranium/side");
+        this.furnaceIconFront = mt.registerIcon(this.isActive ? "miteite:furnace/vibranium/front_on" : "miteite:furnace/vibranium/front_off");
+        this.furnaceIconTop = mt.registerIcon("miteite:furnace/vibranium/top");
     }
 
     @Override
