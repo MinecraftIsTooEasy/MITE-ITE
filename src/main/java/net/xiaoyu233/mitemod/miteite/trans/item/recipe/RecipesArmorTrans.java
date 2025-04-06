@@ -8,20 +8,11 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(RecipesArmor.class)
 public abstract class RecipesArmorTrans {
-    @Shadow
-    private CraftingManager crafting_manager;
-
-    @Shadow
-    protected abstract void addBootsRecipe(Item boots, Item component);
-
-    @Shadow
-    protected abstract void addCuirassRecipe(Item cuirass, Item component);
-
-    @Shadow
-    protected abstract void addHelmetRecipe(Item helmet, Item component);
-
-    @Shadow
-    protected abstract void addLeggingsRecipe(Item leggings, Item component);
+    @Shadow private CraftingManager crafting_manager;
+    @Shadow protected abstract void addBootsRecipe(Item boots, Item component);
+    @Shadow protected abstract void addCuirassRecipe(Item cuirass, Item component);
+    @Shadow protected abstract void addHelmetRecipe(Item helmet, Item component);
+    @Shadow protected abstract void addLeggingsRecipe(Item leggings, Item component);
 
     @Overwrite
     //TODO Use recipe modifier API
@@ -44,24 +35,24 @@ public abstract class RecipesArmorTrans {
                 "AHA",
                 "A A",
                 'A',Item.ingotAdamantium,
-                'H',Item.helmetAncientMetal);
+                'H',Item.helmetAncientMetal).func_92100_c();
         ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.plateAdamantium),true,
                 "A A",
                 "APA",
                 "AAA",
                 'A',Item.ingotAdamantium,
-                'P',Item.plateAncientMetal);
+                'P',Item.plateAncientMetal).func_92100_c();
         ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.legsAdamantium),true,
                 "ALA",
                 "A A",
                 "A A",
                 'A',Item.ingotAdamantium,
-                'L',Item.legsAncientMetal);
+                'L',Item.legsAncientMetal).func_92100_c();
         ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.bootsAdamantium),true,
                 "B A",
                 "A A",
                 'A',Item.ingotAdamantium,
-                'B',Item.bootsAncientMetal);
+                'B',Item.bootsAncientMetal).func_92100_c();
 
 
         //Iron -> Mithril

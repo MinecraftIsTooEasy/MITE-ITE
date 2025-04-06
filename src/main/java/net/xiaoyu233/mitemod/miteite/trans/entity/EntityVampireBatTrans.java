@@ -15,7 +15,7 @@ public class EntityVampireBatTrans extends EntityBat {
    }
 
    @Inject(
-           method = {"collideWithEntity(Lnet/minecraft/Entity;)V"},
+           method = "collideWithEntity(Lnet/minecraft/Entity;)V",
            at = @At(
                    value = "INVOKE",
                    shift = At.Shift.AFTER,

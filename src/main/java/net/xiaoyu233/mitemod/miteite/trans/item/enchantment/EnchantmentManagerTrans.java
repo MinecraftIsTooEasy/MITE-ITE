@@ -12,12 +12,12 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentManagerTrans {
-   @ModifyConstant(method={"buildEnchantmentList"}, constant={@Constant(floatValue=0.5f, ordinal=0)})
+   @ModifyConstant(method = "buildEnchantmentList", constant = @Constant(floatValue = 0.5f, ordinal = 0))
    private static float modify(float constant) {
       return 0.75f;
    }
 
-   @WrapOperation(method={"mapEnchantmentData"}, at={@At(value="INVOKE", target="Lnet/minecraft/Enchantment;getNumLevels()I")})
+   @WrapOperation(method = "mapEnchantmentData", at = @At(value = "INVOKE", target = "Lnet/minecraft/Enchantment;getNumLevels()I"))
    private static int modify(Enchantment instance, Operation<Integer> original, @Local Item item) {
       if (item.getHardestMetalMaterial() == Materials.vibranium) {
          return instance.getNumLevelsForVibranium();

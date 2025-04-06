@@ -14,7 +14,7 @@ public class BlockAnvilMITEITE extends BlockAnvil {
         this.blockIcon = par1IconRegister.registerIcon("miteite:anvil/" + this.metal_type.getName() + "/base");
         super.iconArray = new Icon[anvilIconNames.length];
 
-        for(int var2 = 0; var2 < super.iconArray.length; ++var2) {
+        for (int var2 = 0; var2 < super.iconArray.length; ++var2) {
             super.iconArray[var2] = par1IconRegister.registerIcon("miteite:anvil/" + this.metal_type.getName() + "/" + anvilIconNames[var2]);
         }
 

@@ -14,8 +14,8 @@ public class BlockStrongboxTrans extends Block {
     }
 
     @Inject(
-            method = {"registerIcons(Lnet/minecraft/IconRegister;)V"},
-            at = {@At("RETURN")}
+            method = "registerIcons(Lnet/minecraft/IconRegister;)V",
+            at = @At("RETURN")
     )
     private void injectTextureInit(IconRegister register, CallbackInfo callbackInfo) {
         if (this.blockMaterial == Materials.vibranium) {

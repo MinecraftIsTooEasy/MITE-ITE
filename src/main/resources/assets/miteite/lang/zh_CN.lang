@@ -91,3 +91,33 @@ container.workbench.boost=合成速度提升:
 container.strongbox.vibranium=振金保险箱
 
 itemGroup.MITE-ITE=MITE 不可能这么简单
+
+miteite.tool.modifier.maxlevel=装备等级:§6已达到最高级%s
+miteite.tool.modifier.level=装备等级:
+miteite.tool.modifier.exp=装备经验:
+miteite.tool.modifier.modifiers=装备强化:
+miteite.msg.modifier.level=你的 %1$s 的 %2$s §r属性已升级到 %3$s 级
+miteite.msg.modifier.new=你的 %1$s 获得了 %2$s §r属性
+miteite.tool.forging.grade=§5强化等级:§6
+miteite.tool.forging.exp=  §7装备经验增加:§a
+miteite.tool.forging.armor=  §9护甲增加:§6
+miteite.tool.forging.attack=  §9攻击力增加:§6
+miteite.tool.forging.dig=  §9挖掘速度增加:§6
+
+modifier.armor.durability.name=耐久
+modifier.armor.projectile_protection.name=弹射物保护
+modifier.armor.explosion_protection.name=爆炸保护
+modifier.armor.fire_protection.name=火焰保护
+modifier.armor.protection.name=保护
+modifier.armor.steady.name=稳定
+modifier.armor.blessed.name=神圣
+modifier.armor.indomitable.name=坚毅不倒
+
+modifier.tool.efficiency.name=急速
+modifier.tool.aquaynamic.name=喜水
+modifier.tool.durability.name=耐久
+modifier.tool.damage.name=锋利
+modifier.tool.slowdown.name=织网
+modifier.tool.unnatural.name=超自然
+modifier.tool.demon.name=恶魔之力
+modifier.tool.geology.name=地质学

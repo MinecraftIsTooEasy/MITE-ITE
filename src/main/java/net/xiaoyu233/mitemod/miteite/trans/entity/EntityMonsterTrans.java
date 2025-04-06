@@ -1,8 +1,9 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.*;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.api.*;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.EntityUtil;
 import net.xiaoyu233.mitemod.miteite.util.MathUtil;
@@ -18,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Random;
-
-import static net.xiaoyu233.mitemod.miteite.util.ReflectHelper.dyCast;
 
 @Mixin(EntityMob.class)
 public abstract class EntityMonsterTrans extends EntityLiving implements IMob, ITEMob {
@@ -173,8 +172,8 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
    private void injectCritAttack(Entity target, CallbackInfoReturnable<EntityDamageResult> cir, ItemStack held_item, Damage damage){
       float critBouns = 0.0F;
       boolean critical = false;
-      if (EnchantmentHelper.hasEnchantment(this.getHeldItemStack(), Enchantments.CRIT)) {
-         int critLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.CRIT, this.getHeldItemStack());
+      if (EnchantmentHelper.hasEnchantment(this.getHeldItemStack(), MITEITEEnchantmentRegistryInit.CRIT)) {
+         int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, this.getHeldItemStack());
          critical = this.rand.nextInt(10) < (Configs.Item.Enchantment.CRIT_ENCHANTMENT_CHANCE_BOOST_PER_LVL.get()) * critLevel;
          critBouns = (float)critLevel * (Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get())
                  .floatValue();
@@ -211,7 +210,7 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
    private void injectUpdate(CallbackInfo callback) {
       if (attackCauseFire){
          if (fireParticleTick == 0){
-            EntityUtil.generateRandomParticles(dyCast(this),EnumParticle.flame);
+            EntityUtil.generateRandomParticles(ReflectHelper.dyCast(this),EnumParticle.flame);
             fireParticleTick = 20;
          }
       }

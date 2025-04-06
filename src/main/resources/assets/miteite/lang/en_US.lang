@@ -92,3 +92,34 @@ container.workbench.boost=Crafting speed boost:
 container.strongbox.vibranium=Vibrantium Chest
 
 itemGroup.MITE-ITE=MITE-ITE
+
+miteite.tool.modifier.maxlevel=Level: §6Highest %s
+miteite.tool.modifier.level=Level:
+miteite.tool.modifier.exp=Exp:
+miteite.tool.modifier.modifiers=Modifiers:
+miteite.msg.modifier.level=Your %2$s §r modifier of %1$s has been upgraded to %3$s level
+miteite.msg.modifier.new=Your %1$s gets the %2$s §r modifier
+miteite.tool.forging.grade=§5Forging Grade:§6
+miteite.tool.forging.exp=  §7Experience increases:§a
+miteite.tool.forging.armor=  §9Armor increases:§6
+miteite.tool.forging.attack=  §9Attack increases:§6
+miteite.tool.forging.dig=  §9Digging speed increases:§6
+
+modifier.armor.durability.name=Durability
+modifier.armor.projectile_protection.name=Projectile Protection
+modifier.armor.explosion_protection.name=Explosion Protection
+modifier.armor.fire_protection.name=Fire Protection
+modifier.armor.protection.name=Protection
+modifier.armor.steady.name=Steady
+modifier.armor.blessed.name=Blessed
+modifier.armor.indomitable.name=Indomitable
+modifier.armor.immunity.name=Immunity
+
+modifier.tool.efficiency.name=Efficiency
+modifier.tool.aquaynamic.name=Aquaynamic
+modifier.tool.durability.name=Durability
+modifier.tool.damage.name=Damage
+modifier.tool.slowdown.name=Slowdown
+modifier.tool.unnatural.name=Unnatural.
+modifier.tool.demon.name=Demon
+modifier.tool.geology.name=Geology

@@ -2,6 +2,7 @@ package net.xiaoyu233.mitemod.miteite.events;
 
 import moddedmite.rustedironcore.api.event.events.SpawnConditionRegisterEvent;
 import net.minecraft.*;
+import net.xiaoyu233.mitemod.miteite.entity.EntityAnnihilationSkeleton;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 
 
@@ -28,6 +29,12 @@ public class MITEITESpawnConditions implements Consumer<SpawnConditionRegisterEv
                 return EntityAncientBoneLord.class;
             }
             return null;
+        });
+        event.register(EntityAnnihilationSkeleton.class, (world, x, y, z) -> {
+            if (world.isFullWaterBlock(x, y, z, true)) {
+                return null;
+            }
+            return EntityAnnihilationSkeleton.class;
         });
     }
 }

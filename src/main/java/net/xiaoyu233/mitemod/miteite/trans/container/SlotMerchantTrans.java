@@ -13,8 +13,8 @@ public class SlotMerchantTrans extends Slot {
    }
 
    @Inject(method = "onPickupFromSlot", at = @At("HEAD"), cancellable = true)
-   private void injectPreventClientSideTrading(EntityPlayer par1EntityPlayer, ItemStack par2ItemStack, CallbackInfo ci){
-      if (par1EntityPlayer.worldObj.isRemote){
+   private void injectPreventClientSideTrading(EntityPlayer par1EntityPlayer, ItemStack par2ItemStack, CallbackInfo ci) {
+      if (par1EntityPlayer.worldObj.isRemote) {
          ci.cancel();
       }
    }

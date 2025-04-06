@@ -5,6 +5,7 @@ import net.minecraft.EntityMob;
 import net.minecraft.SharedMonsterAttributes;
 import net.minecraft.World;
 import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
+import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,7 +20,7 @@ public class EntityInvisibleStalkerTrans extends EntityMob {
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.getEntityAttribute(SharedMonsterAttributes.followRange).setAttribute(40.0D);
       this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.23000000417232513D);
       this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(20D + day / 16D);

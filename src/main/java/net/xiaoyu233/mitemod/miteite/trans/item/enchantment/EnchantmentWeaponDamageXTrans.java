@@ -14,6 +14,8 @@ public abstract class EnchantmentWeaponDamageXTrans extends Enchantment {
    protected EnchantmentWeaponDamageXTrans(int id, EnumRarity rarity, int difficulty) {
       super(id, rarity, difficulty);
    }
+   @Shadow public abstract boolean isOnCreativeTab(CreativeTabs creativeModeTab);
+   @Shadow public abstract String getNameSuffix();
 
    @Inject(method = "canEnchantItem", at = @At("HEAD"), cancellable = true)
    public void injectVibraniumCheck(Item item, CallbackInfoReturnable<Boolean> cir) {
@@ -22,19 +24,8 @@ public abstract class EnchantmentWeaponDamageXTrans extends Enchantment {
       }
    }
 
-   @Shadow
-   public String getNameSuffix() {
-      return null;
-   }
-
    @SoftOverride
    public int getNumLevelsForVibranium() {
       return 7;
-   }
-
-
-   @Shadow
-   public boolean isOnCreativeTab(CreativeTabs creativeModeTab) {
-      return false;
    }
 }

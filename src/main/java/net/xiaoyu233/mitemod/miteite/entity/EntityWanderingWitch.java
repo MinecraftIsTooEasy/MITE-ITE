@@ -26,16 +26,18 @@ public class EntityWanderingWitch extends EntityWitch {
         this.tasks.addTask(1, new EntityAIAvoidEntity(this, EntityPlayer.class, 3.0F, 1.1, 1.4));
     }
 
-    private class WitchAttack extends EntityAIArrowAttack{
+    private class WitchAttack extends EntityAIArrowAttack {
         private WitchAttack() {
             super(EntityWanderingWitch.this, 1.0, 42, 10.0F);
         }
 
+        @Override
         public boolean shouldExecute() {
             return super.shouldExecute() && !this.getEntityHost().fleeing;
         }
     }
 
+    @Override
     public void cursePlayer(ServerPlayer player) {
 
     }
@@ -59,6 +61,7 @@ public class EntityWanderingWitch extends EntityWitch {
         }
     }
 
+    @Override
     public boolean getAggressive() {
         ITEWitch iteWitch = this;
         if (iteWitch.getSummon_wolf_countdown() > 0) {
@@ -171,7 +174,7 @@ public class EntityWanderingWitch extends EntityWitch {
                 for(int attempts = 0; attempts < batCounts; ++attempts) {
                     EntityBat bat = rand.nextInt(10) > 8 ? new EntityNightwing(this.worldObj) : new EntityGiantVampireBat(this.worldObj);
                     bat.addPotionEffect(new PotionEffect(Potion.damageBoost.id,Integer.MAX_VALUE,1));
-                    bat.setSpawnedByWitch(true,this);
+                    bat.setSpawnedByWitch(true, this);
                     bat.setPosition(target_x,target_y,target_z);
                     this.worldObj.spawnEntityInWorld(bat);
                     this.aliveBatsCount++;

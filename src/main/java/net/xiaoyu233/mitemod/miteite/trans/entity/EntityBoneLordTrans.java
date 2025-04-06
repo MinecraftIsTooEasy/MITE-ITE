@@ -42,7 +42,7 @@ public abstract class EntityBoneLordTrans extends EntitySkeletonTrans {
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
       boolean boneLordTweak = Configs.Entities.BONE_LORD_TWEAK.get();
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 44.0D);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.27000001072883606D);
       this.setEntityAttribute(SharedMonsterAttributes.attackDamage, boneLordTweak ? 10 + day /20D : 3.5D);

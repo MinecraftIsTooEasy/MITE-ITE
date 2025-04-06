@@ -9,6 +9,7 @@ public class BlockGlowingStoneTrans extends Block {
       super(par1, par2Material, (new BlockConstants()).setNeverConnectsWithFence());
    }
 
+   @Override
    public boolean hidesAdjacentSide(IBlockAccess block_access, int x, int y, int z, Block neighbor, int side) {
       return false;
    }

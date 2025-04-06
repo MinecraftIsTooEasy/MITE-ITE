@@ -2,19 +2,19 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.achievement.Achievements;
+import net.xiaoyu233.fml.util.ReflectHelper;
+import net.xiaoyu233.mitemod.miteite.achievement.MITEITEAchievementRegistryInit;
 import net.xiaoyu233.mitemod.miteite.api.*;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.network.SPacketCraftingBoost;
 import net.xiaoyu233.mitemod.miteite.network.SPacketOverlayMessage;
 import net.xiaoyu233.mitemod.miteite.trans.util.EntityDamageResultAccessor;
 import net.xiaoyu233.mitemod.miteite.util.BlockPos;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
-import net.xiaoyu233.mitemod.miteite.util.ReflectHelper;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -121,8 +121,8 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
    @Redirect(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityPlayer;willDeliverCriticalStrike()Z"))
    private boolean redirectCheckCriticalStrike(EntityPlayer instance){
       ItemStack heldItemStack = this.getHeldItemStack();
-      if (EnchantmentHelper.hasEnchantment(heldItemStack, Enchantments.CRIT)) {
-         int critLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.CRIT, heldItemStack);
+      if (EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT)) {
+         int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
          ITE$willCritOnLastAttack = instance.willDeliverCriticalStrike() || this.rand.nextInt(10) < (Configs.Item.Enchantment.CRIT_ENCHANTMENT_CHANCE_BOOST_PER_LVL.get()) * critLevel;
       }else{
          ITE$willCritOnLastAttack = instance.willDeliverCriticalStrike();
@@ -142,8 +142,8 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
       float critBouns = 0.0F;
       ItemStack heldItemStack = this.getHeldItemStack();
       //Check for crit enchantment
-      if (ITE$willCritOnLastAttack && EnchantmentHelper.hasEnchantment(heldItemStack, Enchantments.CRIT)) {
-         int critLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.CRIT, heldItemStack);
+      if (ITE$willCritOnLastAttack && EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT)) {
+         int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
          critBouns = (float)critLevel * (Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get()).floatValue();
       }
 
@@ -220,7 +220,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
          ItemStack[] var3 = this.getWornItems();
          List<ItemStack> readyEmergencyItemList = new ArrayList<>();
          for (ItemStack wornItem : var3) {
-            if (wornItem != null && wornItem.hasEnchantment(Enchantments.EMERGENCY, false)) {
+            if (wornItem != null && wornItem.hasEnchantment(MITEITEEnchantmentRegistryInit.EMERGENCY, false)) {
                if (wornItem.getEmergencyCooldown() <= 0){
                   readyEmergencyItemList.add(wornItem);
                }
@@ -279,7 +279,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
          }
       }
       if (wearing_full_suit_vibranium_plate) {
-         this.triggerAchievement(Achievements.wearAllVibraniumPlateArmor);
+         this.triggerAchievement(MITEITEAchievementRegistryInit.wearAllVibraniumPlateArmor);
       }
    }
 
@@ -308,18 +308,18 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
 
    @Redirect(method = "getReach(Lnet/minecraft/Block;I)F", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;getReachBonus(Lnet/minecraft/Block;I)F"))
    public final float injectReachEnchantment(Item instance, Block block, int metadata) {
-      int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EXTEND, this.getHeldItemStack());
+      int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.EXTEND, this.getHeldItemStack());
       return instance.getReachBonus(block, metadata) + (float)enchantmentLevel * 0.25F;
    }
 
    @Redirect(method = "getReach(Lnet/minecraft/EnumEntityReachContext;Lnet/minecraft/Entity;)F", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;getReachBonus()F"))
    private float injectReachEnchantment(Item instance){
-      return (float) (instance.getReachBonus() + EnchantmentHelper.getEnchantmentLevel(Enchantments.EXTEND, this.getHeldItemStack()) * 0.25);
+      return (float) (instance.getReachBonus() + EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.EXTEND, this.getHeldItemStack()) * 0.25);
    }
 
    @Redirect(method = "getReach(Lnet/minecraft/EnumEntityReachContext;Lnet/minecraft/Entity;)F", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;getReachBonus(Lnet/minecraft/Entity;)F"))
    private float injectReachEnchantment(Item instance, Entity entity){
-      return (float) (instance.getReachBonus(entity) + EnchantmentHelper.getEnchantmentLevel(Enchantments.EXTEND, this.getHeldItemStack()) * 0.25);
+      return (float) (instance.getReachBonus(entity) + EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.EXTEND, this.getHeldItemStack()) * 0.25);
    }
 
    @Shadow
@@ -383,7 +383,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
 
          List<ItemStack> readyEmergencyItems = new ArrayList<>();
          for (ItemStack wornItem : var5) {
-            if (wornItem != null && wornItem.hasEnchantment(Enchantments.EMERGENCY, false)) {
+            if (wornItem != null && wornItem.hasEnchantment(MITEITEEnchantmentRegistryInit.EMERGENCY, false)) {
                if (wornItem.getEmergencyCooldown() <= 0){
                   readyEmergencyItems.add(wornItem);
                }

@@ -2,7 +2,7 @@ package net.xiaoyu233.mitemod.miteite.util;
 
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 
 import java.util.*;
 
@@ -87,7 +87,7 @@ public class EnchantmentUtil {
 
             //build individualEnchantments
             List<Enchantment> added = new ArrayList<>();
-            for (Enchantment individualEnchantment : Enchantments.individualEnchantments) {
+            for (Enchantment individualEnchantment : MITEITEEnchantmentRegistryInit.individualEnchantments) {
                 if (individualEnchantment.canEnchantItem(item)) {
                     int level = 0;
                     while (level < individualEnchantment.getNumLevels()){

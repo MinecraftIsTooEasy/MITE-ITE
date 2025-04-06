@@ -16,8 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(NetClientHandler.class)
 public abstract class ClientNetworkManagerTrans extends NetHandler implements ITENetHandler {
-   @Shadow
-   private Minecraft mc;
+   @Shadow private Minecraft mc;
 
    @SoftOverride
    public void handleCraftingBoost(SPacketCraftingBoost packet) {

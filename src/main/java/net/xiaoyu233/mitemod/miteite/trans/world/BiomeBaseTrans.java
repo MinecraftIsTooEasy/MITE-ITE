@@ -14,8 +14,8 @@ import java.util.List;
 
 @Mixin(BiomeGenBase.class)
 public class BiomeBaseTrans {
-   @Shadow
-   protected List<SpawnListEntry> spawnableMonsterList;
+   @Shadow protected List<SpawnListEntry> spawnableMonsterList;
+
    @Inject(method = "<init>",at = @At("RETURN"))
    private void injectInit(CallbackInfo callbackInfo){
       this.spawnableMonsterList.add(new SpawnListEntry(EntityGiantZombie.class, 10, 1, 1));

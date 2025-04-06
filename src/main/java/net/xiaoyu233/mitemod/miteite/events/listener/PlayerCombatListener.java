@@ -4,7 +4,7 @@ import moddedmite.rustedironcore.api.event.listener.ICombatListener;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 
 public class PlayerCombatListener implements ICombatListener {
@@ -14,7 +14,7 @@ public class PlayerCombatListener implements ICombatListener {
         if (item_stack == null) {
             return original;
         }
-        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EXTEND, item_stack);
+        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.EXTEND, item_stack);
         return original + (enchantmentLevel * 0.25f);
     }
 
@@ -24,7 +24,7 @@ public class PlayerCombatListener implements ICombatListener {
         if (item_stack == null) {
             return original;
         }
-        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EXTEND, item_stack);
+        int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.EXTEND, item_stack);
         return original + (enchantmentLevel * 0.25f);
     }
 
@@ -44,7 +44,7 @@ public class PlayerCombatListener implements ICombatListener {
             ItemStack chestplate;
             float critBouns = 0.0f;
             ItemStack heldItemStack = player.getHeldItemStack();
-            int critLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.CRIT, heldItemStack);
+            int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
             if (critical) {
                 critBouns = (float) (critLevel * Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get());
             }
@@ -57,7 +57,7 @@ public class PlayerCombatListener implements ICombatListener {
                 }
             }
             float demonHunterAmp = 1.0f;
-            if (!target.getWorld().isOverworld() && heldItemStack != null) {
+            if (target != null && !target.getWorld().isOverworld() && heldItemStack != null) {
                 demonHunterAmp = 1.0f + ToolModifierTypes.DEMON_POWER.getModifierValue(heldItemStack.getTagCompound());
             }
         return (critBouns + original) * indomitableAmp * demonHunterAmp;

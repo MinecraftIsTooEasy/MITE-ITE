@@ -11,10 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Damage.class)
 public class DamageTrans implements ITEDamage {
-   @Shadow
-   private float amount;
-   @Shadow
-   private DamageSource source;
+   @Shadow private float amount;
+   @Shadow private DamageSource source;
 
    @Inject(method = "applyTargetDefenseModifiers", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/EntityLivingBase;getTotalProtection(Lnet/minecraft/DamageSource;)F"))
    protected void applyTargetDefenseModifiers(EntityLivingBase target, EntityDamageResult result, CallbackInfoReturnable<Float> cir) {
@@ -35,28 +33,8 @@ public class DamageTrans implements ITEDamage {
       }
    }
 
-   @Shadow
-   private boolean bypassesMundaneArmor() {
-      return false;
-   }
-
-   @Shadow
-   private ItemStack getItemAttackedWith() {
-      return null;
-   }
-
    @Override
    public Entity getResponsibleEntityP() {
       return this.source.getResponsibleEntity();
-   }
-
-   @Shadow
-   private DamageSource getSource() {
-      return null;
-   }
-
-   @Shadow
-   private boolean isAbsolute() {
-      return false;
    }
 }

@@ -3,7 +3,7 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 import net.minecraft.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.api.ITELivingBase;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -52,7 +52,7 @@ public abstract class EntityLivingBaseTrans extends Entity implements ITELivingB
       if (var2 instanceof EntityPlayer) {
          ItemStack heldItemStack = ((EntityPlayer) var2).getHeldItemStack();
          if (heldItemStack != null) {
-            float modifierValue = EnchantmentHelper.getEnchantmentLevel(Enchantments.BEHEADING,heldItemStack) * Configs.Item.Enchantment.BEHEADING_CHANCE_BOOST_PER_LVL.get();
+            float modifierValue = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.BEHEADING,heldItemStack) * Configs.Item.Enchantment.BEHEADING_CHANCE_BOOST_PER_LVL.get();
             if (modifierValue > 0.0F) {
                boolean dropHead = (float) this.rand.nextInt(100) < modifierValue * 100.0F;
                if (dropHead) {

@@ -21,7 +21,7 @@ public abstract class EntityLongdeadTrans extends EntitySkeletonTrans {
    @Inject(method = "addRandomEquipment", at = @At("HEAD"), cancellable = true)
    protected void addRandomEquipment(CallbackInfo ci) {
       this.addRandomWeapon();
-      int day = this.getWorld() != null ? Math.max(this.getWorld().getDayOfOverworld(), 0) : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       if (day < 96) {
          this.setBoots((new ItemStack(Item.bootsIron)).randomizeForMob(this, true));
          this.setLeggings((new ItemStack(Item.legsIron)).randomizeForMob(this, true));
@@ -41,7 +41,7 @@ public abstract class EntityLongdeadTrans extends EntitySkeletonTrans {
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 40.0D);
       this.setEntityAttribute(SharedMonsterAttributes.maxHealth, (this.isGuardian() ? 26.0D : 15.0D) + day / 16D);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.28999999165534973D);
@@ -49,7 +49,7 @@ public abstract class EntityLongdeadTrans extends EntitySkeletonTrans {
    }
 
    protected void enchantEquipment(ItemStack item_stack) {
-      int day = this.getWorld().getDayOfOverworld();
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       if ((double)this.getRNG().nextFloat() <= 0.2D + (double) day / 64.0D / 10.0D) {
          EnchantmentHelper.addRandomEnchantment(this.getRNG(), item_stack, (int)(5.0F + (float)(this.getRNG().nextInt(15 + day / 48) / 10) * (float)this.getRNG().nextInt(18)));
       }

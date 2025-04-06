@@ -3,20 +3,21 @@ package net.xiaoyu233.mitemod.miteite.events;
 import com.google.common.eventbus.Subscribe;
 import net.minecraft.*;
 import net.xiaoyu233.fml.reload.event.*;
+import net.xiaoyu233.fml.reload.event.recipe.ShapedRecipeModifier;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
-import net.xiaoyu233.mitemod.miteite.achievement.Achievements;
-import net.xiaoyu233.mitemod.miteite.block.Blocks;
+import net.xiaoyu233.mitemod.miteite.achievement.MITEITEAchievementRegistryInit;
+import net.xiaoyu233.mitemod.miteite.block.MITEITEBlockRegistryInit;
 import net.xiaoyu233.mitemod.miteite.entity.*;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.Items;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
-import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableRecipes;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.network.*;
 import net.xiaoyu233.mitemod.miteite.render.entity.RenderAncientDragon;
 import net.xiaoyu233.mitemod.miteite.render.entity.RenderAnnihilationSkeleton;
 import net.xiaoyu233.mitemod.miteite.render.entity.RenderWanderingWitch;
+import net.xiaoyu233.mitemod.miteite.tileentity.TileEntityForgingTable;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 
 public class MITEITEFishEvents {
@@ -92,7 +93,7 @@ public class MITEITEFishEvents {
                 double[] poses = new double[3];
                 int i = 0;
 
-                for(posLength = pos.length; i < posLength; ++i) {
+                for (posLength = pos.length; i < posLength; ++i) {
                     String po = pos[i];
 
                     try {
@@ -112,7 +113,7 @@ public class MITEITEFishEvents {
                 if (entity != null) {
                     entity.setPosition(player.posX, player.posY, player.posZ);
                     if (entity instanceof EntityLiving) {
-                        ((EntityLiving)entity).onSpawnWithEgg(null);
+                        ((EntityLiving) entity).onSpawnWithEgg(null);
                     }
 
                     world.spawnEntityInWorld(entity);
@@ -186,8 +187,8 @@ public class MITEITEFishEvents {
 
     @Subscribe
     public void onItemRegister(ItemRegistryEvent event) {
-        Items.registerItems(event);
-        Blocks.registerItemBlocks(event);
+        MITEITEItemRegistryInit.registerItems(event);
+        MITEITEBlockRegistryInit.registerItemBlocks(event);
     }
 
     @Subscribe
@@ -199,14 +200,14 @@ public class MITEITEFishEvents {
 
     @Subscribe
     public void onEnchantmentRegister(EnchantmentRegistryEvent event) {
-        Enchantments.registerEnchantments(event);
+        MITEITEEnchantmentRegistryInit.registerEnchantments(event);
     }
 
     @Subscribe
     public void onAchievementRegister(AchievementRegistryEvent event) {
-        Achievements.registerAchievements();
+        MITEITEAchievementRegistryInit.registerAchievements();
     }
-    
+
     @Subscribe
     public void onPlayerLoggedIn(PlayerLoggedInEvent event) {
         event.getPlayer().sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("[Server] ").appendComponent(ChatMessageComponent.createFromTranslationKey("MITE-ITE模组已加载,当前版本:").setColor(EnumChatFormatting.DARK_GREEN)).appendComponent(ChatMessageComponent.createFromText(Constant.MITE_ITE_VERSION).setColor(EnumChatFormatting.DARK_RED)));
@@ -229,4 +230,25 @@ public class MITEITEFishEvents {
         event.register(EntityAnnihilationSkeleton.class, new RenderAnnihilationSkeleton());
         event.register(EntityWanderingWitch.class, new RenderWanderingWitch());
     }
+
+    @Subscribe
+    public void onTileEntityRegister(TileEntityRegisterEvent event) {
+        event.register(TileEntityForgingTable.class, "ForgingTable");
+    }
+
+//    @Subscribe
+//    public void onRecipesModify(RecipeModifyEvent event) {
+//        ShapedRecipeModifier newAppleGoldRecipe = ShapedRecipeModifier.Builder
+//                .of(new ItemStack(Item.appleGold, 1, 0))
+//                .pattern("###")
+//                .pattern("IXI")
+//                .pattern("###")
+//                .ingredient('#', Item.goldNugget)
+//                .ingredient('I', Item.ingotGold)
+//                .ingredient('X', Item.appleRed)
+//                .includeInLowestCraftingDifficultyDetermination()
+//                .difficulty(50.0F)
+//                .build();
+//        event.addModifier(newAppleGoldRecipe);
+//    }
 }

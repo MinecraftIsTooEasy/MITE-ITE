@@ -12,10 +12,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(EntityAIMate.class)
 public class PathfinderGoalBreedTrans {
-   @Shadow
-   World theWorld;
-   @Shadow
-   private EntityAnimal theAnimal;
+   @Shadow World theWorld;
+   @Shadow private EntityAnimal theAnimal;
 
    @Redirect(method = "spawnBaby",
            at = @At(value = "NEW",

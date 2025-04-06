@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemGemsTrans extends Item {
    @ModifyConstant(method = "getExperienceValueWhenSacrificed", constant = @Constant(intValue = 25))
    private static int modifyLapisExp(int constant){
-      return 40;
+      return Configs.Item.LAPIS_EXP.get();
    }
 
    @ModifyConstant(method = "getExperienceValueWhenSacrificed", constant = @Constant(intValue = 50))

@@ -11,8 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiCrafting.class)
 public class GuiCraftingTableTrans extends InventoryEffectRenderer {
-   @Unique
-   private static final String BOOST_INFO = StatCollector.translateToLocal("container.workbench.boost");
+   @Unique private static final String BOOST_INFO = StatCollector.translateToLocal("container.workbench.boost");
 
    public GuiCraftingTableTrans(Container par1Container) {
       super(par1Container);
@@ -23,12 +22,12 @@ public class GuiCraftingTableTrans extends InventoryEffectRenderer {
    }
 
    @Inject(
-           method = {"drawGuiContainerBackgroundLayer(FII)V"},
-           at = {@At(
+           method = "drawGuiContainerBackgroundLayer(FII)V",
+           at = @At(
                    value = "INVOKE",
                    target = "Lnet/minecraft/Container;getSlot(I)Lnet/minecraft/Slot;",
                    shift = At.Shift.BEFORE
-           )},
+           ),
            cancellable = true
    )
    private void injectRemoveChooseQualityIcon(float par1, int par2, int par3, CallbackInfo callback) {

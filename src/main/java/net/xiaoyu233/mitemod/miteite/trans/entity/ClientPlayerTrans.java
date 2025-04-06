@@ -1,5 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlayer;
 import net.xiaoyu233.mitemod.miteite.gui.GuiForgingTable;
@@ -16,28 +18,14 @@ import static net.minecraft.ClientPlayer.calcUnmodifiedCraftingPeriod;
 
 @Mixin(ClientPlayer.class)
 public abstract class ClientPlayerTrans extends AbstractClientPlayer implements ITEPlayer {
-   @Shadow
-   protected Minecraft mc;
+   @Shadow protected Minecraft mc;
+   @Shadow public void sendChatToPlayer(ChatMessageComponent chatMessage) {}
+   @Shadow public abstract boolean canCommandSenderUseCommand(int i, String s);
+   @Shadow public abstract ChunkCoordinates getPlayerCoordinates();
 
    public ClientPlayerTrans(World par1World, String par2Str) {
       super(par1World, par2Str);
    }
-
-   @Shadow
-   public void sendChatToPlayer(ChatMessageComponent chatMessage) {
-   }
-
-   @Shadow
-   public boolean canCommandSenderUseCommand(int i, String s) {
-      return false;
-   }
-
-   @Shadow
-   public ChunkCoordinates getPlayerCoordinates() {
-      return null;
-   }
-
-   @Shadow protected abstract float getBenchAndToolsModifier(Container container);
 
    @Override
    public void displayGUIChestForMinecartEntity(EntityMinecartChest par1IInventory) {
@@ -53,7 +41,7 @@ public abstract class ClientPlayerTrans extends AbstractClientPlayer implements 
            locals = LocalCapture.CAPTURE_FAILHARD
    )
    private void injectModifyWorkbenchModifier(Container container, CallbackInfoReturnable<Float> cir, ContainerWorkbench container_workbench, SlotCrafting slot_crafting, ItemStack item_stack, Item item, IRecipe recipe, Material material_to_check_tool_bench_hardness_against, Material benchMaterial) {
-      if (benchMaterial.getMinHarvestLevel() < material_to_check_tool_bench_hardness_against.getMinHarvestLevel()) {
+      if (benchMaterial.min_harvest_level < material_to_check_tool_bench_hardness_against.min_harvest_level) {
          cir.setReturnValue(0.0F);
       } else if (benchMaterial == Material.flint || benchMaterial == Material.obsidian) {
          cir.setReturnValue(0.0F);
@@ -69,19 +57,11 @@ public abstract class ClientPlayerTrans extends AbstractClientPlayer implements 
          cir.setReturnValue(0.4F);
       } else if (benchMaterial == Materials.vibranium) {
          cir.setReturnValue(0.55F);
-      } else {
-         Minecraft.setErrorMessage("getBenchAndToolsModifier: unrecognized tool material " + benchMaterial);
-         cir.setReturnValue(0.0F);
       }
    }
 
-   @Inject(method = "getCraftingPeriod", at = @At("HEAD"), cancellable = true)
-   public void injectModifyCraftingPeriod(float quality_adjusted_crafting_difficulty, CallbackInfoReturnable<Integer> cir) {
-      int period = calcUnmodifiedCraftingPeriod(quality_adjusted_crafting_difficulty);
-      if (this.hasCurse(Curse.clumsiness)) {
-         period *= 2;
-      }
-      float bench_and_tools_modifier = this.getBenchAndToolsModifier(this.openContainer);
-      cir.setReturnValue(Math.round(Math.max((float)period * (1.0F - bench_and_tools_modifier) * (1.0f - Math.min(this.getExperienceLevel(),100) * 0.006f), 1) / (this.getCraftingBoostFactor() + 1.0F)));
+   @ModifyReturnValue(method = "getCraftingPeriod", at = @At("TAIL"))
+   public int modifyCraftingPeriod(int original, @Local(name = "period") int period, @Local(name = "bench_and_tools_modifier") float bench_and_tools_modifier) {
+      return Math.round(Math.max((float) period * (1.0F - bench_and_tools_modifier) * (1.0f - Math.min(this.getExperienceLevel(), 100) * 0.006f), 1) / (this.getCraftingBoostFactor() + 1.0F));
    }
 }

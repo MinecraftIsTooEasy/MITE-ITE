@@ -2,10 +2,10 @@ package net.xiaoyu233.mitemod.miteite.util;
 
 import net.minecraft.*;
 
-public class EntityUtil{
+public class EntityUtil {
 
     public static void generateRandomParticles(EntityMob entity, EnumParticle particle) {
-        for(int var2 = 0; var2 < 5; ++var2) {
+        for (int var2 = 0; var2 < 5; ++var2) {
             double var3 = entity.getRNG().nextGaussian() * 0.02D;
             double var5 = entity.getRNG().nextGaussian() * 0.02D;
             double var7 = entity.getRNG().nextGaussian() * 0.02D;

@@ -7,18 +7,12 @@ import org.spongepowered.asm.mixin.SoftOverride;
 
 @Mixin(EnchantmentLootBonus.class)
 public abstract class EnchantmentLootBonusTrans extends Enchantment {
+   @Shadow public abstract boolean canEnchantItem(Item item);
+   @Shadow public abstract String getNameSuffix();
+   @Shadow public abstract boolean isOnCreativeTab(CreativeTabs creativeModeTab);
+
    protected EnchantmentLootBonusTrans(int id, EnumRarity rarity, int difficulty) {
       super(id, rarity, difficulty);
-   }
-
-   @Shadow
-   public boolean canEnchantItem(Item item) {
-      return false;
-   }
-
-   @Shadow
-   public String getNameSuffix() {
-      return null;
    }
 
    @SoftOverride
@@ -26,8 +20,4 @@ public abstract class EnchantmentLootBonusTrans extends Enchantment {
       return 5;
    }
 
-   @Shadow
-   public boolean isOnCreativeTab(CreativeTabs creativeModeTab) {
-      return false;
-   }
 }

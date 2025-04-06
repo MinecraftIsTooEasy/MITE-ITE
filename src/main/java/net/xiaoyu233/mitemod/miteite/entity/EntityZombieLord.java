@@ -1,8 +1,8 @@
 package net.xiaoyu233.mitemod.miteite.entity;
 
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
-import net.xiaoyu233.mitemod.miteite.item.Items;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
+import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.SoftOverride;
 
 public class EntityZombieLord extends EntityZombie {
@@ -14,11 +14,11 @@ public class EntityZombieLord extends EntityZombie {
     @Override
     protected void addRandomEquipment() {
         int day = this.getWorld().getDayOfOverworld();
-        this.setCurrentItemOrArmor(0, (new ItemStack(Items.VIBRANIUM_SWORD, 1)).randomizeForMob(this, day > 64));
-        this.setCurrentItemOrArmor(1, (new ItemStack(Items.VIBRANIUM_HELMET, 1)).randomizeForMob(this, day > 64));
-        this.setCurrentItemOrArmor(2, (new ItemStack(Items.VIBRANIUM_CHESTPLATE, 1)).randomizeForMob(this, day > 64));
-        this.setCurrentItemOrArmor(3, (new ItemStack(Items.VIBRANIUM_LEGGINGS, 1)).randomizeForMob(this, day > 64));
-        this.setCurrentItemOrArmor(4, (new ItemStack(Items.VIBRANIUM_BOOTS, 1)).randomizeForMob(this, day > 64));
+        this.setCurrentItemOrArmor(0, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_SWORD, 1)).randomizeForMob(this, day > 64));
+        this.setCurrentItemOrArmor(1, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_HELMET, 1)).randomizeForMob(this, day > 64));
+        this.setCurrentItemOrArmor(2, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_CHESTPLATE, 1)).randomizeForMob(this, day > 64));
+        this.setCurrentItemOrArmor(3, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_LEGGINGS, 1)).randomizeForMob(this, day > 64));
+        this.setCurrentItemOrArmor(4, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_BOOTS, 1)).randomizeForMob(this, day > 64));
         this.addPotionEffect(new PotionEffect(1, 2147483647, 0));
         this.addPotionEffect(new PotionEffect(5, 2147483647, 0));
     }
@@ -26,9 +26,9 @@ public class EntityZombieLord extends EntityZombie {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        int day = this.getWorld().getDayOfOverworld();
-        this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 12.0D + (double)day / 48.0D);
-        this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 50.0D + (double)day / 14.0D);
+        int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
+        this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 12.0D + (double) day / 48.0D);
+        this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 50.0D + (double) day / 14.0D);
         this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.3D);
     }
 

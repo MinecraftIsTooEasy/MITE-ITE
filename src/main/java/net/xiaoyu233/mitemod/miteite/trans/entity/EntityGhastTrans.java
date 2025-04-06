@@ -24,6 +24,7 @@ public class EntityGhastTrans extends EntityFlying implements IMob {
       this.explosionStrength = 6;
       super.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(15.0D);
    }
+
    @Shadow
    public boolean canSpawnInShallowWater() {
       return false;

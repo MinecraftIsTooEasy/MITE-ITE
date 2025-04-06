@@ -5,6 +5,7 @@ import net.minecraft.EntitySpider;
 import net.minecraft.SharedMonsterAttributes;
 import net.minecraft.World;
 import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
+import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,7 +20,7 @@ public class EntitySpiderTrans extends EntityArachnid {
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? Math.max(this.getWorld().getDayOfOverworld() - 32, 0) : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.maxHealth, this.getEntityAttributeValue(SharedMonsterAttributes.maxHealth) * 1.5D + (double)day / 24.0D);
       this.setEntityAttribute(SharedMonsterAttributes.attackDamage, this.getEntityAttributeValue(SharedMonsterAttributes.attackDamage) + (double)day / 24.0D);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);

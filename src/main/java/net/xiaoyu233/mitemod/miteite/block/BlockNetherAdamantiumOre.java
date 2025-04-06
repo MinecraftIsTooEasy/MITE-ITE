@@ -17,9 +17,9 @@ public class BlockNetherAdamantiumOre extends BlockOre {
         for(int var6 = 0; var6 < 2; ++var6) {
             int var19 = par5Random.nextInt(2) * 2 - 1;
             int var20 = par5Random.nextInt(2) * 2 - 1;
-            double x = (double)par2 + 0.5D + 0.25D * (double)var19;
-            double y = (float)par3 + par5Random.nextFloat();
-            double z = (double)par4 + 0.5D + 0.25D * (double)var20;
+            double x = (double) par2 + 0.5D + 0.25D * (double) var19;
+            double y = (float) par3 + par5Random.nextFloat();
+            double z = (double) par4 + 0.5D + 0.25D * (double) var20;
             double vY = ((double) par5Random.nextFloat() - 0.5D) * 0.125D;
             double vZ = par5Random.nextFloat() * 1.0F * (float) var20 * 0.125D;
             double vX = par5Random.nextFloat() * 1.0F * (float) var19 * 0.125D;

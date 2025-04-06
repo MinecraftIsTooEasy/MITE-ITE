@@ -17,7 +17,7 @@ public abstract class EntityFishingHookTrans extends Entity {
    }
 
    @Redirect(
-           method = {"catchFish()I"},
+           method = "catchFish()I",
            at = @At(
                    value = "NEW",
                    target = "(Lnet/minecraft/World;DDDI)Lnet/minecraft/EntityXPOrb;"

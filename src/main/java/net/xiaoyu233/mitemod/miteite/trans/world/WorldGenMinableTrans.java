@@ -1,7 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.trans.world;
 
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.block.Blocks;
+import net.xiaoyu233.mitemod.miteite.block.MITEITEBlockRegistryInit;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,17 +13,14 @@ import java.util.Random;
 
 @Mixin(WorldGenMinable.class)
 public abstract class WorldGenMinableTrans {
-   @Shadow
-   private int minableBlockId;
-
+   @Shadow private int minableBlockId;
    @Shadow public abstract int getMinVeinHeight(World world);
-
    @Shadow public abstract int getMaxVeinHeight(World world);
 
    @Inject(method = "getRandomVeinHeight", at = @At(value = "INVOKE", target = "Lnet/minecraft/Minecraft;setErrorMessage(Ljava/lang/String;)V"), cancellable = true)
    public void wrapNetherAdamantiumSetError(World world, Random rand, CallbackInfoReturnable<Integer> cir) {
       Block block = Block.blocksList[this.minableBlockId];
-      if (block == Blocks.netherAdamantiumOre){
+      if (block == MITEITEBlockRegistryInit.netherAdamantiumOre){
          int min_height = this.getMinVeinHeight(world);
          int height_range = this.getMaxVeinHeight(world) - min_height + 1;
          cir.setReturnValue(min_height + (int)(rand.nextFloat() * (float)height_range));
@@ -34,10 +31,10 @@ public abstract class WorldGenMinableTrans {
    public void injectMinVeinHeight(World world, CallbackInfoReturnable<Integer> cir) {
       Block block = Block.blocksList[this.minableBlockId];
       if (world.isUnderworld()) {
-         if (block == Block.oreAdamantium){
+         if (block == Block.oreAdamantium) {
             cir.setReturnValue(130);
-         }else cir.setReturnValue(140);
-      }else if (world.isTheNether()){
+         } else cir.setReturnValue(140);
+      } else if (world.isTheNether()) {
          cir.setReturnValue(35);
       }
    }
@@ -54,11 +51,11 @@ public abstract class WorldGenMinableTrans {
    public void injectMaxVeinHeight(World world, CallbackInfoReturnable<Integer> cir) {
       Block block = Block.blocksList[this.minableBlockId];
       if (world.isUnderworld()) {
-         if (block == Block.oreAdamantium){
+         if (block == Block.oreAdamantium) {
             cir.setReturnValue(230);
          }
          cir.setReturnValue(225);
-      } else if (world.isTheNether()){
+      } else if (world.isTheNether()) {
          cir.setReturnValue(115);
       }
    }

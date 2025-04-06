@@ -37,7 +37,7 @@ public class EntityAncientBoneLordTrans extends EntityBoneLord {
    protected void applyEntityAttributes(CallbackInfo ci) {
       super.applyEntityAttributes();
       boolean boneLordTweak = Configs.Entities.BONE_LORD_TWEAK.get();
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 48.0);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.3F);
       this.setEntityAttribute(SharedMonsterAttributes.attackDamage, boneLordTweak ? 13.0 + (double)day / 20.0 : 8.0);
@@ -47,11 +47,11 @@ public class EntityAncientBoneLordTrans extends EntityBoneLord {
 
    @Override
    protected void enchantEquipment(ItemStack item_stack) {
-      if ((double)this.getRNG().nextFloat() <= 0.2 + (double)this.getWorld().getDayOfOverworld() / 64.0 / 10.0) {
+      if ((double) this.getRNG().nextFloat() <= 0.2 + (double) this.getWorld().getDayOfOverworld() / 64.0 / 10.0) {
          EnchantmentHelper.addRandomEnchantment(
                  this.getRNG(),
                  item_stack,
-                 (int)(5.0F + (float)((this.getRNG().nextInt(15 + this.getWorld().getDayOfOverworld() / 24) + 3) / 10) * (float)this.getRNG().nextInt(18))
+                 (int) (5.0F + (float) ((this.getRNG().nextInt(15 + this.getWorld().getDayOfOverworld() / 24) + 3) / 10) * (float)this.getRNG().nextInt(18))
          );
       }
    }

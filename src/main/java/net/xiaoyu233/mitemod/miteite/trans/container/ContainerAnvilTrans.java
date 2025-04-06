@@ -16,25 +16,22 @@ public abstract class ContainerAnvilTrans extends Container {
         super(player);
     }
 
-    @Shadow
-    public boolean canInteractWith(EntityPlayer var1) {
-        return false;
-    }
+    @Shadow public abstract boolean canInteractWith(EntityPlayer var1);
 
     @Inject(
-            method = {"isRepairing(Z)Z"},
-            at = {@At(
+            method = "isRepairing(Z)Z",
+            at = @At(
                     value = "FIELD",
                     target = "Lnet/minecraft/ContainerRepair;repair_fail_condition:I",
                     shift = At.Shift.AFTER,
                     opcode = 181
-            )},
-            slice = {@Slice(
+            ),
+            slice = @Slice(
                     from = @At(
                             value = "INVOKE",
                             target = "Lnet/minecraft/Item;hasQuality()Z"
                     )
-            )}
+            )
     )
     private void removeRepairExpReq(boolean b, CallbackInfoReturnable<Boolean> callbackInfo) {
         this.repair_fail_condition = 0;

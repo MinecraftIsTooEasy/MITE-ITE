@@ -1,16 +1,15 @@
 package net.xiaoyu233.mitemod.miteite.trans.item;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.EnumQuality;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EnumQuality.class)
 public class EnumQualityTrans {
-    @Inject(method = "getDurabilityModifier", cancellable = true, at = @At("HEAD"))
-    public void getDurabilityModifier(CallbackInfoReturnable<Float> cir) {
+    @ModifyReturnValue(method = "getDurabilityModifier", at = @At("TAIL"))
+    public float getDurabilityModifier(float original) {
         //To remove quality modifier
-        cir.setReturnValue(1.0f);
+        return 1.0F;
     }
 }

@@ -12,33 +12,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.ArrayList;
 
 @Mixin(ContainerMerchant.class)
-public class ContainerMerchantTrans extends Container {
+public abstract class ContainerMerchantTrans extends Container {
 
    public ContainerMerchantTrans(EntityPlayer player) {
       super(player);
    }
 
    @Shadow
-   public boolean canInteractWith(EntityPlayer var1) {
-      return false;
-   }
+   public abstract boolean canInteractWith(EntityPlayer var1);
 
    @Inject(
-           method = {"onContainerClosed(Lnet/minecraft/EntityPlayer;)V"},
-           at = {@At(
+           method = "onContainerClosed(Lnet/minecraft/EntityPlayer;)V",
+           at = @At(
                    ordinal = 0,
                    shift = At.Shift.AFTER,
                    value = "INVOKE_ASSIGN",
                    target = "Lnet/minecraft/InventoryMerchant;getStackInSlotOnClosing(I)Lnet/minecraft/ItemStack;"
-           )}
+           )
    )
    private void injectSyncWhenClose(EntityPlayer par1EntityPlayer, CallbackInfo callback) {
       this.updatePlayerInventory(par1EntityPlayer);
    }
 
    @Inject(
-           method = {"transferStackInSlot(Lnet/minecraft/EntityPlayer;I)Lnet/minecraft/ItemStack;"},
-           at = {@At("TAIL")}
+           method = "transferStackInSlot(Lnet/minecraft/EntityPlayer;I)Lnet/minecraft/ItemStack;",
+           at = @At("TAIL")
    )
    private void injectSyncWhenTransferItems(EntityPlayer par1EntityPlayer, int par2, CallbackInfoReturnable<ItemStack> c) {
       if (!this.player.worldObj.isRemote) {

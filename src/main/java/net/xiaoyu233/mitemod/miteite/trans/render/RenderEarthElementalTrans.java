@@ -9,11 +9,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(RenderEarthElemental.class)
-public class RenderEarthElementalTrans extends RenderBiped {
+public abstract class RenderEarthElementalTrans extends RenderBiped {
+   @Shadow protected abstract void setTextures();
+   @Shadow protected abstract void setTexture(int index, String name, boolean magma);
+
    public RenderEarthElementalTrans() {
       super(new ModelInvisibleStalker(), 0.5F);
    }
-
 
    @Inject(method = "getTextures", at = @At("HEAD"), cancellable = true)
    private void injectGetPlankTexture(EntityEarthElemental earth_elemental, CallbackInfoReturnable<ResourceLocation> cir){
@@ -33,12 +35,5 @@ public class RenderEarthElementalTrans extends RenderBiped {
       if (index == 10) {
          this.setTexture(index, "miteite:textures/entity/earth_elemental/" + name + "/earth_elemental_" + name + (magma ? "_magma" : ""), "miteite:textures/entity/earth_elemental/" + (magma ? "earth_elemental_magma" : "earth_elemental"));
       }
-   }
-
-   @Shadow
-   protected void setTextures() {
-   }
-   @Shadow
-   private void setTexture(int index, String name, boolean magma) {
    }
 }

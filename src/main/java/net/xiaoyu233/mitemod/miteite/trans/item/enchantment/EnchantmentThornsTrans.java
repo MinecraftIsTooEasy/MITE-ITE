@@ -8,24 +8,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.SoftOverride;
 
 @Mixin(EnchantmentThorns.class)
-public class EnchantmentThornsTrans extends EnchantmentTrans{
-   @Shadow
-   public boolean canEnchantItem(Item item) {
-      return false;
-   }
-
-   @Shadow
-   public String getNameSuffix() {
-      return null;
-   }
+public abstract class EnchantmentThornsTrans extends EnchantmentTrans{
+   @Shadow public abstract boolean canEnchantItem(Item item);
 
    @SoftOverride
    public int getNumLevelsForVibranium() {
       return 5;
-   }
-
-   @Shadow
-   public boolean isOnCreativeTab(CreativeTabs creativeModeTab) {
-      return false;
    }
 }

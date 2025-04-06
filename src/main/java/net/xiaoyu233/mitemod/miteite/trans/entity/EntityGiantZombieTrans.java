@@ -88,7 +88,7 @@ public class EntityGiantZombieTrans extends EntityMob {
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? Math.max(this.getWorld().getDayOfOverworld(), 0) : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setAttribute(25.0D + (double)day / 16.0D);
       this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(100.0D + (double)day / 16.0D);
       this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.3D);

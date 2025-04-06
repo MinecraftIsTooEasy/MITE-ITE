@@ -19,21 +19,20 @@ import static net.xiaoyu233.mitemod.miteite.util.WorldUtil.isBloodMoonDay;
 public abstract class WorldTrans implements ITEWorld {
 
    @Shadow public abstract boolean isBlueMoon(boolean exclusively_at_night);
-
-    @Shadow
-    public static boolean isBlueMoon(long unadjusted_tick, boolean exclusively_at_night) {
+   @Shadow public static boolean isBlueMoon(long unadjusted_tick, boolean exclusively_at_night) {
         return false;
     }
-
-    @Shadow public static int getDayOfWorld(long unadjusted_tick){
+   @Shadow public static int getDayOfWorld(long unadjusted_tick){
       return 0;
    }
+   @Shadow protected WorldInfo worldInfo;
+   @Shadow public abstract Block getBlock(int x, int y, int z);
+   @Shadow public final int getBlockMetadata(int x, int y, int z) {
+      return 0;
+   }
+   @Shadow public abstract long getTotalWorldTime();
 
-   @Shadow
-   protected WorldInfo worldInfo;
-
-   @Unique
-   public int getDayOfOverworld(){
+   @Unique public int getDayOfOverworld(){
       return getDayOfWorld(this.worldInfo.getWorldTotalTime(0));
    }
 
@@ -82,15 +81,7 @@ public abstract class WorldTrans implements ITEWorld {
       return 72000L;
    }
 
-   @Shadow
-   public Block getBlock(int x, int y, int z) {
-      return null;
-   }
 
-   @Shadow
-   public final int getBlockMetadata(int x, int y, int z) {
-      return 0;
-   }
 
    @ModifyReturnValue(method = "isBloodMoon(Z)Z", at = @At(value = "RETURN", ordinal = 1))
    private boolean modifyBloodMoonTime(boolean original, boolean exclusively_at_night) {
@@ -99,8 +90,4 @@ public abstract class WorldTrans implements ITEWorld {
       }
       return original;
    }
-
-
-   @Shadow public abstract long getTotalWorldTime();
-
 }

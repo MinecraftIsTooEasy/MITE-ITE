@@ -13,32 +13,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Enchantment.class)
 public class EnchantmentTrans implements ITEEnchantment{
 
-   @Inject(method = "<clinit>",at = @At("RETURN"))
+   @Inject(method = "<clinit>", at = @At("RETURN"))
    private static void injectClinit(CallbackInfo callbackInfo){
-
    }
    @Redirect(method = "getMinEnchantmentLevelsCost(I)I", at = @At(value = "INVOKE", target = "Lnet/minecraft/Enchantment;getNumLevels()I"))
    public int redirectGetVibraniumLevels(Enchantment instance) {
       return instance.getNumLevelsForVibranium();
    }
 
-   @Unique
-   public float enchantIndividualChance(int enchantmentLevel){
+   @Unique public float enchantIndividualChance(int enchantmentLevel){
       return 0;
    }
 
-   @Unique
-   public boolean enchantIndividually(){
+   @Unique public boolean enchantIndividually(){
       return false;
    }
 
-   @Shadow
-   public int getNumLevels() {
+   @Shadow public int getNumLevels() {
       return 5;
    }
 
-   @Unique
-   public int getNumLevelsForVibranium() {
+   @Unique public int getNumLevelsForVibranium() {
       return this.getNumLevels();
    }
 

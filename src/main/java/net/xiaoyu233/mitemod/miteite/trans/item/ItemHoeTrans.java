@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemHoe.class)
-public abstract class ItemHoeTrans extends ItemToolTrans{
+public abstract class ItemHoeTrans extends ItemToolTrans {
     @Override
     @SoftOverride
     protected int getExpForBlockBreak(BlockBreakInfo blockBreakInfo) {
@@ -24,11 +24,11 @@ public abstract class ItemHoeTrans extends ItemToolTrans{
         return 0;
     }
 
-    @Inject(method = "tryTillSoil",at =
+    @Inject(method = "tryTillSoil", at =
     @At(value = "INVOKE",
             target = "Lnet/minecraft/EntityPlayer;tryDamageHeldItem(Lnet/minecraft/DamageSource;I)Lnet/minecraft/ItemDamageResult;",
             shift = At.Shift.AFTER))
-    private static void injectAddExpForTilling(World world, int x, int y, int z, EnumFace face, EntityPlayer player, ItemStack item_stack, CallbackInfoReturnable<Boolean> callbackInfo){
-        item_stack.getItem().addExpForTool(item_stack,player,1);
+    private static void injectAddExpForTilling(World world, int x, int y, int z, EnumFace face, EntityPlayer player, ItemStack item_stack, CallbackInfoReturnable<Boolean> callbackInfo) {
+        item_stack.getItem().addExpForTool(item_stack, player, 1);
     }
 }

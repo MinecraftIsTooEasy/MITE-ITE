@@ -11,8 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(InventoryPlayer.class)
 public class PlayerInventoryTrans {
-   @Shadow
-   public EntityPlayer player;
+   @Shadow public EntityPlayer player;
 
    //Fix the bug of getting items invalidly
    @Inject(method = "trySwitchItemOrRestock(Lnet/minecraft/Item;IZ)Z",at = @At(value = "HEAD"))

@@ -10,12 +10,12 @@ import moddedmite.rustedironcore.property.MaterialProperties;
 import net.minecraft.*;
 import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlugin;
-import net.xiaoyu233.mitemod.miteite.block.Blocks;
+import net.xiaoyu233.mitemod.miteite.block.MITEITEBlockRegistryInit;
 import net.xiaoyu233.mitemod.miteite.events.listener.FurnaceExtend;
 import net.xiaoyu233.mitemod.miteite.events.listener.PlayerAttributeListener;
 import net.xiaoyu233.mitemod.miteite.events.listener.PlayerCombatListener;
 import net.xiaoyu233.mitemod.miteite.events.listener.CraftingRegistry;
-import net.xiaoyu233.mitemod.miteite.item.Items;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.registry.ITEVanillaPlugin;
@@ -44,26 +44,25 @@ public class MITEITERICEvents extends Handlers {
                 return item_stack.getItem().getHardestMetalMaterial() == Materials.vibranium ? original + 1 : original;
             }
         });
-        GravelDrop.registerGravelLootEntry(new GravelDropHandler.GravelLootEntry((GravelDropHandler.AdamantiumEntry.weight() * 1.0f) / 3.0f, info -> {
-            return Integer.valueOf(Items.VIBRANIUM_NUGGET.itemID);
-        }));
+        GravelDrop.registerGravelLootEntry(new GravelDropHandler.GravelLootEntry((
+                GravelDropHandler.AdamantiumEntry.weight()) / 3.0f, info -> MITEITEItemRegistryInit.VIBRANIUM_NUGGET.itemID));
         BeaconUpdate.register(new IBeaconUpdateHandler() {
             public boolean onBlockValidModify(TileEntityBeacon tileEntityBeacon, int blockID, boolean original) {
-                return original || blockID == Blocks.blockVibranium.blockID;
+                return original || blockID == MITEITEBlockRegistryInit.blockVibranium.blockID;
             }
 
             public boolean onItemValidModify(TileEntityBeacon tileEntityBeacon, ItemStack itemStack, boolean original) {
-                return original || itemStack.getItem() == Items.VIBRANIUM_INGOT;
+                return original || itemStack.getItem() == MITEITEItemRegistryInit.VIBRANIUM_INGOT;
             }
         });
         SpawnCondition.register(new MITEITESpawnConditions());
         Smelting.register(new FurnaceExtend());
         Crafting.register(new CraftingRegistry());
         PropertiesRegistry.register(() -> {
-            MaterialProperties.RepairItem.register(Materials.vibranium, Items.VIBRANIUM_NUGGET);
+            MaterialProperties.RepairItem.register(Materials.vibranium, MITEITEItemRegistryInit.VIBRANIUM_NUGGET);
             MaterialProperties.HarvestEfficiency.register(Materials.vibranium, Float.valueOf(3.5f));
-            ItemProperties.BurnTime.register(Items.BLAZE_COAL_POWDER, 6800);
-            ItemProperties.HeatLevel.register(Items.BLAZE_COAL_POWDER, 5);
+            ItemProperties.BurnTime.register(MITEITEItemRegistryInit.BLAZE_COAL_POWDER, 6800);
+            ItemProperties.HeatLevel.register(MITEITEItemRegistryInit.BLAZE_COAL_POWDER, 5);
             ITERegistryImpl MITEITERegistry = new ITERegistryImpl();
             new ITEVanillaPlugin().register(MITEITERegistry);
             FishModLoader.getEntrypointContainers("mite_ite", ITEPlugin.class).forEach(container -> {

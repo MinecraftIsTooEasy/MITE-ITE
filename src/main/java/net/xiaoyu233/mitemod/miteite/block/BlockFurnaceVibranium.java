@@ -23,11 +23,11 @@ public class BlockFurnaceVibranium extends BlockFurnace {
 
     @Override
     public int getActiveBlockID() {
-        return Blocks.furnaceVibraniumBurning.blockID;
+        return MITEITEBlockRegistryInit.furnaceVibraniumBurning.blockID;
     }
 
     @Override
     public int getIdleBlockID() {
-        return Blocks.furnaceVibraniumIdle.blockID;
+        return MITEITEBlockRegistryInit.furnaceVibraniumIdle.blockID;
     }
 }

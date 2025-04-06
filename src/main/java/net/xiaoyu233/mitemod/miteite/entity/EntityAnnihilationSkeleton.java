@@ -3,8 +3,7 @@ package net.xiaoyu233.mitemod.miteite.entity;
 import net.minecraft.*;
 import net.xiaoyu233.fml.util.Utils;
 import net.xiaoyu233.mitemod.miteite.api.ITEDamage;
-import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
-import net.xiaoyu233.mitemod.miteite.item.Items;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.EntityUtil;
 import org.spongepowered.asm.mixin.SoftOverride;
@@ -13,7 +12,7 @@ public class EntityAnnihilationSkeleton extends EntitySkeleton {
     private boolean attackedByPlayer;
     private int despawnCount;
     private final ItemStack weapon = Utils.safeMake(() -> {
-        ItemStack itemStack = new ItemStack(Items.VIBRANIUM_DAGGER);
+        ItemStack itemStack = new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_DAGGER);
         itemStack.addEnchantment(Enchantment.knockback,5);
         return itemStack;
     }, null);
@@ -134,8 +133,8 @@ public class EntityAnnihilationSkeleton extends EntitySkeleton {
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.setEntityAttribute(SharedMonsterAttributes.maxHealth,30);
-        this.setEntityAttribute(SharedMonsterAttributes.attackDamage,Integer.MAX_VALUE);
+        this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 30);
+        this.setEntityAttribute(SharedMonsterAttributes.attackDamage, Integer.MAX_VALUE);
         this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.2772D);
     }
 
@@ -163,7 +162,7 @@ public class EntityAnnihilationSkeleton extends EntitySkeleton {
     @Override
     protected void dropFewItems(boolean recently_hit_by_player, DamageSource damage_source) {
         if (recently_hit_by_player){
-            this.dropItemStack(new ItemStack(Items.VIBRANIUM_NUGGET,5));
+            this.dropItemStack(new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_NUGGET,5));
             this.dropItemStack(new ItemStack(Item.diamond,2));
         }
     }

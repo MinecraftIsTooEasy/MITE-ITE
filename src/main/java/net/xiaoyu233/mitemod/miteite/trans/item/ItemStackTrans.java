@@ -3,13 +3,14 @@ package net.xiaoyu233.mitemod.miteite.trans.item;
 import com.google.common.collect.Multimap;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.api.ITEStack;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
-import net.xiaoyu233.mitemod.miteite.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -21,23 +22,18 @@ import java.util.List;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackTrans implements ITEStack {
-   @Shadow
-   public int animationsToGo;
-   @Shadow
-   public int itemID;
-   @Shadow
-   public int stackSize;
-   @Shadow
-   public NBTTagCompound stackTagCompound;
-   @Shadow
-   private int damage;
-   @Shadow
-   private boolean is_artifact;
-   @Shadow
-   private EnumQuality quality;
-   @Shadow
-   private int subtype;
-   private boolean toolNbtFixed;
+   @Shadow public int itemID;
+   @Shadow public int stackSize;
+   @Shadow public NBTTagCompound stackTagCompound;
+   @Shadow private int damage;
+   @Shadow private boolean is_artifact;
+   @Shadow private int subtype;
+   @Shadow public abstract ItemStack setItemSubtype(int subtype);
+   @Shadow public abstract ItemStack setTagCompound(NBTTagCompound par1NBTTagCompound);
+   @Shadow @Nonnull public abstract EnumQuality getQuality();
+   @Shadow @Nonnull public abstract Item getItem();
+
+   @Unique private boolean toolNbtFixed;
 
    public ItemStackTrans(int id, int stack_size, int subtype) {
       this.itemID = id;
@@ -53,11 +49,11 @@ public abstract class ItemStackTrans implements ITEStack {
       return this.stackTagCompound != null ? this.stackTagCompound.getInteger("forging_grade") : 0;
    }
 
-   public int getEmergencyCooldown(){
+   public int getEmergencyCooldown() {
       return this.stackTagCompound != null && this.stackTagCompound.hasKey("emergencyCooldown") ? this.stackTagCompound.getInteger("emergencyCooldown") : 0;
    }
 
-   public void setEmergencyCooldown(int cooldown){
+   public void setEmergencyCooldown(int cooldown) {
       if (this.stackTagCompound == null) {
          this.stackTagCompound = new NBTTagCompound();
       }
@@ -157,18 +153,10 @@ public abstract class ItemStackTrans implements ITEStack {
       return instance.getAttrModifiers(ReflectHelper.dyCast(this));
    }
 
-   @Shadow
-   @Nonnull
-   public abstract Item getItem();
-
    @Redirect(method = "getMeleeDamageBonus", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;getMeleeDamageBonus()F"))
    public float redirectMeleeDamage(Item instance) {
       return instance.getMeleeDamageBonus(ReflectHelper.dyCast(this));
    }
-
-   @Shadow
-   @Nonnull
-   public abstract EnumQuality getQuality();
 
    @Inject(method = "<init>(III)V",at = @At("RETURN"))
    private void injectCtorFix(CallbackInfo callback){
@@ -199,18 +187,13 @@ public abstract class ItemStackTrans implements ITEStack {
       }
    }
 
-   @Shadow
-   public abstract ItemStack setItemSubtype(int subtype);
-
-   @Shadow
-   public abstract ItemStack setTagCompound(NBTTagCompound par1NBTTagCompound);
-
    @Inject(method = "writeToNBT", at = @At(value = "INVOKE", target = "Lnet/minecraft/NBTTagCompound;setTag(Ljava/lang/String;Lnet/minecraft/NBTBase;)V", shift = At.Shift.BEFORE))
    private void injectAddDefaultForgingGrade(NBTTagCompound par1NBTTagCompound, CallbackInfoReturnable<NBTTagCompound> cir){
       if (!this.stackTagCompound.hasKey("forging_grade")) {
          this.stackTagCompound.setInteger("forging_grade", 0);
       }
    }
+
    @Inject(method = "writeToNBT", at = @At(value = "INVOKE", target = "Lnet/minecraft/Item;hasQuality()Z" ,shift = At.Shift.BEFORE))
    public void writeToNBT(NBTTagCompound par1NBTTagCompound, CallbackInfoReturnable<NBTTagCompound> cir) {
       if (this.getItem().hasExpAndLevel() && this.stackTagCompound == null) {

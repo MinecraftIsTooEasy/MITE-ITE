@@ -11,7 +11,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockCrops.class)
-public class BlockCropTrans {
+public abstract class BlockCropTrans {
+   @Shadow public abstract boolean isBlighted(int metadata);
+   @Shadow public abstract int setBlighted(int metadata, boolean b);
+
    @Inject(method = "fertilize", at = @At("HEAD"), cancellable = true)
    public void injectUseManure(World world, int x, int y, int z, ItemStack item_stack, CallbackInfoReturnable<Boolean> cir) {
       Item item = item_stack.getItem();
@@ -19,15 +22,5 @@ public class BlockCropTrans {
          int metadata = world.getBlockMetadata(x, y, z);
          cir.setReturnValue(this.isBlighted(metadata) && world.setBlockMetadataWithNotify(x, y, z, this.setBlighted(metadata, false), 2));
       }
-   }
-
-   @Shadow
-   public boolean isBlighted(int metadata) {
-      return false;
-   }
-
-   @Shadow
-   public int setBlighted(int metadata, boolean b) {
-      return 0;
    }
 }

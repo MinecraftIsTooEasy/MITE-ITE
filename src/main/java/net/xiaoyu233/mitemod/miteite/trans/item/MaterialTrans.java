@@ -8,12 +8,9 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(Material.class)
 public class MaterialTrans implements ITEMaterial {
-   @Shadow
-   protected float durability;
-   @Shadow
-   protected int min_harvest_level;
-   @Shadow
-   protected String name;
+   @Shadow protected float durability;
+   @Shadow public int min_harvest_level;
+   @Shadow protected String name;
 
    @Override
    @Unique

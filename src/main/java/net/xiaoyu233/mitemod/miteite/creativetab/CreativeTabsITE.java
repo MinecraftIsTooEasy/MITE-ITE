@@ -1,7 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.creativetab;
 
 import huix.glacier.api.extension.creativetab.GlacierCreativeTabs;
-import net.xiaoyu233.mitemod.miteite.item.Items;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 
 public class CreativeTabsITE extends GlacierCreativeTabs {
     public CreativeTabsITE() {
@@ -10,6 +10,6 @@ public class CreativeTabsITE extends GlacierCreativeTabs {
 
     @Override
     public int getTabIconItemIndex() {
-        return Items.UNIVERSAL_ENHANCE_STONE.itemID;
+        return MITEITEItemRegistryInit.UNIVERSAL_ENHANCE_STONE.itemID;
     }
 }

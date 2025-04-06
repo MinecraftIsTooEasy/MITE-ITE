@@ -3,7 +3,7 @@ package net.xiaoyu233.mitemod.miteite.trans.network;
 import net.minecraft.NetHandler;
 import net.minecraft.Packet;
 import net.minecraft.Packet24MobSpawn;
-import net.xiaoyu233.mitemod.miteite.util.ReflectHelper;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

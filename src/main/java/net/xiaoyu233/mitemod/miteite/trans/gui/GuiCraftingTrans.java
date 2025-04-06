@@ -13,7 +13,7 @@ public class GuiCraftingTrans {
     public Container inventorySlots;
 
     @Redirect(
-            method = {"drawItemStackTooltip(Lnet/minecraft/ItemStack;IILnet/minecraft/Slot;)V"},
+            method = "drawItemStackTooltip(Lnet/minecraft/ItemStack;IILnet/minecraft/Slot;)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/InventoryCrafting;hasDamagedItem()Z"
@@ -22,11 +22,11 @@ public class GuiCraftingTrans {
     private boolean redirectRemoveDamageLimitation(InventoryCrafting caller) {
         IRecipe recipe = ((MITEContainerCrafting)this.inventorySlots).current_crafting_result.recipe;
         if (recipe instanceof ShapedRecipes) {
-            return !((ITERecipe)recipe).isExtendsNBT() && caller.hasDamagedItem();
+            return !((ITERecipe) recipe).isExtendsNBT() && caller.hasDamagedItem();
         } else if (!(recipe instanceof ShapelessRecipes)) {
             return caller.hasDamagedItem();
         } else {
-            return !((ITERecipe)recipe).isExtendsNBT() && caller.hasDamagedItem();
+            return !((ITERecipe) recipe).isExtendsNBT() && caller.hasDamagedItem();
         }
     }
 }

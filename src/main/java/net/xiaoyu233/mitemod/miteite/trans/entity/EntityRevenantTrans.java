@@ -2,6 +2,7 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
+import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.MonsterUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -15,10 +16,14 @@ public class EntityRevenantTrans extends EntityZombie {
       super(world);
    }
 
+   /**
+    * @author XiaoYu233
+    * @reason add better equipment
+    */
    @Overwrite
    protected void addRandomEquipment() {
       this.addRandomWeapon();
-      int day = this.getWorld().getDayOfOverworld();
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       if (day < 128) {
          this.setBoots((new ItemStack(Item.bootsRustedIron)).randomizeForMob(this, true));
          this.setLeggings((new ItemStack(Item.legsRustedIron)).randomizeForMob(this, true));
@@ -32,7 +37,7 @@ public class EntityRevenantTrans extends EntityZombie {
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.2800000011920929D);
       this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 12.0D + day / 24d);

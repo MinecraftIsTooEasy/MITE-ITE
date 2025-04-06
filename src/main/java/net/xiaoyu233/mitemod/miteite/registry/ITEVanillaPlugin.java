@@ -10,7 +10,7 @@ public class ITEVanillaPlugin implements ITEPlugin {
     @Override
     public void register(ITERegistry registry) {
         registry.registerWeaponCriteria(item -> item instanceof ItemSword || item instanceof ItemBattleAxe || item instanceof ItemWarHammer);
-        registry.registerWeaponCriteria(item -> item instanceof ItemMeat);
+        registry.registerMeatCriteria(item -> item instanceof ItemMeat);
 
         registry.registerExpForLevel(Material.copper, 100, 50);
         registry.registerExpForLevel(Material.silver, 100, 50);

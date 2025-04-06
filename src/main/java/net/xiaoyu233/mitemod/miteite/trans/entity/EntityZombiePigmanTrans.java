@@ -35,7 +35,7 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? Math.max(this.getWorld().getDayOfOverworld(), 0) : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 40.0D + (double)day / 16.0D);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.25D);
@@ -114,7 +114,6 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
       this.DATA_OBJ_ID_IS_BOOSTED = this.dataWatcher.addObject(this.dataWatcher.getNextAvailableId(), (byte)0);
    }
 
-//   会导致猪人移动速度逆天
 //   protected boolean isAIEnabled() {
 //      return true;
 //   }

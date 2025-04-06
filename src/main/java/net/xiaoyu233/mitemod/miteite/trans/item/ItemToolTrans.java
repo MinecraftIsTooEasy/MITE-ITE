@@ -1,7 +1,6 @@
 package net.xiaoyu233.mitemod.miteite.trans.item;
 
 import com.google.common.collect.Multimap;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
@@ -9,7 +8,7 @@ import net.xiaoyu233.mitemod.miteite.api.IUpgradableItem;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
@@ -24,16 +23,10 @@ import java.util.function.BiFunction;
 
 @Mixin(ItemTool.class)
 public abstract class ItemToolTrans extends Item implements IUpgradableItem {
-   @Shadow
-   protected List blocks_effective_against;
-   @Shadow
-   protected List materials_effective_against;
-   @Shadow
-   protected float damageVsEntity;
-   @Shadow
-   private Material effective_material;
-   @Unique
-   private BiFunction<Integer,Boolean,Integer> expForLevel;
+   @Shadow protected List materials_effective_against;
+   @Shadow protected float damageVsEntity;
+   @Shadow private Material effective_material;
+   @Unique private BiFunction<Integer,Boolean,Integer> expForLevel;
 
    @Unique
    private final BiFunction<Integer, Boolean, Integer> defaultExp = (level, isWeapon) -> {
@@ -88,10 +81,10 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
       ToolModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedToolModifiers(stack),player.getRNG());
       if (modifierType != null) {
          if (modifiers.hasKey(modifierType.nbtName)) {
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("你的" + stack.getMITEStyleDisplayName() + "的" + modifierType.color.toString() + modifierType.displayName + "§r属性已升级到" + this.addModifierLevelFor(modifiers, modifierType)+ "级"));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName(), this.addModifierLevelFor(modifiers, modifierType)));
          } else {
             this.addModifierLevelFor(modifiers, modifierType);
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("你的" + stack.getMITEStyleDisplayName() + "获得了" + modifierType.color.toString() + modifierType.displayName + "§r属性"));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName()));
          }
       }
 
@@ -104,29 +97,29 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
       return var1;
    }
 
-   @Inject(method = "<init>",at = @At("RETURN"))
-   private void injectInitExpForLevel(int par1, Material material,CallbackInfo callbackInfo){
-      if (material == Material.copper || material == Material.silver){
-         this.expForLevel = createExpForLevel(100,50);
-      }else if (material == Material.gold){
-         this.expForLevel = createExpForLevel(125,60);
-      }else if (material == Material.iron || material == Material.ancient_metal){
-         this.expForLevel = createExpForLevel(150,75);
-      } else if (material == Material.mithril) {
-         this.expForLevel = createExpForLevel(200,100);
-      }else if (material == Material.adamantium){
-         this.expForLevel = createExpForLevel(200,120);
-      }else if (material == Materials.vibranium){
-         this.expForLevel = createExpForLevel(200,150);
-      }else {
-         this.expForLevel = createExpForLevel(150,75);
-      }
-   }
+//   @Inject(method = "<init>",at = @At("RETURN"))
+//   private void injectInitExpForLevel(int par1, Material material,CallbackInfo callbackInfo){
+//      if (material == Material.copper || material == Material.silver) {
+//         this.expForLevel = createExpForLevel(100, 50);
+//      } else if (material == Material.gold) {
+//         this.expForLevel = createExpForLevel(125, 60);
+//      } else if (material == Material.iron || material == Material.ancient_metal) {
+//         this.expForLevel = createExpForLevel(150, 75);
+//      }  else if (material == Material.mithril) {
+//         this.expForLevel = createExpForLevel(200, 100);
+//      } else if (material == Material.adamantium) {
+//         this.expForLevel = createExpForLevel(200, 120);
+//      } else if (material == Materials.vibranium) {
+//         this.expForLevel = createExpForLevel(200, 150);
+//      } else {
+//         this.expForLevel = createExpForLevel(150,75);
+//      }
+//   }
 
-   @Unique
-   private static BiFunction<Integer, Boolean, Integer> createExpForLevel(int base, int increase){
-      return (level, isWeapon) -> base + level * increase * (isWeapon ? 2 : 1 );
-   }
+//   @Unique
+//   private static BiFunction<Integer, Boolean, Integer> createExpForLevel(int base, int increase) {
+//      return (level, isWeapon) -> base + level * increase * (isWeapon ? 2 : 1 );
+//   }
 
    @SuppressWarnings("unchecked")
    public void addInformation(ItemStack item_stack, EntityPlayer player, List info, boolean extended_info, Slot slot) {
@@ -136,24 +129,24 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
             int tool_level = item_stack.getTagCompound().getInteger("tool_level");
             int maxToolLevel = this.getMaxToolLevel(item_stack);
             if (this.isMaxToolLevel(item_stack)) {
-               info.add("工具等级:§6已达到最高级" + maxToolLevel);
+               info.add(I18n.getStringParams("miteite.tool.modifier.maxlevel", maxToolLevel));
             } else {
-               info.add("工具等级:" + tool_level + "/" + maxToolLevel);
+               info.add(I18n.getString("miteite.tool.modifier.level") + tool_level + "/" + maxToolLevel);
                if (item_stack.getTagCompound().hasKey("tool_exp")) {
-                  info.add("工具经验" + EnumChatFormatting.WHITE + item_stack.getTagCompound().getInteger("tool_exp") + "/" + this.getExpReqForLevel(tool_level, this.isWeapon(item_stack.getItem())));
+                  info.add(I18n.getString("miteite.tool.modifier.exp") + EnumChatFormatting.WHITE + item_stack.getTagCompound().getInteger("tool_exp") + "/" + this.getExpReqForLevel(tool_level, this.isWeapon(item_stack.getItem())));
                }
             }
          }
 
          int forgingGrade;
          if (item_stack.getTagCompound().hasKey("forging_grade") && (forgingGrade = item_stack.getTagCompound().getInteger("forging_grade")) != 0) {
-            info.add("§5强化等级:§6" + StringUtil.intToRoman(forgingGrade));
+            info.add(I18n.getString("miteite.tool.forging.grade") + StringUtil.intToRoman(forgingGrade));
             if (extended_info) {
-               info.add("  §7装备经验增加:§a" + this.getEquipmentExpBounce(item_stack) * 100 + "%");
+               info.add(I18n.getString("miteite.tool.forging.exp")  + this.getEquipmentExpBounce(item_stack) * 100 + "%");
                if (this.isWeapon(item_stack.getItem())){
-                  info.add("  §9攻击力增加:§6" + ItemStack.field_111284_a.format(this.getEnhancedDamage(item_stack)));
-               }else {
-                  info.add("  §9挖掘速度加:§6" + ItemStack.field_111284_a.format(item_stack.getEnhanceFactor() * 100) + "%");
+                  info.add(I18n.getString("miteite.tool.forging.attack") + ItemStack.field_111284_a.format(this.getEnhancedDamage(item_stack)));
+               } else {
+                  info.add(I18n.getString("miteite.tool.forging.dig") + ItemStack.field_111284_a.format(item_stack.getEnhanceFactor() * 100) + "%");
                }
             }
          }
@@ -161,12 +154,12 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
          if (extended_info) {
             NBTTagCompound compound = item_stack.stackTagCompound.getCompoundTag("modifiers");
             if (!compound.hasNoTags()) {
-               info.add("工具强化:");
+               info.add(I18n.getString("miteite.tool.modifier.modifiers"));
                ToolModifierTypes[] var8 = ToolModifierTypes.values();
 
                for (ToolModifierTypes value : var8) {
                   if (compound.hasKey(value.nbtName)) {
-                     info.add("  " + value.color.toString() + value.displayName + "§r " + StringUtil.intToRoman(compound.getInteger(value.nbtName)));
+                     info.add("  " + value.color.toString() + value.getDisplayName() + "§r " + StringUtil.intToRoman(compound.getInteger(value.nbtName)));
                   }
                }
             }
@@ -202,7 +195,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
    }
 
    public EnumItemInUseAction getItemInUseAction(ItemStack par1ItemStack, EntityPlayer player) {
-      return EnchantmentHelper.hasEnchantment(par1ItemStack, Enchantments.DEFENCED) ? EnumItemInUseAction.BLOCK : null;
+      return EnchantmentHelper.hasEnchantment(par1ItemStack, MITEITEEnchantmentRegistryInit.DEFENCED) ? EnumItemInUseAction.BLOCK : null;
    }
 
    @Inject(method = "getMaterialHarvestEfficiency", at = @At("HEAD"), cancellable = true)
@@ -240,11 +233,6 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
    }
 
    @Shadow
-   public int getToolDecayFromBreakingBlock(BlockBreakInfo info) {
-      return 0;
-   }
-
-   @Shadow
    public boolean isEffectiveAgainstBlock(Block block, int metadata) {
       return false;
    }
@@ -274,7 +262,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
       }
    }
 
-   @ModifyArg(method={"onBlockDestroyed"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemStack;tryDamageItem(Lnet/minecraft/DamageSource;ILnet/minecraft/EntityLivingBase;)Lnet/minecraft/ItemDamageResult;"), index = 1)
+   @ModifyArg(method = "onBlockDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemStack;tryDamageItem(Lnet/minecraft/DamageSource;ILnet/minecraft/EntityLivingBase;)Lnet/minecraft/ItemDamageResult;"), index = 1)
    private int applyDurability(int damage, @Local(argsOnly=true) BlockBreakInfo info) {
       return this.applyCalculateDurabilityModifier(damage, info.getHarvesterItemStack());
    }

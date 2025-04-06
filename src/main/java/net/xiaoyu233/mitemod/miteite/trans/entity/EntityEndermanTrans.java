@@ -1,6 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.*;
+import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,7 +15,7 @@ public class EntityEndermanTrans extends EntityMob {
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(60.0 + (double)day / 20.0);
       this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.3);
       this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setAttribute(15.0 + (double)day / 20.0);

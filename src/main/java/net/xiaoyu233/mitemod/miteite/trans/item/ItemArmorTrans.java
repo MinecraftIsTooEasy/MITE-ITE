@@ -2,12 +2,12 @@ package net.xiaoyu233.mitemod.miteite.trans.item;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.*;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.api.IUpgradableItem;
 import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
 import net.xiaoyu233.mitemod.miteite.util.ItemUtil;
-import net.xiaoyu233.mitemod.miteite.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
@@ -72,32 +72,32 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
          if (itemStack.getTagCompound().hasKey("tool_level")) {
             int maxArmorLevel = this.getMaxToolLevel(itemStack);
             if (this.isMaxToolLevel(itemStack)) {
-               info.add("装备等级:§6已达到最高级" + maxArmorLevel);
+               info.add(I18n.getStringParams("miteite.tool.modifier.maxlevel", maxArmorLevel));
             } else {
-               info.add("装备等级:" + toolLevel + "/" + maxArmorLevel);
+               info.add(I18n.getString("miteite.tool.modifier.level") + toolLevel + "/" + maxArmorLevel);
                if (itemStack.getTagCompound().hasKey("tool_exp")) {
-                  info.add("装备经验" + EnumChatFormatting.WHITE + itemStack.getTagCompound().getInteger("tool_exp") + "/" + this.getExpReqForLevel(toolLevel, this.armorType, ReflectHelper.dyCast(this)));
+                  info.add(I18n.getString("miteite.tool.modifier.exp") + EnumChatFormatting.WHITE + itemStack.getTagCompound().getInteger("tool_exp") + "/" + this.getExpReqForLevel(toolLevel, this.armorType, ReflectHelper.dyCast(this)));
                }
             }
          }
 
          if (itemStack.getTagCompound().hasKey("forging_grade") && (forgingGrade = itemStack.getTagCompound().getInteger("forging_grade")) != 0) {
-            info.add("§5强化等级:§6" + StringUtil.intToRoman(forgingGrade));
+            info.add(I18n.getString("miteite.tool.forging.grade") + StringUtil.intToRoman(forgingGrade));
             if (extended_info) {
-               info.add("  §7装备经验增加:§a" +  ItemStack.field_111284_a.format(this.getEquipmentExpBounce(itemStack) * 100) + "%");
-               info.add("  §9护甲增加:§6" + ItemStack.field_111284_a.format(this.getEnhancedProtection(itemStack)));
+               info.add(I18n.getString("miteite.tool.forging.exp") + ItemStack.field_111284_a.format(this.getEquipmentExpBounce(itemStack) * 100) + "%");
+               info.add(I18n.getString("miteite.tool.forging.armor") + ItemStack.field_111284_a.format(this.getEnhancedProtection(itemStack)));
             }
          }
 
          if (extended_info) {
             NBTTagCompound compound = itemStack.stackTagCompound.getCompoundTag("modifiers");
             if (!compound.hasNoTags()) {
-               info.add("装备强化:");
+               info.add(I18n.getString("miteite.tool.modifier.modifiers"));
                ArmorModifierTypes[] var9 = ArmorModifierTypes.values();
 
                 for (ArmorModifierTypes value : var9) {
                     if (compound.hasKey(value.nbtName)) {
-                        info.add("  " + value.color.toString() + value.displayName + "§r " + StringUtil.intToRoman(compound.getInteger(value.nbtName)));
+                        info.add("  " + value.color.toString() + value.getDisplayName() + "§r " + StringUtil.intToRoman(compound.getInteger(value.nbtName)));
                     }
                 }
             }
@@ -194,11 +194,10 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
       ArmorModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedArmorModifiers(stack),player.getRNG());
       if (modifierType != null) {
          if (modifiers.hasKey(modifierType.nbtName)) {
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("你的" + stack.getMITEStyleDisplayName() + "的" + modifierType.color.toString() + modifierType.displayName + "§r属性已升级到" + this.addModifierLevelFor(modifiers, modifierType) + "级"
-            ));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName(), this.addModifierLevelFor(modifiers, modifierType)));
          } else {
             this.addModifierLevelFor(modifiers, modifierType);
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("你的" + stack.getMITEStyleDisplayName() + "获得了" + modifierType.color.toString() + modifierType.displayName + "§r属性"));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName()));
          }
       }
 

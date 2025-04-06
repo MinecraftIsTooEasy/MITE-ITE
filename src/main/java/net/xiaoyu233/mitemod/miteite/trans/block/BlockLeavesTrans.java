@@ -9,6 +9,7 @@ public abstract class BlockLeavesTrans extends BlockLeavesBase {
       super(par1, par2Material, par3);
    }
 
+   @Override
    public boolean hidesAdjacentSide(IBlockAccess block_access, int x, int y, int z, Block neighbor, int side) {
       return false;
    }

@@ -5,44 +5,28 @@ import com.google.common.collect.Multimap;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEItem;
 import net.xiaoyu233.mitemod.miteite.item.ItemModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.Items;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
-import net.xiaoyu233.mitemod.miteite.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
 @Mixin(Item.class)
 public class ItemTrans implements ITEItem {
    @Shadow private int sugar_content;
-
-   @Shadow
-   @Final
-   public int itemID;
-   @Shadow
-   protected List<Material> materials;
-
-   @Shadow
-   public ItemBlock getAsItemBlock() {
+   @Shadow @Final public int itemID;
+   @Shadow protected List<Material> materials;
+   @Shadow public ItemBlock getAsItemBlock() {
       return null;
    }
-
-   @Shadow
-   public boolean isBlock() {
+   @Shadow public boolean isBlock() {
       return false;
    }
-
-   @Shadow
-   public Material getMaterialForRepairs() {
+   @Shadow public Material getMaterialForRepairs() {
       return null;
    }
 

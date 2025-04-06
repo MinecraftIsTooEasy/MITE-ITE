@@ -49,6 +49,7 @@ public class Configs {
                     addEntry(ConfigEntry.of("diamond_exp",Item.DIAMOND_EXP).withComment("钻石经验")).
                     addEntry(ConfigEntry.of("emerald_exp",Item.EMERALD_EXP).withComment("绿宝石经验")).
                     addEntry(ConfigEntry.of("quartz_exp",Item.QUARTZ_EXP).withComment("石英经验")).
+                    addEntry(ConfigEntry.of("lapis_exp",Item.LAPIS_EXP).withComment("青金石经验")).
                     addEntry(ConfigEntry.of("golden_apple_eat_time",Item.GOLDEN_APPLE_EAT_TIME).withComment("金苹果使用耗时")).
                     addEntry(ConfigEntry.of("enchanted_golden_apple_eat_time",Item.ENCHANTED_GOLDEN_APPLE_EAT_TIME).withComment("附魔金苹果使用耗时")).
                     addEntry(ConfigCategory.of("Recipes").
@@ -68,6 +69,7 @@ public class Configs {
             addEntry(ConfigCategory.of("Block").
                     addEntry(ConfigEntry.of("mob_spawner_speed_up_with_players",Block.MOB_SPAWNER_SPEED_UP_WITH_PLAYERS).withComment("刷怪笼在旁边有玩家时加速生怪"))).
             addEntry(ConfigCategory.of("Entities").
+                    addEntry(ConfigEntry.of("enhance_limit", Entities.ENHANCE_LIMIT).withComment("生物基础属性/装备增强天数上限")).
                     addEntry(ConfigEntry.of("bone_lord_tweak",Entities.BONE_LORD_TWEAK).withComment("骷髅领主增强")).
                     addEntry(ConfigEntry.of("skeleton_triple_shot",Entities.SKELETON_TRIPLE_SHOT).withComment("三发骷髅")).
                     addEntry(ConfigEntry.of("compressed_skeleton",Entities.COMPRESSED_SKELETON).withComment("分裂骷髅")).
@@ -139,16 +141,15 @@ public class Configs {
         public static final FieldReference<Boolean> MOB_SPAWNER_SPEED_UP_WITH_PLAYERS = new FieldReference<>(true);
     }
 
-    public static class Client{
+//    public static class Client {
+//        public static class Gui {
+//            public static final FieldReference<Integer> HEALTH_BAR_X_OFFSET = new FieldReference<>(0);
+//            public static final FieldReference<Integer> HEALTH_BAR_Y_OFFSET = new FieldReference<>(0);
+//        }
+//    }
 
-        public static class Gui{
-            public static final FieldReference<Integer> HEALTH_BAR_X_OFFSET = new FieldReference<>(0);
-            public static final FieldReference<Integer> HEALTH_BAR_Y_OFFSET = new FieldReference<>(0);
-        }
-    }
-
-    public static class Entities{
-
+    public static class Entities {
+        public static final FieldReference<Integer> ENHANCE_LIMIT = new FieldReference<>(256);
         public static final FieldReference<Boolean> BAT_POISON_ATTACK = new FieldReference<>(true);
         public static final FieldReference<Boolean> BONE_LORD_TWEAK = new FieldReference<>(true);
         public static final FieldReference<Boolean> CAN_BOOST_IRON_GOLEM = new FieldReference<>(true);
@@ -178,7 +179,7 @@ public class Configs {
         public static final FieldReference<Float> NETHER_MOD_ATTACK_FIRE_CHANCE = new FieldReference<>(0.5f);
         public static final FieldReference<Float> SLIME_ATTACK_DAMAGE_BONUS = new FieldReference<>(4f);
         public static final FieldReference<Integer> SLIME_ATTACK_DAMAGE_MULTIPLIER = new FieldReference<>(1);
-        public static class Animals{
+        public static class Animals {
             public static final FieldReference<Integer> ANIMAL_ILL_TO_DEATH_TIME = new FieldReference<>(144000);
             public static final FieldReference<Integer> BREED_XP_CHICKEN = new FieldReference<>(8);
             public static final FieldReference<Integer> BREED_XP_COW = new FieldReference<>(25);
@@ -187,7 +188,7 @@ public class Configs {
         }
     }
 
-    public static class GameMechanics{
+    public static class GameMechanics {
         public static final FieldReference<Boolean> FIRST_DAY_LONGER_DAY_TIME = new FieldReference<>(true);
         public static final FieldReference<Integer> FISHING_XP_SCALE = new FieldReference<>(10);
         public static final FieldReference<Integer> IN_RAIN_DEBUFF_TIME = new FieldReference<>(3600);
@@ -200,7 +201,7 @@ public class Configs {
         public static final FieldReference<Double> STEPPED_MOB_DAMAGE_PROGRESS_MAX = new FieldReference<>(4d);
         public static final FieldReference<Double> STEPPED_PLAYER_BASE_DAMAGE_MAX = new FieldReference<>(2d);
         public static final FieldReference<Double> STEPPED_PLAYER_DAMAGE_INCREASE_PER_LVL = new FieldReference<>(0.1d);
-        public static class MobSpawning{
+        public static class MobSpawning {
             public static final FieldReference<Integer> ANCIENT_BONE_LORD_SPAWN_LIMIT_DAY = new FieldReference<>(192);
             public static final FieldReference<Double> BLOOD_MOON_MAX_HOSTILE_FRACTION = new FieldReference<>(128d);
             public static final FieldReference<Integer> GHAST_SPAWN_LIMIT_DAY = new FieldReference<>(128);
@@ -212,14 +213,14 @@ public class Configs {
             public static final FieldReference<Integer> WANDERING_WITCH_SPAWN_CHANCE_UNDERWORLD = new FieldReference<>(50);
         }
 
-        public static class Nether{
+        public static class Nether {
             public static final FieldReference<Boolean> NETHERRACK_DAMAGE = new FieldReference<>(true);
             public static final FieldReference<Integer> NETHERRACK_DAMAGE_LIMIT_DAY = new FieldReference<>(96);
             public static final FieldReference<Boolean> NETHER_DEBUFF = new FieldReference<>(true);
             public static final FieldReference<Integer> NETHER_DEBUFF_TIME = new FieldReference<>(72000);
         }
 
-        public static class Underworld{
+        public static class Underworld {
             public static final FieldReference<Boolean> UNDERWORLD_DEBUFF = new FieldReference<>(true);
             public static final FieldReference<Integer> UNDERWORLD_DEBUFF_PERIOD1 = new FieldReference<>(72000);
             public static final FieldReference<Integer> UNDERWORLD_DEBUFF_PERIOD2 = new FieldReference<>(108000);
@@ -228,16 +229,16 @@ public class Configs {
         }
     }
 
-    public static class Item{
+    public static class Item {
         public static final FieldReference<Integer> DIAMOND_EXP = new FieldReference<>(400);
         public static final FieldReference<Integer> EMERALD_EXP = new FieldReference<>(300);
         public static final FieldReference<Integer> ENCHANTED_GOLDEN_APPLE_EAT_TIME = new FieldReference<>(10);
         public static final FieldReference<Integer> QUARTZ_MAX_EXP_LEVEL = new FieldReference<>(55);
         public static final FieldReference<Integer> GOLDEN_APPLE_EAT_TIME = new FieldReference<>(20);
         public static final FieldReference<Integer> QUARTZ_EXP = new FieldReference<>(35);
+        public static final FieldReference<Integer> LAPIS_EXP = new FieldReference<>(40);
 
-        public static class Enchantment{
-
+        public static class Enchantment {
             public static final FieldReference<Double> ALL_PROTECTION_V_DEFENCE_FRACTION = new FieldReference<>(0.1d);
             public static final FieldReference<Integer> CRIT_ENCHANTMENT_CHANCE_BOOST_PER_LVL = new FieldReference<>(2);
             public static final FieldReference<Double> CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL = new FieldReference<>(0.4);
@@ -248,7 +249,7 @@ public class Configs {
             public static final FieldReference<Float> BEHEADING_CHANCE_BOOST_PER_LVL = new FieldReference<>(0.05f);
         }
 
-        public static class Recipes{
+        public static class Recipes {
             public static final FieldReference<Integer> IRON_TO_MITHRIL_COOK_TIME = new FieldReference<>(6000);
             public static final FieldReference<Integer> IRON_BLOCK_COUNT_TO_MITHRIL = new FieldReference<>(2);
             public static final FieldReference<Integer> MITHRIL_BLOCK_COUNT_TO_ADAMANTIUM = new FieldReference<>(1);
@@ -256,15 +257,14 @@ public class Configs {
         }
     }
 
-    public static class Misc{
-
+    public static class Misc {
         public static final FieldReference<Boolean> LOG_PLAYERS_INTERACT_WITH_PORTAL = new FieldReference<>(true);
 
     }
 
-    public static class WorldGen{
+    public static class WorldGen {
 
-        public static class Overworld{
+        public static class Overworld {
             public static final FieldReference<Integer> ADAMANTIUM_FREQUENCY_OVERWORLD = new FieldReference<>(1);
             public static final FieldReference<Integer> COPPER_FREQUENCY_OVERWORLD = new FieldReference<>(40);
             public static final FieldReference<Integer> DIAMOND_FREQUENCY_OVERWORLD = new FieldReference<>(5);
@@ -275,7 +275,7 @@ public class Configs {
             public static final FieldReference<Boolean> OVERWORLD_ADAMANTITE_ORE = new FieldReference<>(false);
             public static final FieldReference<Integer> SILVER_FREQUENCY_OVERWORLD = new FieldReference<>(10);
         }
-        public static class Underworld{
+        public static class Underworld {
             public static final FieldReference<Integer> ADAMANTIUM_FREQUENCY_UNDERWORLD = new FieldReference<>(8);
             public static final FieldReference<Integer> COPPER_FREQUENCY_UNDERWORLD = new FieldReference<>(40);
             public static final FieldReference<Integer> DIAMOND_FREQUENCY_UNDERWORLD = new FieldReference<>(5);
@@ -287,7 +287,7 @@ public class Configs {
             public static final FieldReference<Integer> UNDERWORLD_MANTLE_BLOCK_OFFSET = new FieldReference<>(75);
         }
 
-        public static class Nether{
+        public static class Nether {
             public static final FieldReference<Integer> NETHER_ADAMANTIUM_MAX_COUNT_PER_CHUNK = new FieldReference<>(3);
             public static final FieldReference<Integer> NETHER_ADAMANTIUM_MAX_COUNT_PER_VEIN = new FieldReference<>(2);
         }

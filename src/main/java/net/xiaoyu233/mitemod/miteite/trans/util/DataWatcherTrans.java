@@ -9,15 +9,14 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(DataWatcher.class)
 //Fix some class cast crashing problem
 public abstract class DataWatcherTrans {
-    @Shadow
-    protected abstract WatchableObject getWatchedObject(int par1);
+    @Shadow protected abstract WatchableObject getWatchedObject(int par1);
     /**
      * @author XiaoYu233
      * @reason Fix some class cast crashing problem
      */
     @Overwrite
     public byte getWatchableObjectByte(int par1) {
-        return ((Number)this.getWatchedObject(par1).getObject()).byteValue();
+        return ((Number) this.getWatchedObject(par1).getObject()).byteValue();
     }
 
     /**
@@ -26,7 +25,7 @@ public abstract class DataWatcherTrans {
      */
     @Overwrite
     public short getWatchableObjectShort(int par1) {
-        return ((Number)this.getWatchedObject(par1).getObject()).shortValue();
+        return ((Number) this.getWatchedObject(par1).getObject()).shortValue();
     }
 
     /**
@@ -35,7 +34,7 @@ public abstract class DataWatcherTrans {
      */
     @Overwrite
     public int getWatchableObjectInt(int par1) {
-        return ((Number)this.getWatchedObject(par1).getObject()).intValue();
+        return ((Number) this.getWatchedObject(par1).getObject()).intValue();
     }
 
     /**
@@ -44,7 +43,7 @@ public abstract class DataWatcherTrans {
      */
     @Overwrite
     public float getWatchableObjectFloat(int par1) {
-        return ((Number)this.getWatchedObject(par1).getObject()).floatValue();
+        return ((Number) this.getWatchedObject(par1).getObject()).floatValue();
     }
 
     /**

@@ -7,6 +7,7 @@ public class EntityLargeFireballNB extends EntityLargeFireball {
         super(world, shooter, target, initial_distance);
     }
 
+    @Override
     protected void onImpact(RaycastCollision rc) {
         if (!this.worldObj.isRemote) {
             if (rc.isEntity()) {

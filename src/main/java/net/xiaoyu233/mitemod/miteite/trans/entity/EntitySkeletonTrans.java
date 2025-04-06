@@ -86,7 +86,7 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
       if (this.getSkeletonType() == WITHER_SKELETON_ID) {
          this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 45D + (double)day / 16.0D);
@@ -125,7 +125,7 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
 
    @SoftOverride //ITEMob
    public float getChanceOfCausingFire() {
-      return Math.min(0.05f + this.worldObj.getDayOfOverworld() / 800f,0.25f);
+      return Math.min(0.05f + this.worldObj.getDayOfOverworld() / 800f, 0.25f);
    }
 
    @ModifyConstant(method = "getRandomSkeletonType", constant = @org.spongepowered.asm.mixin.injection.Constant(doubleValue = 0.25D))
@@ -134,8 +134,8 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
    }
 
    @Unique
-   private Item getWeapon(int day){
-      return Constant.SWORDS[Math.max(Math.min(day / 64,Constant.SWORDS.length - 1),0)];
+   private Item getWeapon(int day) {
+      return Constant.SWORDS[Math.max(Math.min(day / 64,Constant.SWORDS.length - 1), 0)];
    }
 
    @SoftOverride //ITELivingEntity
@@ -204,7 +204,7 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
    @Unique
    public void initStockedWeapon() {
       this.willChangeWeapon = this.willChangeWeapon();
-      int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       if (this.getHeldItem() instanceof ItemBow) {
          this.stowed_item_stack = (new ItemStack(this.getWeapon(day))).randomizeForMob(this, true);
       } else if (this.getHeldItem() instanceof ItemSword) {
@@ -340,14 +340,14 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
 
    @Unique
    private void processArrow(EntityArrow var3, float par2) {
-      int rawDay = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;
+      int rawDay = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       int day = Math.max(rawDay - 64, 0);
       int var4 = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, this.getHeldItemStack()) + 1;
-      int var5 = (int)((double)EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItemStack()) + Math.min(1.0D + Math.floor((float)day / 48.0F), 5.0D));
-      double damage = (double)(par2 * 2.0F) + this.getRNG().nextGaussian() * 0.0D + (double)((float)this.getWorld().difficultySetting * 0.11F);
+      int var5 = (int) ((double) EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, this.getHeldItemStack()) + Math.min(1.0D + Math.floor((float)day / 48.0F), 5.0D));
+      double damage = (double) (par2 * 2.0F) + this.getRNG().nextGaussian() * 0.0D + (double)((float)this.getWorld().difficultySetting * 0.11F);
       var3.setDamage(damage);
       if (var4 > 0) {
-         var3.setDamage(var3.getDamage() + (double)var4 * 2.0D + 1.0D);
+         var3.setDamage(var3.getDamage() + (double) var4 * 2.0D + 1.0D);
       }
 
       if (var5 > 0) {

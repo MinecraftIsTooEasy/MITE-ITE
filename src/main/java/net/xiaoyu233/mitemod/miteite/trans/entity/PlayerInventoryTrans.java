@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public class PlayerInventoryTrans {
    @Shadow public EntityPlayer player;
 
-   //TODo Need to be tested
+   //TODO Need to be tested
    @Inject(
            locals = LocalCapture.CAPTURE_FAILHARD,
            method = {"tryDamageArmor(Lnet/minecraft/DamageSource;FLnet/minecraft/EntityDamageResult;)V"},

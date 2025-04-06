@@ -12,20 +12,15 @@ import org.spongepowered.asm.mixin.SoftOverride;
 import java.util.ArrayList;
 
 @Mixin(NetServerHandler.class)
-public class ServerNetworkManagerTrans extends NetHandler implements ITENetHandler {
-   @Shadow
-   public ServerPlayer playerEntity;
-
-   @Shadow
-   public INetworkManager getNetManager() {
-      return null;
-   }
+public abstract class ServerNetworkManagerTrans extends NetHandler implements ITENetHandler {
+   @Shadow public ServerPlayer playerEntity;
+   @Shadow public abstract INetworkManager getNetManager();
 
    @SoftOverride
    public void handleSyncItems(CPacketSyncItems packet) {
       ArrayList<ItemStack> itemList = new ArrayList<>();
 
-      for(int index = 0; index < this.playerEntity.openContainer.inventorySlots.size(); ++index) {
+      for (int index = 0; index < this.playerEntity.openContainer.inventorySlots.size(); ++index) {
          itemList.add(((Slot)this.playerEntity.openContainer.inventorySlots.get(index)).getStack());
       }
 

@@ -2,6 +2,7 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEMob;
+import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.MonsterUtil;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +29,7 @@ class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
 
    @Inject(method = "applyEntityAttributes", at = @At("HEAD"))
    protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = this.getWorld() != null ? Math.max(this.getWorld().getDayOfOverworld() - 64, 0) : 0;
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
       this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.23000000417232513D);
       this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 8D + (double)day / 24.0D);
@@ -44,7 +45,6 @@ class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
 
    }
 
-   //
 //      EntityDamageResult result = super.attackEntityFrom(damage);
 //      if (result != null && !result.entityWasDestroyed() && result.entityWasNegativelyAffected() && damage.wasCausedByPlayer()) {
 //         this.is_smart = true;
@@ -55,6 +55,6 @@ class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
    @Override
    @Unique
    public float getChanceOfCausingFire() {
-      return Math.min(0.05f + this.worldObj.getDayOfOverworld() / 800f,0.25f);
+      return Math.min(0.05f + this.worldObj.getDayOfOverworld() / 800f, 0.25f);
    }
 }

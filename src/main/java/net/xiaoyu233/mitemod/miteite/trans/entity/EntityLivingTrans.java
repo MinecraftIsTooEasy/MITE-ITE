@@ -1,12 +1,12 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.*;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.api.ITEItemEntity;
 import net.xiaoyu233.mitemod.miteite.api.ITELivingEntity;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.enchantment.Enchantments;
+import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
-import net.xiaoyu233.mitemod.miteite.util.ReflectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -108,7 +108,7 @@ public abstract class EntityLivingTrans extends EntityLivingBase implements ITEL
                Integer time = this.playerSteppedCountMap.get(responsibleEntity);
                damage.setAmount((float) (damage.getAmount() +
                        //Increase per lvl: enchantment + player base
-                       (time * EnchantmentHelper.getEnchantmentLevel(Enchantments.CONQUEROR,itemAttackedWith) * Configs.Item.Enchantment.CONQUEROR_DAMAGE_BOOST_PER_LVL.get()) +
+                       (time * EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CONQUEROR,itemAttackedWith) * Configs.Item.Enchantment.CONQUEROR_DAMAGE_BOOST_PER_LVL.get()) +
                        (Math.min(max, time * Math.max(0,player.getExperienceLevel()) * Configs.GameMechanics.STEPPED_PLAYER_DAMAGE_INCREASE_PER_LVL.get()))));
                this.playerSteppedCountMap.put(player, time + 1);
             } else {

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin({GuiInventory.class})
+@Mixin(GuiInventory.class)
 public abstract class GuiPlayerInventoryTrans extends InventoryEffectRenderer {
    public GuiPlayerInventoryTrans(Container par1Container) {
       super(par1Container);
