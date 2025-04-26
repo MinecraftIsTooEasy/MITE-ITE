@@ -13,7 +13,7 @@ public class EntityZombieLord extends EntityZombie {
 
     @Override
     protected void addRandomEquipment() {
-        int day = this.getWorld().getDayOfOverworld();
+        int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
         this.setCurrentItemOrArmor(0, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_SWORD, 1)).randomizeForMob(this, day > 64));
         this.setCurrentItemOrArmor(1, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_HELMET, 1)).randomizeForMob(this, day > 64));
         this.setCurrentItemOrArmor(2, (new ItemStack(MITEITEItemRegistryInit.VIBRANIUM_CHESTPLATE, 1)).randomizeForMob(this, day > 64));

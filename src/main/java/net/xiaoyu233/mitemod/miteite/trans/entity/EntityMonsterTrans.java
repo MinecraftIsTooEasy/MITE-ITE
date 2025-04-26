@@ -96,7 +96,7 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
          ItemStack var4 = this.getCurrentItemOrArmor(var3);
          if (var4 != null && (!var4.isItemStackDamageable() || ((ITELivingEntity) this).getPickedUpAHeldItemArray()[var3] && var4.getRemainingDurability() > var4.getMaxDamage() / 4)) {
             this.dropItemStack(var4, 0.0F);
-            this.getLastActiveItems()[var3]=null;
+            this.getLastActiveItems()[var3] = null;
          }
       }
 
@@ -104,7 +104,7 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
 
    protected void addRandomArmor() {
       int hour = this.getWorld().getHourOfDay();
-      int day = this.getWorld().getDayOfOverworld();
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       if (day > 32 && ((day % 2 == 0 || day > 64) && hour >= 18 || ((day - 1) % 2 == 0 || day > 64) && hour <= 6)) {
          this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 999999, Math.min(this.getRNG().nextInt(Math.max((day - 32) / 96, 1)), 4), true));
          Random rand = this.getRNG();
@@ -129,13 +129,13 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
    }
 
    protected void enchantEquipment(ItemStack item_stack) {
-      int dayOfWorld = this.getWorld().getDayOfOverworld();
-      if ((double) this.getRNG().nextFloat() <= 0.1f + (double) dayOfWorld / 64.0f / 10.0f) {
+      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
+      if ((double) this.getRNG().nextFloat() <= 0.1f + (double) day / 64.0f / 10.0f) {
          MonsterUtil.addRandomEnchantment(this.getRNG(),
                  item_stack,
-                 (int) (5.0F + (dayOfWorld * 0.15f) +  (5 - this.rand.nextInt(10)) * this.rand.nextFloat()),
-                 Math.min(2 + dayOfWorld/24,15),
-                 Math.min(1 + dayOfWorld/72,4));
+                 (int) (5.0F + (day * 0.15f) +  (5 - this.rand.nextInt(10)) * this.rand.nextFloat()),
+                 Math.min(2 + day / 24,15),
+                 Math.min(1 + day / 72,4));
       }
 
    }

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin({EntityFishHook.class})
+@Mixin(EntityFishHook.class)
 public abstract class EntityFishingHookTrans extends Entity {
    @Shadow
    public EntityPlayer angler;

@@ -5,6 +5,7 @@ public enum ForgingTableLevel {
     MITHRIL(1),
     ADAMANTIUM(2),
     VIBRANIUM(3);
+
     private final int level;
 
     ForgingTableLevel(int level) {

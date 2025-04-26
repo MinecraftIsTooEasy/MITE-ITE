@@ -16,26 +16,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntitySkeleton.class)
 public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAttackMob, ITESkeleton {
-   private static final int DATA_OBJ_ID_SKELETON_TYPE = 13;
-   private static final int WITHER_SKELETON_ID = 1;
-   private static final int ARROW_SKELETON_ID = 0;
-   private static final int MELEE_ATTACK_SKELETON_ID = 2;
-   @Shadow
-   private EntityAIArrowAttack aiArrowAttack;
-   @Shadow
-   private EntityAIAttackOnCollide aiAttackOnCollide;
-   @Unique
-   private int DATA_OBJ_ID_CAN_USE_FIRE_ARROW;
-   @Unique
-   private int DATA_OBJ_ID_CAN_USE_TRIPLE_ARROW;
-   @Unique
-   private int DATA_OBJ_ID_COMPRESSED;
-   @Unique
-   protected ItemStack stowed_item_stack;
-   @Unique
-   private boolean forceMeleeAttack;
-   @Unique
-   private boolean willChangeWeapon;
+   @Shadow private EntityAIArrowAttack aiArrowAttack;
+   @Shadow private EntityAIAttackOnCollide aiAttackOnCollide;
+
+   @Unique private static final int DATA_OBJ_ID_SKELETON_TYPE = 13;
+   @Unique private static final int WITHER_SKELETON_ID = 1;
+   @Unique private static final int ARROW_SKELETON_ID = 0;
+   @Unique private static final int MELEE_ATTACK_SKELETON_ID = 2;
+   @Unique private int DATA_OBJ_ID_CAN_USE_FIRE_ARROW;
+   @Unique private int DATA_OBJ_ID_CAN_USE_TRIPLE_ARROW;
+   @Unique private int DATA_OBJ_ID_COMPRESSED;
+   @Unique protected ItemStack stowed_item_stack;
+   @Unique private boolean forceMeleeAttack;
+   @Unique private boolean willChangeWeapon;
 
    @Shadow
    protected void addRandomEquipment() {
@@ -54,9 +47,9 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
       }
    }
 
-   @Inject(method = "addRandomWeapon", at = @At("HEAD"), cancellable = true)
+   @Inject(method = "addRandomWeapon", at = @At("HEAD"))
    public void addRandomWeapon(CallbackInfo ci) {
-      int day_of_world = MinecraftServer.getServer().getOverworld().getDayOfWorld();
+      int day_of_world = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), MinecraftServer.getServer().getOverworld().getDayOfWorld());
       if (this.getSkeletonType() == 2 && day_of_world >= 64) {
          if (this.getRNG().nextInt(Math.max(2, 20 - day_of_world / 48)) == 1) {
             super.setCurrentItemOrArmor(0, (new ItemStack(this.getWeapon(day_of_world))).randomizeForMob(this, day_of_world >= 96));
@@ -81,7 +74,7 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
          this.setCombatTask();
          super.setCurrentItemOrArmor(0, (new ItemStack(this.getSkeletonType() == 2 ? Item.clubWood : Item.bow)).randomizeForMob(this, true));
       }
-      ci.cancel();
+//      ci.cancel();
    }
 
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))

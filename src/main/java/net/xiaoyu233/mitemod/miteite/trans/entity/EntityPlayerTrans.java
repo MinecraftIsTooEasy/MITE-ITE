@@ -27,30 +27,19 @@ import java.util.Map.Entry;
 public abstract class EntityPlayerTrans extends EntityLivingBase implements ICommandSender, ITEPlayer, ITELivingEntity {
 
    @Shadow public abstract ItemStack getCurrentArmor(int par1);
-
-   @Unique
-   private final Map<Entity, Integer> attackCountMap = new HashMap<>();
    @Shadow public InventoryPlayer inventory;
-   @Shadow
-   public float vision_dimming;
-   @Unique
-   private float craftingBoostFactor;
-   @Unique
-   private int craftingBoostTimer;
-   @Unique
-   private BlockPos currentEffectedBeaconPos;
-   @Unique
-   private int inRainCounter;
-   @Unique
-   private int netherDebuffTime;
-   @Unique
-   private int underworldDebuffTime;
-   @Unique
-   private int underworldRandomTeleportTime;
-   @Unique
-   private volatile boolean waitForItemSync;
-   @Unique
-   private int defenseCooldown;
+   @Shadow public float vision_dimming;
+
+   @Unique private float craftingBoostFactor;
+   @Unique private int craftingBoostTimer;
+   @Unique private BlockPos currentEffectedBeaconPos;
+   @Unique private int inRainCounter;
+   @Unique private int netherDebuffTime;
+   @Unique private int underworldDebuffTime;
+   @Unique private int underworldRandomTeleportTime;
+   @Unique private volatile boolean waitForItemSync;
+   @Unique private int defenseCooldown;
+   @Unique private final Map<Entity, Integer> attackCountMap = new HashMap<>();
 
    public EntityPlayerTrans(World par1World, String par2Str) {
       super(par1World);
@@ -226,7 +215,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                }
             }
          }
-         if (!readyEmergencyItemList.isEmpty()){
+         if (!readyEmergencyItemList.isEmpty()) {
             ((EntityDamageResultAccessor) result).setEntity_was_destroyed(false);
             this.activeEmergency(readyEmergencyItemList);
          }
@@ -462,13 +451,13 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                      this.sendPacket(new SPacketOverlayMessage("§l---你在地底世界中感到有些疲惫---", EnumChatFormatting.GRAY.rgb, 400));
                   }
 
-                  this.addPotionEffect(new PotionEffect(2, 1200, 0));
+                  this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 1200, 0));
                } else if (this.underworldDebuffTime > period2) {
                   if (this.underworldDebuffTime == period2 + 1) {
                      this.sendPacket(new SPacketOverlayMessage("§l---你在地底世界中感到更加疲惫---", EnumChatFormatting.YELLOW.rgb, 400));
                   }
 
-                  this.addPotionEffect(new PotionEffect(2, 2400, 1));
+                  this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2400, 1));
                }
             }
 

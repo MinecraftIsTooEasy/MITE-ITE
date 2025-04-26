@@ -1,6 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.trans.container;
 
 import net.minecraft.*;
+import net.xiaoyu233.fml.FishModLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -49,10 +50,11 @@ public abstract class ContainerMerchantTrans extends Container {
    private void updatePlayerInventory(EntityPlayer player) {
       ArrayList<ItemStack> itemList = new ArrayList<>();
 
-      for(int index = 0; index < player.openContainer.inventorySlots.size(); ++index) {
-         itemList.add(((Slot)player.openContainer.inventorySlots.get(index)).getStack());
+      for (int index = 0; index < player.openContainer.inventorySlots.size(); ++index) {
+         itemList.add(((Slot) player.openContainer.inventorySlots.get(index)).getStack());
       }
 
-      ((ServerPlayer)player).sendContainerAndContentsToPlayer(player.openContainer, itemList);
+      if (FishModLoader.isServer())
+         ((ServerPlayer) player).sendContainerAndContentsToPlayer(player.openContainer, itemList);
    }
 }

@@ -70,9 +70,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
 
    @Override
    public boolean isWeapon(Item item) {
-      return ITERegistryImpl.weaponCriteria.stream().anyMatch(x -> {
-         return x.test(item);
-      });
+      return ITERegistryImpl.weaponCriteria.stream().anyMatch(x -> x.test(item));
    }
 
    @Override

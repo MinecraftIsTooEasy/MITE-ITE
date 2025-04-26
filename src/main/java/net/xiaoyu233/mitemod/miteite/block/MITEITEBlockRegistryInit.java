@@ -82,8 +82,8 @@ public class MITEITEBlockRegistryInit extends Block {
                 "I I",
                 "III",
                 'I', VIBRANIUM_INGOT);
-        registerForgingTableUpgradeRecipes(register,ForgingTableLevel.IRON,Item.ingotMithril);
-        registerForgingTableUpgradeRecipes(register,ForgingTableLevel.MITHRIL,Item.ingotAdamantium);
+        registerForgingTableUpgradeRecipes(register,ForgingTableLevel.IRON, Item.ingotMithril);
+        registerForgingTableUpgradeRecipes(register,ForgingTableLevel.MITHRIL, Item.ingotAdamantium);
         registerForgingTableUpgradeRecipes(register,ForgingTableLevel.ADAMANTIUM, VIBRANIUM_INGOT);
         FurnaceRecipes.smelting().addSmelting(MITEITEBlockRegistryInit.netherAdamantiumOre.blockID, new ItemStack(Item.ingotAdamantium));
         vibraniumWorkBench.registerSimpleRecipe(register);

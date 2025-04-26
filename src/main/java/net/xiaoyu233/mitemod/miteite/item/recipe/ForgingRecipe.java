@@ -75,7 +75,7 @@ public class ForgingRecipe {
         return forgingTableLevelReq;
     }
 
-    public static class Builder{
+    public static class Builder {
         private final List<IFaultFeedback> faultFeedback = new ArrayList<>();
         private final List<ItemStack> materialsToUpgrade = new ArrayList<>(5);
         private final Material material;

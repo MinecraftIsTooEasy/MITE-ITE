@@ -20,7 +20,7 @@ public abstract class WorldGenMinableTrans {
    @Inject(method = "getRandomVeinHeight", at = @At(value = "INVOKE", target = "Lnet/minecraft/Minecraft;setErrorMessage(Ljava/lang/String;)V"), cancellable = true)
    public void wrapNetherAdamantiumSetError(World world, Random rand, CallbackInfoReturnable<Integer> cir) {
       Block block = Block.blocksList[this.minableBlockId];
-      if (block == MITEITEBlockRegistryInit.netherAdamantiumOre){
+      if (block == MITEITEBlockRegistryInit.netherAdamantiumOre) {
          int min_height = this.getMinVeinHeight(world);
          int height_range = this.getMaxVeinHeight(world) - min_height + 1;
          cir.setReturnValue(min_height + (int)(rand.nextFloat() * (float)height_range));
@@ -57,6 +57,18 @@ public abstract class WorldGenMinableTrans {
          cir.setReturnValue(225);
       } else if (world.isTheNether()) {
          cir.setReturnValue(115);
+      }
+   }
+
+   @Inject(method = "getRandomVeinHeight", at = @At("HEAD"), cancellable = true)
+   public void injectRandomVeinHeight(World world, Random rand, CallbackInfoReturnable<Integer> cir) {
+      Block block = Block.blocksList[this.minableBlockId];
+      if (world.isUnderworld()) {
+         if (block == Block.oreAdamantium) {
+//            cir.setReturnValue(world.underworld_y_offset + rand.nextInt(120));
+            cir.setReturnValue(this.getMinVeinHeight(world) + rand.nextInt(this.getMaxVeinHeight(world) - this.getMinVeinHeight(world)));
+
+         }
       }
    }
 }

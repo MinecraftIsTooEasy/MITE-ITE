@@ -30,11 +30,11 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
 
    @Inject(method = "<init>", at = @At("RETURN"))
    private void injectInitExpForLevel(int par1, Material material, int par2, boolean is_chain_mail, CallbackInfo callbackInfo) {
-      if (material == Material.copper || material == Material.silver){
+      if (material == Material.copper || material == Material.silver) {
          this.expForLevel = this.createExpForLevel(16,8);
       } else if (material == Material.gold) {
          this.expForLevel = this.createExpForLevel(18,9);
-      } else if (material == Material.iron || material == Material.ancient_metal){
+      } else if (material == Material.iron || material == Material.ancient_metal) {
          this.expForLevel = this.createExpForLevel(20,10);
       } else if (material == Material.mithril) {
          this.expForLevel = this.createExpForLevel(24,12);

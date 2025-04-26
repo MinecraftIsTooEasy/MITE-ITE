@@ -72,7 +72,7 @@ public class BiomeDecoratorTrans {
 
    @ModifyConstant(method = "generateOres", constant = @Constant(intValue = 5), slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/BiomeDecorator;mithrilGen:Lnet/minecraft/WorldGenMinable;", ordinal = 1), to = @At(value = "FIELD", target = "Lnet/minecraft/BiomeDecorator;adamantiteGen:Lnet/minecraft/WorldGenMinable;")))
    private int modifyAdamantiteUnderworldFreq(int constant){
-      return Configs.WorldGen.Underworld.MITHRIL_FREQUENCY_UNDERWORLD.get();
+      return Configs.WorldGen.Underworld.ADAMANTIUM_FREQUENCY_UNDERWORLD.get();
    }
 
    @ModifyConstant(method = "generateOres", constant = @Constant(intValue = 5), slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/BiomeDecorator;redstoneGen:Lnet/minecraft/WorldGenMinable;", ordinal = 1), to = @At(value = "FIELD", target = "Lnet/minecraft/BiomeDecorator;diamondGen:Lnet/minecraft/WorldGenMinable;", ordinal = 1)))

@@ -17,7 +17,7 @@ public class ChunkProviderHellTrans {
 
    @Inject(method = "populate", at = @At(value = "INVOKE", target = "Lnet/minecraft/WorldInfo;getEarliestMITEReleaseRunIn()I", ordinal = 1, shift = At.Shift.BEFORE))
    private void injectGenAdamantium(IChunkProvider par1IChunkProvider, int par2, int par3, CallbackInfo ci){
-       int var8;
+      int var8;
       int var9;
       int var10;
       int var11;

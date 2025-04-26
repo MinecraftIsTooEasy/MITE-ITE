@@ -14,6 +14,10 @@ public abstract class RecipesArmorTrans {
     @Shadow protected abstract void addHelmetRecipe(Item helmet, Item component);
     @Shadow protected abstract void addLeggingsRecipe(Item leggings, Item component);
 
+    /**
+     * @author XiaoYuOvO
+     * @reason modify armor recipe
+     */
     @Overwrite
     //TODO Use recipe modifier API
     public void addRecipes(CraftingManager par1CraftingManager) {
@@ -31,49 +35,49 @@ public abstract class RecipesArmorTrans {
             this.addBootsRecipe(ItemArmor.getMatchingArmor(ItemBoots.class, component.getExclusiveMaterial(), component instanceof ItemChain), component);
         }
 
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.helmetAdamantium),true,
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.helmetAdamantium),true,
                 "AHA",
                 "A A",
-                'A',Item.ingotAdamantium,
-                'H',Item.helmetAncientMetal).func_92100_c();
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.plateAdamantium),true,
+                'A', Item.ingotAdamantium,
+                'H', Item.helmetAncientMetal).func_92100_c();
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.plateAdamantium),true,
                 "A A",
                 "APA",
                 "AAA",
-                'A',Item.ingotAdamantium,
-                'P',Item.plateAncientMetal).func_92100_c();
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.legsAdamantium),true,
+                'A', Item.ingotAdamantium,
+                'P', Item.plateAncientMetal).func_92100_c();
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.legsAdamantium),true,
                 "ALA",
                 "A A",
                 "A A",
-                'A',Item.ingotAdamantium,
-                'L',Item.legsAncientMetal).func_92100_c();
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.bootsAdamantium),true,
+                'A', Item.ingotAdamantium,
+                'L', Item.legsAncientMetal).func_92100_c();
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.bootsAdamantium),true,
                 "B A",
                 "A A",
-                'A',Item.ingotAdamantium,
-                'B',Item.bootsAncientMetal).func_92100_c();
+                'A', Item.ingotAdamantium,
+                'B', Item.bootsAncientMetal).func_92100_c();
 
 
         //Iron -> Mithril
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.helmetMithril),true,
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.helmetMithril),true,
                 "AAA",
                 "AHA",
-                'A',Item.ingotMithril,
-                'H',Item.helmetIron).func_92100_c();
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.plateMithril),true,
+                'A', Item.ingotMithril,
+                'H', Item.helmetIron).func_92100_c();
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.plateMithril),true,
                 "APA",
                 "AAA",
                 "AAA",
-                'A',Item.ingotMithril,
-                'P',Item.plateIron).func_92100_c();
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.legsMithril),true,
+                'A', Item.ingotMithril,
+                'P', Item.plateIron).func_92100_c();
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.legsMithril),true,
                 "AAA",
                 "ALA",
                 "A A",
-                'A',Item.ingotMithril,
-                'L',Item.legsIron).func_92100_c();
-        ((CraftingManagerInvoker)this.crafting_manager).addRecipe(new ItemStack(Item.bootsMithril),true,
+                'A', Item.ingotMithril,
+                'L', Item.legsIron).func_92100_c();
+        ((CraftingManagerInvoker) this.crafting_manager).addRecipe(new ItemStack(Item.bootsMithril),true,
                 "ABA",
                 "A A",
                 'A',Item.ingotMithril,

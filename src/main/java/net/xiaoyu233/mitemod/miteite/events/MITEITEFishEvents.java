@@ -8,6 +8,8 @@ import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.achievement.MITEITEAchievementRegistryInit;
 import net.xiaoyu233.mitemod.miteite.block.MITEITEBlockRegistryInit;
+import net.xiaoyu233.mitemod.miteite.command.CommandForging;
+import net.xiaoyu233.mitemod.miteite.command.CommandItemLevel;
 import net.xiaoyu233.mitemod.miteite.entity.*;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
@@ -30,27 +32,27 @@ public class MITEITEFishEvents {
             World world = event.getWorld();
             ItemStack itemStack;
             NBTTagCompound compound;
-            if (par2Str.startsWith("itemlevel setLevel")) {
-                itemStack = player.getHeldItemStack();
-                if (itemStack.stackTagCompound != null) {
-                    compound = itemStack.stackTagCompound;
-                    if (compound.hasKey("tool_level")) {
-                        compound.setInteger("tool_level", Integer.parseInt(par2Str.substring(19)));
-                        event.setExecuteSuccess(true);
-                    }
-                }
-            }
-
-            if (par2Str.startsWith("itemlevel setXp")) {
-                itemStack = player.getHeldItemStack();
-                if (itemStack.stackTagCompound != null) {
-                    compound = itemStack.stackTagCompound;
-                    if (compound.hasKey("tool_exp")) {
-                        compound.setInteger("tool_exp", Integer.parseInt(par2Str.substring(16)));
-                        event.setExecuteSuccess(true);
-                    }
-                }
-            }
+//            if (par2Str.startsWith("itemlevel setLevel")) {
+//                itemStack = player.getHeldItemStack();
+//                if (itemStack.stackTagCompound != null) {
+//                    compound = itemStack.stackTagCompound;
+//                    if (compound.hasKey("tool_level")) {
+//                        compound.setInteger("tool_level", Integer.parseInt(par2Str.substring(19)));
+//                        event.setExecuteSuccess(true);
+//                    }
+//                }
+//            }
+//
+//            if (par2Str.startsWith("itemlevel setXp")) {
+//                itemStack = player.getHeldItemStack();
+//                if (itemStack.stackTagCompound != null) {
+//                    compound = itemStack.stackTagCompound;
+//                    if (compound.hasKey("tool_exp")) {
+//                        compound.setInteger("tool_exp", Integer.parseInt(par2Str.substring(16)));
+//                        event.setExecuteSuccess(true);
+//                    }
+//                }
+//            }
 
             String modifierName;
             int posLength;
@@ -86,55 +88,55 @@ public class MITEITEFishEvents {
             }
 
             String msg;
-            if (par2Str.startsWith("teleport ")) {
-                System.out.println(par2Str);
-                msg = par2Str.substring(9);
-                String[] pos = msg.split(" ");
-                double[] poses = new double[3];
-                int i = 0;
+//            if (par2Str.startsWith("teleport ")) {
+//                System.out.println(par2Str);
+//                msg = par2Str.substring(9);
+//                String[] pos = msg.split(" ");
+//                double[] poses = new double[3];
+//                int i = 0;
+//
+//                for (posLength = pos.length; i < posLength; ++i) {
+//                    String po = pos[i];
+//
+//                    try {
+//                        poses[i] = Double.parseDouble(po);
+//                    } catch (NumberFormatException var13) {
+//                        var13.printStackTrace();
+//                    }
+//                }
+//
+//                player.setPositionAndUpdate(poses[0], poses[1], poses[2]);
+//                event.setExecuteSuccess(true);
+//            }
+//
+//            if (par2Str.startsWith("xsummon")) {
+//                int id = Integer.parseInt(par2Str.substring(8));
+//                Entity entity = EntityList.createEntityByID(id, world);
+//                if (entity != null) {
+//                    entity.setPosition(player.posX, player.posY, player.posZ);
+//                    if (entity instanceof EntityLiving) {
+//                        ((EntityLiving) entity).onSpawnWithEgg(null);
+//                    }
+//
+//                    world.spawnEntityInWorld(entity);
+//                    commandListener.sendChatToPlayer(ChatMessageComponent.createFromText("已生成实体 " + entity).setColor(EnumChatFormatting.LIGHT_GRAY));
+//                } else {
+//                    commandListener.sendChatToPlayer(ChatMessageComponent.createFromText("无法生成实体:ID为 " + id + " 的实体不存在!").setColor(EnumChatFormatting.DARK_RED));
+//                }
+//
+//                event.setExecuteSuccess(true);
+//            }
 
-                for (posLength = pos.length; i < posLength; ++i) {
-                    String po = pos[i];
-
-                    try {
-                        poses[i] = Double.parseDouble(po);
-                    } catch (NumberFormatException var13) {
-                        var13.printStackTrace();
-                    }
-                }
-
-                player.setPositionAndUpdate(poses[0], poses[1], poses[2]);
-                event.setExecuteSuccess(true);
-            }
-
-            if (par2Str.startsWith("xsummon")) {
-                int id = Integer.parseInt(par2Str.substring(8));
-                Entity entity = EntityList.createEntityByID(id, world);
-                if (entity != null) {
-                    entity.setPosition(player.posX, player.posY, player.posZ);
-                    if (entity instanceof EntityLiving) {
-                        ((EntityLiving) entity).onSpawnWithEgg(null);
-                    }
-
-                    world.spawnEntityInWorld(entity);
-                    commandListener.sendChatToPlayer(ChatMessageComponent.createFromText("已生成实体 " + entity).setColor(EnumChatFormatting.LIGHT_GRAY));
-                } else {
-                    commandListener.sendChatToPlayer(ChatMessageComponent.createFromText("无法生成实体:ID为 " + id + " 的实体不存在!").setColor(EnumChatFormatting.DARK_RED));
-                }
-
-                event.setExecuteSuccess(true);
-            }
-
-            if (par2Str.startsWith("forging_grade set")) {
-                itemStack = player.getHeldItemStack();
-                if (itemStack.stackTagCompound != null) {
-                    compound = itemStack.stackTagCompound;
-                    if (compound.hasKey("forging_grade")) {
-                        compound.setInteger("forging_grade", Integer.parseInt(par2Str.substring(18)));
-                        event.setExecuteSuccess(true);
-                    }
-                }
-            }
+//            if (par2Str.startsWith("forging_grade set")) {
+//                itemStack = player.getHeldItemStack();
+//                if (itemStack.stackTagCompound != null) {
+//                    compound = itemStack.stackTagCompound;
+//                    if (compound.hasKey("forging_grade")) {
+//                        compound.setInteger("forging_grade", Integer.parseInt(par2Str.substring(18)));
+//                        event.setExecuteSuccess(true);
+//                    }
+//                }
+//            }
 
             if (par2Str.startsWith("overlayMsg")) {
                 msg = par2Str.substring("overlayMsg".length());
@@ -236,19 +238,25 @@ public class MITEITEFishEvents {
         event.register(TileEntityForgingTable.class, "ForgingTable");
     }
 
-//    @Subscribe
-//    public void onRecipesModify(RecipeModifyEvent event) {
-//        ShapedRecipeModifier newAppleGoldRecipe = ShapedRecipeModifier.Builder
-//                .of(new ItemStack(Item.appleGold, 1, 0))
-//                .pattern("###")
-//                .pattern("IXI")
-//                .pattern("###")
-//                .ingredient('#', Item.goldNugget)
-//                .ingredient('I', Item.ingotGold)
-//                .ingredient('X', Item.appleRed)
-//                .includeInLowestCraftingDifficultyDetermination()
-//                .difficulty(50.0F)
-//                .build();
+    @Subscribe
+    public void onCommandRegister(CommandRegisterEvent event) {
+        event.register(new CommandForging());
+        event.register(new CommandItemLevel());
+    }
+
+    @Subscribe
+    public void onRecipesModify(RecipeModifyEvent event) {
+        ShapedRecipeModifier newAppleGoldRecipe = ShapedRecipeModifier.Builder
+                .of(new ItemStack(Item.appleGold, 1, 0))
+                .pattern("###")
+                .pattern("IXI")
+                .pattern("###")
+                .ingredient('#', Item.goldNugget)
+                .ingredient('I', Item.ingotGold)
+                .ingredient('X', Item.appleRed)
+                .includeInLowestCraftingDifficultyDetermination()
+                .difficulty(50.0F)
+                .build();
 //        event.addModifier(newAppleGoldRecipe);
-//    }
+    }
 }

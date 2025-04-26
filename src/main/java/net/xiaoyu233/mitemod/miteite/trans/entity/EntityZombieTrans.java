@@ -55,6 +55,6 @@ class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
    @Override
    @Unique
    public float getChanceOfCausingFire() {
-      return Math.min(0.05f + this.worldObj.getDayOfOverworld() / 800f, 0.25f);
+      return Math.min(0.05f + Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0) / 800f, 0.25f);
    }
 }

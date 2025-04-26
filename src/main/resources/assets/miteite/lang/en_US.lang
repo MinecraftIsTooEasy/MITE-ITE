@@ -123,3 +123,10 @@ modifier.tool.slowdown.name=Slowdown
 modifier.tool.unnatural.name=Unnatural.
 modifier.tool.demon.name=Demon
 modifier.tool.geology.name=Geology
+
+commands.forging.usage=/forging <PLayer> <set> <Level>
+commands.forging.set.success=Successfully set the item forging grade to %d level.
+commands.itemlevel.usage=/itemlevel <Player> <set> <level/xp> <nNum>
+commands.itemlevel.set.level.success=Successfully set the item level to %d.
+commands.itemlevel.set.xp.success=Successfully set the item xp to %d.
+

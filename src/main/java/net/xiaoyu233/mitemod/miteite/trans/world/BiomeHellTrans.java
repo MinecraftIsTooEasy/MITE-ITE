@@ -16,7 +16,6 @@ public class BiomeHellTrans extends BiomeGenBase {
 
    @Inject(method = "<init>", at = @At("RETURN"))
    public void injectCtor(CallbackInfo callbackInfo) {
-      this.spawnableMonsterList.clear();
       this.spawnableMonsterList.add(new SpawnListEntry(EntityZombiePigmanLord.class, 1, 1, 1));
       this.spawnableMonsterList.add(new SpawnListEntry(EntityAnnihilationSkeleton.class, 1, 1, 1));
       this.spawnableMonsterList.add(new SpawnListEntry(EntityHellhound.class, 20, 1, 2));

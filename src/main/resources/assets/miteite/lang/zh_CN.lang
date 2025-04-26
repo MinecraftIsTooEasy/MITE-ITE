@@ -112,6 +112,7 @@ modifier.armor.protection.name=保护
 modifier.armor.steady.name=稳定
 modifier.armor.blessed.name=神圣
 modifier.armor.indomitable.name=坚毅不倒
+modifier.armor.immunity.name=免疫
 
 modifier.tool.efficiency.name=急速
 modifier.tool.aquaynamic.name=喜水
@@ -121,3 +122,9 @@ modifier.tool.slowdown.name=织网
 modifier.tool.unnatural.name=超自然
 modifier.tool.demon.name=恶魔之力
 modifier.tool.geology.name=地质学
+
+commands.forging.usage=/forging <玩家> <set> <等级>
+commands.forging.set.success=成功将手持物品锻造等级设置为%d
+commands.itemlevel.usage=/itemlevel <玩家> <set> <level/xp> <数值>
+commands.itemlevel.set.level.success=成功将手持物品等级设置为%d
+commands.itemlevel.set.xp.success=成功将手持物品经验设置为%d

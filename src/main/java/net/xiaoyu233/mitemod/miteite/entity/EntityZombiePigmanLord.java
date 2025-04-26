@@ -43,7 +43,7 @@ public class EntityZombiePigmanLord extends EntityPigZombie {
 
     @Override
     protected void dropFewItems(boolean recently_hit_by_player, DamageSource damage_source) {
-        if (recently_hit_by_player){
+        if (recently_hit_by_player) {
             int diamond_count = 3;
             for (int i1 = 0; i1 < diamond_count; i1++) {
                 this.dropItem(Item.diamond);
