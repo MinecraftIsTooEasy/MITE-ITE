@@ -1,6 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.item;
 
 import net.minecraft.*;
+import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.EnumChatFormats;
 
@@ -63,7 +64,6 @@ public class ToolModifierTypes implements ItemModifierTypes {
         this.maxLevel = maxLevel;
 
         VALUES.add(this);
-        System.out.println(this);
     }
 
     public static ToolModifierTypes[] values() {
@@ -122,6 +122,9 @@ public class ToolModifierTypes implements ItemModifierTypes {
     }
 
     public String getDisplayName() {
-        return I18n.getString("modifier.tool." + this.unlocalizedName + ".name");
+        if (!FishModLoader.isServer())
+            return I18n.getString("modifier.tool." + this.unlocalizedName + ".name");
+        else
+            return "modifier.tool." + this.unlocalizedName + ".name";
     }
 }

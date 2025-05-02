@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(SpawnerAnimals.class)
 public class SpawnerCreatureTrans {
    @ModifyExpressionValue(method = "trySpawningHostileMobs", at = @At(value = "CONSTANT", args = "intValue=256"))
-   private int modifyMaxHostileFraction(int constant, WorldServer world, boolean deep_only){
+   private int modifyMaxHostileFraction(int constant, WorldServer world, boolean deep_only) {
       return world.isBloodMoon(false) ? (int) Configs.GameMechanics.MobSpawning.BLOOD_MOON_MAX_HOSTILE_FRACTION.get().doubleValue() : constant;
    }
 

@@ -70,7 +70,7 @@ public abstract class WorldTrans implements ITEWorld {
 
    @ModifyReturnValue(method = "isBlueMoon(JZ)Z", at = @At(value = "RETURN", ordinal = 1))
    private static boolean injectOneBlueMoon(boolean original, long unadjusted_tick, boolean exclusively_at_night) {
-      if (unadjusted_tick / 24000L + 1L != 128L){
+      if (unadjusted_tick / 24000L + 1L != 128L) {
          return false;
       }
       return original;
@@ -85,7 +85,7 @@ public abstract class WorldTrans implements ITEWorld {
 
    @ModifyReturnValue(method = "isBloodMoon(Z)Z", at = @At(value = "RETURN", ordinal = 1))
    private boolean modifyBloodMoonTime(boolean original, boolean exclusively_at_night) {
-      if (isBloodMoonDay(this.getTotalWorldTime()) && !this.isBlueMoon(exclusively_at_night)){
+      if (isBloodMoonDay(this.getTotalWorldTime()) && !this.isBlueMoon(exclusively_at_night)) {
          return true;
       }
       return original;

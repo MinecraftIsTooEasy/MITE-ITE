@@ -1,14 +1,13 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
 import net.xiaoyu233.mitemod.miteite.entity.EntityLargeFireballNB;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityGhast.class)
 public class EntityGhastTrans extends EntityFlying implements IMob {
@@ -19,7 +18,7 @@ public class EntityGhastTrans extends EntityFlying implements IMob {
       super(world);
    }
 
-   @Inject(method = "applyEntityAttributes",at = @At("RETURN"))
+   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
       this.explosionStrength = 6;
       super.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(15.0D);
@@ -30,16 +29,15 @@ public class EntityGhastTrans extends EntityFlying implements IMob {
       return false;
    }
 
-   @Inject(method = "getCanSpawnHere", at = @At("HEAD"), cancellable = true)
-   public void getCanSpawnHere(boolean perform_light_check, CallbackInfoReturnable<Boolean> cir) {
+   @ModifyReturnValue(method = "getCanSpawnHere", at = @At("TAIL"))
+   public boolean getCanSpawnHere(boolean original) {
       if (this.getWorld().isOverworld()) {
-         cir.setReturnValue(this.getWorld().isBloodMoon24HourPeriod()
+         return this.getWorld().isBloodMoon24HourPeriod()
                  && this.getWorld().getDayOfOverworld() >= Configs.GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY.get()
                  && !this.getWorld().anySolidBlockIn(this.boundingBox.addCoord(0.0, 3.0, 0.0))
-                 && this.worldObj.getEntitiesWithinAABB(EntityGhast.class, this.boundingBox.expand(64.0, 64.0, 64.0)).isEmpty());
-      } else {
-         cir.setReturnValue(super.getCanSpawnHere(perform_light_check));
+                 && this.worldObj.getEntitiesWithinAABB(EntityGhast.class, this.boundingBox.expand(64.0, 64.0, 64.0)).isEmpty();
       }
+      return original;
    }
 
    @ModifyConstant(method = "updateEntityActionState", constant = @Constant(intValue = 10))

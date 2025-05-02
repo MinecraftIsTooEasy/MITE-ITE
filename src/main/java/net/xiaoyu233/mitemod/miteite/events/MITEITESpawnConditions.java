@@ -13,8 +13,11 @@ public class MITEITESpawnConditions implements Consumer<SpawnConditionRegisterEv
     @Override
     public void accept(SpawnConditionRegisterEvent event) {
         event.register(EntityGhast.class, (world, x, y, z) -> {
-            if (!world.isBloodMoon(true) || (world.isOverworld() && world.getDayOfOverworld() < (Configs.GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY.get()))) {
-                return null;
+            if (world.isOverworld()) {
+                if (!world.isBloodMoon(true) || (world.getDayOfOverworld() < (Configs.GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY.get()))) {
+                    return null;
+                }
+                return EntityGhast.class;
             }
             return EntityGhast.class;
         });
@@ -25,10 +28,13 @@ public class MITEITESpawnConditions implements Consumer<SpawnConditionRegisterEv
             return null;
         });
         event.register(EntityAncientBoneLord.class, (world, x, y, z) -> {
-            if (world.isBloodMoon(false)) {
-                return EntityAncientBoneLord.class;
+            if (world.isOverworld()) {
+                if (world.isBloodMoon(false)) {
+                    return EntityAncientBoneLord.class;
+                }
+                return null;
             }
-            return null;
+            return EntityAncientBoneLord.class;
         });
         event.register(EntityAnnihilationSkeleton.class, (world, x, y, z) -> {
             if (world.isFullWaterBlock(x, y, z, true)) {

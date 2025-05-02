@@ -222,6 +222,7 @@ public class MITEITEItemRegistryInit extends Item {
                 'D', Item.diamond,
                 'M', Item.ingotMithril,
                 'A', Item.ingotAdamantium);
+        Item.ghastTear.setCraftingDifficultyAsComponent(5);
         register.registerShapedRecipe(new ItemStack(UNIVERSAL_ENHANCE_STONE),
                 true,
                 "gDg",
