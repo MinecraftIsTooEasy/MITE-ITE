@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Random;
 
-@Mixin(WorldGenMinable.class)
+@Mixin(value = WorldGenMinable.class, priority = 999)
 public abstract class WorldGenMinableTrans {
    @Shadow private int minableBlockId;
    @Shadow public abstract int getMinVeinHeight(World world);
@@ -57,16 +57,6 @@ public abstract class WorldGenMinableTrans {
          cir.setReturnValue(225);
       } else if (world.isTheNether()) {
          cir.setReturnValue(115);
-      }
-   }
-
-   @Inject(method = "getRandomVeinHeight", at = @At("HEAD"), cancellable = true)
-   public void injectRandomVeinHeight(World world, Random rand, CallbackInfoReturnable<Integer> cir) {
-      Block block = Block.blocksList[this.minableBlockId];
-      if (world.isUnderworld()) {
-         if (block == Block.oreAdamantium) {
-            cir.setReturnValue(this.getMinVeinHeight(world) + rand.nextInt(this.getMaxVeinHeight(world) - this.getMinVeinHeight(world)));
-         }
       }
    }
 }

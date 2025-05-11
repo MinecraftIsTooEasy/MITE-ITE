@@ -2,6 +2,7 @@ package net.xiaoyu233.mitemod.miteite.item;
 
 import moddedmite.rustedironcore.api.event.events.CraftingRecipeRegisterEvent;
 import net.minecraft.*;
+import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.fml.api.item.*;
 import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
 import net.xiaoyu233.fml.util.ReflectHelper;
@@ -63,17 +64,19 @@ public class MITEITEItemRegistryInit extends Item {
 
     public static void registerRecipes(CraftingRecipeRegisterEvent register) {
         register.registerShapedRecipe(new ItemStack(OBSIDIAN_STICK), true, "#", "#", '#', Block.obsidian);
-        register.registerShapedRecipe(new ItemStack(VIBRANIUM_INGOT),
-                false,
-                "NIN",
-                "IDI",
-                "NIN",
-                'N',
-                Item.mithrilNugget,
-                'I',
-                Item.ingotAdamantium,
-                'D',
-                Item.diamond);
+        if (!FishModLoader.hasMod("extreme")) {
+            register.registerShapedRecipe(new ItemStack(VIBRANIUM_INGOT),
+                    false,
+                    "NIN",
+                    "IDI",
+                    "NIN",
+                    'N',
+                    Item.mithrilNugget,
+                    'I',
+                    Item.ingotAdamantium,
+                    'D',
+                    Item.diamond);
+        }
         register.registerShapelessRecipe(new ItemStack(VIBRANIUM_NUGGET, 9), true, VIBRANIUM_INGOT);
         register.registerShapelessRecipe(new ItemStack(VIBRANIUM_INGOT),
                 true,
