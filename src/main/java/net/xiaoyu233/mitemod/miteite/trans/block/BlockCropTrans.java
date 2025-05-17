@@ -18,7 +18,7 @@ public abstract class BlockCropTrans {
    @Inject(method = "fertilize", at = @At("HEAD"), cancellable = true)
    public void injectUseManure(World world, int x, int y, int z, ItemStack item_stack, CallbackInfoReturnable<Boolean> cir) {
       Item item = item_stack.getItem();
-      if (item != Item.manure) {
+      if (item == Item.manure) {
          int metadata = world.getBlockMetadata(x, y, z);
          cir.setReturnValue(this.isBlighted(metadata) && world.setBlockMetadataWithNotify(x, y, z, this.setBlighted(metadata, false), 2));
       }

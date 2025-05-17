@@ -121,10 +121,7 @@ public class ToolModifierTypes implements ItemModifierTypes {
         return maxLevel;
     }
 
-    public String getDisplayName() {
-        if (!FishModLoader.isServer())
-            return I18n.getString("modifier.tool." + this.unlocalizedName + ".name");
-        else
-            return "modifier.tool." + this.unlocalizedName + ".name";
+    public ChatMessageComponent getDisplayName() {
+        return ChatMessageComponent.createFromTranslationKey("modifier.tool." + this.unlocalizedName + ".name");
     }
 }

@@ -98,6 +98,7 @@ miteite.tool.modifier.exp=装备经验:
 miteite.tool.modifier.modifiers=装备强化:
 miteite.msg.modifier.level=你的 %1$s 的 %2$s §r属性已升级到 %3$s 级
 miteite.msg.modifier.new=你的 %1$s 获得了 %2$s §r属性
+miteite.msg.modifier.upgrade=你的 %1$s 已升级,当前等级: %2$s
 miteite.tool.forging.grade=§5强化等级:§6
 miteite.tool.forging.exp=  §7装备经验增加:§a
 miteite.tool.forging.armor=  §9护甲增加:§6

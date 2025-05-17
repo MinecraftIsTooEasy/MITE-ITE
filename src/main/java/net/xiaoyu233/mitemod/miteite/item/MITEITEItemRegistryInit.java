@@ -39,19 +39,19 @@ public class MITEITEItemRegistryInit extends Item {
 
     public static void registerItems(ItemRegistryEvent event) {
         event.register(MITEITEMod.ITENameSpace, "miteite:obsidian_stick", "obsidian_stick", OBSIDIAN_STICK);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium", "vibranium", VIBRANIUM_INGOT);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_nugget", "vibranium_nugget", VIBRANIUM_NUGGET);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_helmet", "vibranium_helmet", VIBRANIUM_HELMET);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_chestplate", "vibranium_chestplate", VIBRANIUM_CHESTPLATE);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_leggings", "vibranium_leggings", VIBRANIUM_LEGGINGS);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_boots", "vibranium_boots", VIBRANIUM_BOOTS);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_sword", "vibranium_sword", VIBRANIUM_SWORD);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_shovel", "vibranium_shovel", VIBRANIUM_SHOVEL);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_pickaxe", "vibranium_pickaxe", VIBRANIUM_PICKAXE);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_axe", "vibranium_axe", VIBRANIUM_AXE);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_dagger", "vibranium_dagger", VIBRANIUM_DAGGER);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_war_hammer", "vibranium_war_hammer", VIBRANIUM_WAR_HAMMER);
-        event.register(MITEITEMod.ITENameSpace, "miteite:vibranium_battle_axe", "vibranium_battle_axe", VIBRANIUM_BATTLE_AXE);
+        event.register(MITEITEMod.ITENameSpace, "miteite:ingots/vibranium", "vibranium", VIBRANIUM_INGOT);
+        event.register(MITEITEMod.ITENameSpace, "miteite:nuggets/vibranium", "vibranium_nugget", VIBRANIUM_NUGGET);
+        event.register(MITEITEMod.ITENameSpace, "miteite:armor/vibranium_helmet", "vibranium_helmet", VIBRANIUM_HELMET);
+        event.register(MITEITEMod.ITENameSpace, "miteite:armor/vibranium_chestplate", "vibranium_chestplate", VIBRANIUM_CHESTPLATE);
+        event.register(MITEITEMod.ITENameSpace, "miteite:armor/vibranium_leggings", "vibranium_leggings", VIBRANIUM_LEGGINGS);
+        event.register(MITEITEMod.ITENameSpace, "miteite:armor/vibranium_boots", "vibranium_boots", VIBRANIUM_BOOTS);
+        event.register(MITEITEMod.ITENameSpace, "miteite:tools/vibranium_sword", "vibranium_sword", VIBRANIUM_SWORD);
+        event.register(MITEITEMod.ITENameSpace, "miteite:tools/vibranium_shovel", "vibranium_shovel", VIBRANIUM_SHOVEL);
+        event.register(MITEITEMod.ITENameSpace, "miteite:tools/vibranium_pickaxe", "vibranium_pickaxe", VIBRANIUM_PICKAXE);
+        event.register(MITEITEMod.ITENameSpace, "miteite:tools/vibranium_axe", "vibranium_axe", VIBRANIUM_AXE);
+        event.register(MITEITEMod.ITENameSpace, "miteite:tools/vibranium_dagger", "vibranium_dagger", VIBRANIUM_DAGGER);
+        event.register(MITEITEMod.ITENameSpace, "miteite:tools/vibranium_war_hammer", "vibranium_war_hammer", VIBRANIUM_WAR_HAMMER);
+        event.register(MITEITEMod.ITENameSpace, "miteite:tools/vibranium_battle_axe", "vibranium_battle_axe", VIBRANIUM_BATTLE_AXE);
         event.register(MITEITEMod.ITENameSpace, "miteite:diamond_chunk", "diamond_chunk", DIAMOND_CHUNK);
         event.register(MITEITEMod.ITENameSpace, "miteite:blaze_coal_powder", "blaze_coal_powder", BLAZE_COAL_POWDER);
         event.register(MITEITEMod.ITENameSpace, "miteite:bows/vibranium/", "bows/vibranium/", VIBRANIUM_BOW).setUnlocalizedName("vibranium_bow");

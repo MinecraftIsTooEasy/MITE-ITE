@@ -33,6 +33,7 @@ loom {
 }
 
 runClient{
+	args("--username", "Xy_Lose", "--session", "a.a.a.a", "--width", 854, "--height", 480)
 }
 
 dependencies {

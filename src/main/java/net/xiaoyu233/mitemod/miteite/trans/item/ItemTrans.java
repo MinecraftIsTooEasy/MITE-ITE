@@ -49,7 +49,7 @@ public class ItemTrans implements ITEItem {
                   tagCompound.setInteger("tool_level", currentLevel + 1);
                   tagCompound.setInteger("tool_exp", 0);
                   if (!player.worldObj.isRemote) {
-                     player.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("你的" + stack.getMITEStyleDisplayName() + "已升级,当前等级:" + (currentLevel + 1)).setColor(EnumChatFormatting.DARK_AQUA));
+                     player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.upgrade", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), currentLevel + 1).setColor(EnumChatFormatting.DARK_AQUA));
                   }
 
                   if (!tagCompound.hasKey("modifiers")) {

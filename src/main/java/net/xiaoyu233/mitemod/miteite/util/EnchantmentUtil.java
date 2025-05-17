@@ -28,7 +28,7 @@ public class EnchantmentUtil {
 
     }
 
-    public static List<EnchantmentData> buildEnchantmentList(Random random, ItemStack item_stack, int enchantment_levels,int maxTotalLevel,int maxEnchantmentNum) {
+    public static List<EnchantmentData> buildEnchantmentList(Random random, ItemStack item_stack, int enchantment_levels,int maxTotalLevel, int maxEnchantmentNum) {
         Item item = item_stack.getItem();
         int enchantability = item.getItemEnchantability();
         int maxSize = item.getHardestMetalMaterial() == Materials.vibranium ? 3 : 2;

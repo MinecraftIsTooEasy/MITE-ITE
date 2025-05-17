@@ -12,38 +12,42 @@ public class Configs {
     public static final ConfigRoot ROOT = ConfigRoot.create(Constant.CONFIG_VERSION).
             addEntry(ConfigCategory.of("GameMechanics").
                     addEntry(ConfigEntry.of("in_wall_damage_for_player", GameMechanics.IN_WALL_DAMAGE_FOR_PLAYER).withComment("玩家墙内窒息伤害(小数)")).
-                    addEntry(ConfigEntry.of("stepped_mob_damage_factor",GameMechanics.STEPPED_MOB_DAMAGE_PROGRESS_BASE).withComment("渐进伤害每次增幅点数基础值(小数)")).
-                    addEntry(ConfigEntry.of("stepped_mob_damage_progress_max",GameMechanics.STEPPED_MOB_DAMAGE_PROGRESS_MAX).withComment("渐进伤害增幅最大值(小数)")).
-                    addEntry(ConfigEntry.of("stepped_mob_damage_progress_increase_day",GameMechanics.STEPPED_MOB_DAMAGE_PROGRESS_INCREASE_DAY).withComment("渐进伤害每次增幅每增加一点所需天数(整数)")).
-                    addEntry(ConfigEntry.of("stepped_player_damage_progress",GameMechanics.STEPPED_PLAYER_BASE_DAMAGE_MAX).withComment("玩家对怪物渐进伤害(不计附魔)最大值")).
-                    addEntry(ConfigEntry.of("stepped_player_damage_increase_per_lvl",GameMechanics.STEPPED_PLAYER_DAMAGE_INCREASE_PER_LVL).withComment("玩家对怪物渐进伤害每级加成")).
-                    addEntry(ConfigEntry.of("fishing_xp",GameMechanics.FISHING_XP_SCALE).withComment("钓鱼经验(整数)")).
-                    addEntry(ConfigEntry.of("in_rain_debuff_time",GameMechanics.IN_RAIN_DEBUFF_TIME).withComment("雨中获得负面效果所需时长(整数)")).
-                    addEntry(ConfigEntry.of("first_day_longer_day_time",GameMechanics.FIRST_DAY_LONGER_DAY_TIME).withComment("加长第一天时间(开关)")).
-                    addEntry(ConfigEntry.of("player_defense_cooldown",GameMechanics.PLAYER_DEFENSE_COOLDOWN).withComment("玩家格挡冷却")).
-                    addEntry(ConfigEntry.of("player_defence_max_time",GameMechanics.PLAYER_DEFENCE_MAX_TIME).withComment("玩家格挡最大时间")).
-                    addEntry(ConfigEntry.of("player_disarm_player",GameMechanics.PLAYER_DISARM_PLAYER).withComment("玩家缴械玩家")).
+                    addEntry(ConfigEntry.of("stepped_mob_damage_factor", GameMechanics.STEPPED_MOB_DAMAGE_PROGRESS_BASE).withComment("渐进伤害每次增幅点数基础值(小数)")).
+                    addEntry(ConfigEntry.of("stepped_mob_damage_progress_max", GameMechanics.STEPPED_MOB_DAMAGE_PROGRESS_MAX).withComment("渐进伤害增幅最大值(小数)")).
+                    addEntry(ConfigEntry.of("stepped_mob_damage_progress_increase_day", GameMechanics.STEPPED_MOB_DAMAGE_PROGRESS_INCREASE_DAY).withComment("渐进伤害每次增幅每增加一点所需天数(整数)")).
+                    addEntry(ConfigEntry.of("stepped_player_damage_progress", GameMechanics.STEPPED_PLAYER_BASE_DAMAGE_MAX).withComment("玩家对怪物渐进伤害(不计附魔)最大值")).
+                    addEntry(ConfigEntry.of("stepped_player_damage_increase_per_lvl", GameMechanics.STEPPED_PLAYER_DAMAGE_INCREASE_PER_LVL).withComment("玩家对怪物渐进伤害每级加成")).
+                    addEntry(ConfigEntry.of("fishing_xp", GameMechanics.FISHING_XP_SCALE).withComment("钓鱼经验(整数)")).
+                    addEntry(ConfigEntry.of("in_rain_debuff_time", GameMechanics.IN_RAIN_DEBUFF_TIME).withComment("雨中获得负面效果所需时长(整数)")).
+                    addEntry(ConfigEntry.of("first_day_longer_day_time", GameMechanics.FIRST_DAY_LONGER_DAY_TIME).withComment("加长第一天时间(开关)")).
+                    addEntry(ConfigEntry.of("player_defense_cooldown", GameMechanics.PLAYER_DEFENSE_COOLDOWN).withComment("玩家格挡冷却")).
+                    addEntry(ConfigEntry.of("player_defence_max_time", GameMechanics.PLAYER_DEFENCE_MAX_TIME).withComment("玩家格挡最大时间")).
+                    addEntry(ConfigEntry.of("player_disarm_player", GameMechanics.PLAYER_DISARM_PLAYER).withComment("玩家缴械玩家")).
                     addEntry(ConfigCategory.of("MobSpawning").
-                            addEntry(ConfigEntry.of("blood_moon_max_hostile_fraction",GameMechanics.MobSpawning.BLOOD_MOON_MAX_HOSTILE_FRACTION).withComment("血月最大刷怪数量系数(小数)")).
-                            addEntry(ConfigEntry.of("ghast_spawn_limit_day",GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY).withComment("主世界生成恶魂所需天数(整数)")).
-                            addEntry(ConfigEntry.of("annihilation_skeleton_spawn_in_light",GameMechanics.MobSpawning.ANNIHILATION_SKELETON_SPAWN_IN_LIGHT).withComment("主世界湮灭骷髅在光照出生成")).
-                            addEntry(ConfigEntry.of("ancient_bone_lord_spawn_limit_day",GameMechanics.MobSpawning.ANCIENT_BONE_LORD_SPAWN_LIMIT_DAY).withComment("主世界生成远古骷髅公爵所需天数(整数)")).
-                            addEntry(ConfigEntry.of("wandering_witch_spawn_chance_overworld",GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_CHANCE_OVERWORLD).withComment("主世界流浪女巫生成概率百分比(整数)")).
-                            addEntry(ConfigEntry.of("wandering_witch_spawn_limit_day_overworld",GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_LIMIT_DAY_OVERWORLD).withComment("主世界流浪女巫生成天数限制(整数)")).
-                            addEntry(ConfigEntry.of("wandering_witch_spawn_limit_day_other",GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_LIMIT_DAY_OTHER).withComment("地狱及地底世界流浪女巫生成天数限制(整数)")).
-                            addEntry(ConfigEntry.of("wandering_witch_spawn_chance_underworld",GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_CHANCE_UNDERWORLD).withComment("地底世界流浪女巫生成概率百分比(整数)")).
-                            addEntry(ConfigEntry.of("mob_max_spawn_count_increase_per_day",GameMechanics.MobSpawning.MOB_MAX_SPAWN_COUNT_INCREASE_PER_DAY).withComment("每天刷怪数量上限增量(整数)"))).
+                            addEntry(ConfigEntry.of("blood_moon_max_hostile_fraction", GameMechanics.MobSpawning.BLOOD_MOON_MAX_HOSTILE_FRACTION).withComment("血月最大刷怪数量系数(小数)")).
+                            addEntry(ConfigEntry.of("ghast_spawn_limit_day", GameMechanics.MobSpawning.GHAST_SPAWN_LIMIT_DAY).withComment("主世界生成恶魂所需天数(整数)")).
+                            addEntry(ConfigEntry.of("annihilation_skeleton_spawn_in_light", GameMechanics.MobSpawning.ANNIHILATION_SKELETON_SPAWN_IN_LIGHT).withComment("主世界湮灭骷髅在光照出生成")).
+                            addEntry(ConfigEntry.of("ancient_bone_lord_spawn_limit_day", GameMechanics.MobSpawning.ANCIENT_BONE_LORD_SPAWN_LIMIT_DAY).withComment("主世界生成远古骷髅公爵所需天数(整数)")).
+                            addEntry(ConfigEntry.of("wandering_witch_spawn_chance_overworld", GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_CHANCE_OVERWORLD).withComment("主世界流浪女巫生成概率百分比(整数)")).
+                            addEntry(ConfigEntry.of("wandering_witch_spawn_limit_day_overworld", GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_LIMIT_DAY_OVERWORLD).withComment("主世界流浪女巫生成天数限制(整数)")).
+                            addEntry(ConfigEntry.of("wandering_witch_spawn_limit_day_other", GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_LIMIT_DAY_OTHER).withComment("地狱及地底世界流浪女巫生成天数限制(整数)")).
+                            addEntry(ConfigEntry.of("wandering_witch_spawn_chance_underworld", GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_CHANCE_UNDERWORLD).withComment("地底世界流浪女巫生成概率百分比(整数)")).
+                            addEntry(ConfigEntry.of("mob_max_spawn_count_increase_per_day", GameMechanics.MobSpawning.MOB_MAX_SPAWN_COUNT_INCREASE_PER_DAY).withComment("每天刷怪数量上限增量(整数)")).
+                            addEntry(ConfigEntry.of("zombie_lord_spawn_frequency", GameMechanics.MobSpawning.ZOMBIE_LORD_SPWAN_FREQUENCY).withComment("僵尸领主生成频率")).
+                            addEntry(ConfigEntry.of("zombie_pigman_lord_spawn_frequency", GameMechanics.MobSpawning.ZOMBIE_PIGMAN_LORD_SPWAN_FREQUENCY).withComment("僵尸猪人领主生成频率")).
+                            addEntry(ConfigEntry.of("annihilation_skeleton_spawn_frequency", GameMechanics.MobSpawning.ANNIHILATION_SKELETON_SPWAN_FREQUENCY).withComment("湮灭骷髅生成频率")).
+                            addEntry(ConfigEntry.of("wandering_witch_spawn_frequency", GameMechanics.MobSpawning.WANDERING_WITCH_SPAWN_FREQUENCY).withComment("流浪女巫生成频率"))).
                     addEntry(ConfigCategory.of("Underworld").
-                            addEntry(ConfigEntry.of("underworld_random_teleport",GameMechanics.Underworld.UNDERWORLD_RANDOM_TELEPORT).withComment("地底世界随机传送(开关)")).
-                            addEntry(ConfigEntry.of("underworld_random_teleport_time_new",GameMechanics.Underworld.UNDERWORLD_RANDOM_TELEPORT_TIME).withComment("地底世界随机传送时间(整数)")).
-                            addEntry(ConfigEntry.of("underworld_debuff",GameMechanics.Underworld.UNDERWORLD_DEBUFF).withComment("地底世界负面效果(开关)")).
-                            addEntry(ConfigEntry.of("underworld_debuff_period1",GameMechanics.Underworld.UNDERWORLD_DEBUFF_PERIOD1).withComment("地底世界负面效果第一阶段触发时间(整数)")).
-                            addEntry(ConfigEntry.of("underworld_debuff_period2",GameMechanics.Underworld.UNDERWORLD_DEBUFF_PERIOD2).withComment("地底世界负面效果第二阶段触发时间(整数)"))).
+                            addEntry(ConfigEntry.of("underworld_random_teleport", GameMechanics.Underworld.UNDERWORLD_RANDOM_TELEPORT).withComment("地底世界随机传送(开关)")).
+                            addEntry(ConfigEntry.of("underworld_random_teleport_time_new", GameMechanics.Underworld.UNDERWORLD_RANDOM_TELEPORT_TIME).withComment("地底世界随机传送时间(整数)")).
+                            addEntry(ConfigEntry.of("underworld_debuff", GameMechanics.Underworld.UNDERWORLD_DEBUFF).withComment("地底世界负面效果(开关)")).
+                            addEntry(ConfigEntry.of("underworld_debuff_period1", GameMechanics.Underworld.UNDERWORLD_DEBUFF_PERIOD1).withComment("地底世界负面效果第一阶段触发时间(整数)")).
+                            addEntry(ConfigEntry.of("underworld_debuff_period2", GameMechanics.Underworld.UNDERWORLD_DEBUFF_PERIOD2).withComment("地底世界负面效果第二阶段触发时间(整数)"))).
                     addEntry(ConfigCategory.of("Nether").
-                            addEntry(ConfigEntry.of("netherrack_damage",GameMechanics.Nether.NETHERRACK_DAMAGE).withComment("地狱烫脚(开关)")).
-                            addEntry(ConfigEntry.of("netherrack_damage_limit_day",GameMechanics.Nether.NETHERRACK_DAMAGE_LIMIT_DAY).withComment("地狱烫脚所需天数(整数)")).
-                            addEntry(ConfigEntry.of("nether_debuff",GameMechanics.Nether.NETHER_DEBUFF).withComment("地狱负面效果(开关)")).
-                            addEntry(ConfigEntry.of("nether_debuff_time",GameMechanics.Nether.NETHER_DEBUFF_TIME).withComment("地狱负面效果触发时间")))).
+                            addEntry(ConfigEntry.of("netherrack_damage", GameMechanics.Nether.NETHERRACK_DAMAGE).withComment("地狱烫脚(开关)")).
+                            addEntry(ConfigEntry.of("netherrack_damage_limit_day", GameMechanics.Nether.NETHERRACK_DAMAGE_LIMIT_DAY).withComment("地狱烫脚所需天数(整数)")).
+                            addEntry(ConfigEntry.of("nether_debuff", GameMechanics.Nether.NETHER_DEBUFF).withComment("地狱负面效果(开关)")).
+                            addEntry(ConfigEntry.of("nether_debuff_time", GameMechanics.Nether.NETHER_DEBUFF_TIME).withComment("地狱负面效果触发时间")))).
             addEntry(ConfigCategory.of("Item").
                     addEntry(ConfigEntry.of("quartz_max_exp_level",Item.QUARTZ_MAX_EXP_LEVEL).withComment("石英可提供经验最大等级")).
                     addEntry(ConfigEntry.of("diamond_exp",Item.DIAMOND_EXP).withComment("钻石经验")).
@@ -149,7 +153,7 @@ public class Configs {
 //    }
 
     public static class Entities {
-        public static final FieldReference<Integer> ENHANCE_LIMIT = new FieldReference<>(256);
+        public static final FieldReference<Integer> ENHANCE_LIMIT = new FieldReference<>(366);
         public static final FieldReference<Boolean> BAT_POISON_ATTACK = new FieldReference<>(true);
         public static final FieldReference<Boolean> BONE_LORD_TWEAK = new FieldReference<>(true);
         public static final FieldReference<Boolean> CAN_BOOST_IRON_GOLEM = new FieldReference<>(true);
@@ -211,6 +215,11 @@ public class Configs {
             public static final FieldReference<Integer> WANDERING_WITCH_SPAWN_LIMIT_DAY_OVERWORLD = new FieldReference<>(64);
             public static final FieldReference<Integer> WANDERING_WITCH_SPAWN_CHANCE_OVERWORLD = new FieldReference<>(33);
             public static final FieldReference<Integer> WANDERING_WITCH_SPAWN_CHANCE_UNDERWORLD = new FieldReference<>(50);
+
+            public static final FieldReference<Integer> ZOMBIE_LORD_SPWAN_FREQUENCY = new FieldReference<>(2);
+            public static final FieldReference<Integer> ZOMBIE_PIGMAN_LORD_SPWAN_FREQUENCY = new FieldReference<>(1);
+            public static final FieldReference<Integer> ANNIHILATION_SKELETON_SPWAN_FREQUENCY = new FieldReference<>(1);
+            public static final FieldReference<Integer> WANDERING_WITCH_SPAWN_FREQUENCY = new FieldReference<>(1);
         }
 
         public static class Nether {

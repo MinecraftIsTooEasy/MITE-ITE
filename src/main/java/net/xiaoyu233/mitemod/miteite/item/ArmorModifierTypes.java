@@ -119,10 +119,7 @@ public class ArmorModifierTypes implements ItemModifierTypes {
         return this.nbtName;
     }
 
-    public String getDisplayName() {
-        if (!FishModLoader.isServer())
-            return I18n.getString("modifier.armor." + this.unlocalizedName + ".name");
-        else
-            return "modifier.armor." + this.unlocalizedName + ".name";
+    public ChatMessageComponent getDisplayName() {
+        return ChatMessageComponent.createFromTranslationKey("modifier.armor." + this.unlocalizedName + ".name");
     }
 }

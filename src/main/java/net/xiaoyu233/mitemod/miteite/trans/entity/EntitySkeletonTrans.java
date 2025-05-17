@@ -1,9 +1,10 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.*;
 import net.minecraft.server.MinecraftServer;
 import net.xiaoyu233.mitemod.miteite.api.ITESkeleton;
-import net.xiaoyu233.mitemod.miteite.api.ITEWorld;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 import net.xiaoyu233.mitemod.miteite.util.MonsterUtil;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -141,9 +143,30 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
       this.initStockedWeapon();
    }
 
-   @Inject(method = "<init>",at = @At("RETURN"))
-   private void injectInit(World world,CallbackInfo callbackInfo){
-      this.forceMeleeAttack = (Configs.Entities.SKELETON_FORCE_MELEE_ATTACK.get()) && this.rand.nextInt(100) < 15;
+   @WrapOperation(
+           method = "setCombatTask",
+           at = @At(
+                   value = "INVOKE",
+                   target = "Lnet/minecraft/EntityAITasks;addTask(ILnet/minecraft/EntityAIBase;)V"),
+           slice = @Slice(
+                   from = @At(
+                           value = "INVOKE",
+                           target = "Lnet/minecraft/EntityAITasks;addTask(ILnet/minecraft/EntityAIBase;)V",
+                           ordinal = 0
+                   ),
+                   to = @At(
+                           value = "INVOKE",
+                           target = "Lnet/minecraft/EntityAITasks;addTask(ILnet/minecraft/EntityAIBase;)V",
+                           ordinal = 1)
+           )
+   )
+   private void setForceMeleeAttack(EntityAITasks instance, int par1, EntityAIBase par2EntityAIBase, Operation<Void> original) {
+      ItemStack itemStack = this.getHeldItemStack();
+      if (itemStack != null && itemStack.getItem() instanceof ItemBow && (Configs.Entities.SKELETON_FORCE_MELEE_ATTACK.get() && this.rand.nextInt(100) < 15)) {
+         instance.addTask(4, this.aiAttackOnCollide);
+      } else {
+         original.call(instance, par1, par2EntityAIBase);
+      }
    }
 
    @Inject(method = "onLivingUpdate",at = @At("RETURN"))
@@ -309,20 +332,9 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
       return false;
    }
 
-   @Unique
-   public void setCombatTask() {
-      this.tasks.removeTask(this.aiAttackOnCollide);
-      this.tasks.removeTask(this.aiArrowAttack);
-      ItemStack var1 = this.getHeldItemStack();
+   @Shadow public abstract boolean isAIEnabled();
 
-      if (var1 != null && var1.getItem() instanceof ItemBow && !forceMeleeAttack) {
-         this.tasks.addTask(4, this.aiArrowAttack);
-         this.tasks.addTask(1, new EntityAISeekFiringPosition(this, 1.0F, true));
-      } else {
-         this.tasks.addTask(4, this.aiAttackOnCollide);
-      }
-
-   }
+   @Shadow public abstract void setCombatTask();
 
    @Unique
    public void swapHeldItemStackWithStowed() {

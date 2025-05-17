@@ -11,9 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityZombie.class)
 class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
-   @Shadow
-   @Final
-   protected static Attribute field_110186_bp;
+   @Shadow @Final protected static Attribute field_110186_bp;
 
    public EntityZombieTrans(World world) {
       super(world);

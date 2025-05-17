@@ -99,6 +99,7 @@ miteite.tool.modifier.exp=Exp:
 miteite.tool.modifier.modifiers=Modifiers:
 miteite.msg.modifier.level=Your %2$s §r modifier of %1$s has been upgraded to %3$s level
 miteite.msg.modifier.new=Your %1$s gets the %2$s §r modifier
+miteite.msg.modifier.upgrade=Your %1$s have been upgraded, current level: %2$s
 miteite.tool.forging.grade=§5Forging Grade:§6
 miteite.tool.forging.exp=  §7Experience increases:§a
 miteite.tool.forging.armor=  §9Armor increases:§6

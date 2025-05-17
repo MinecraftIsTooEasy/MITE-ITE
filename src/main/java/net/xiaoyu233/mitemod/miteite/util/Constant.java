@@ -40,7 +40,7 @@ public class Constant {
         LEGGINGS = new ItemArmor[]{Item.legsLeather, Item.legsChainCopper, Item.legsCopper, Item.legsRustedIron, Item.legsChainIron, Item.legsIron, Item.legsChainAncientMetal, Item.legsAncientMetal, Item.legsChainMithril, Item.legsMithril, Item.legsAdamantium, MITEITEItemRegistryInit.VIBRANIUM_LEGGINGS};
         BOOTS = new ItemArmor[]{Item.bootsLeather, Item.bootsChainCopper, Item.bootsCopper, Item.bootsRustedIron, Item.bootsChainIron, Item.bootsIron, Item.bootsChainAncientMetal, Item.bootsAncientMetal, Item.bootsChainMithril, Item.bootsMithril, Item.bootsAdamantium, MITEITEItemRegistryInit.VIBRANIUM_BOOTS};
         ARMORS = new ItemArmor[][]{HELMETS, CHESTPLATES, LEGGINGS, BOOTS};
-        SWORDS = new Item[]{Item.swordRustedIron, Item.swordIron,Item.swordAncientMetal,Item.swordMithril,Item.swordAdamantium, MITEITEItemRegistryInit.VIBRANIUM_SWORD};
+        SWORDS = new Item[]{Item.swordRustedIron, Item.swordIron, Item.swordAncientMetal, Item.swordMithril, Item.swordAdamantium, MITEITEItemRegistryInit.VIBRANIUM_SWORD};
     }
 
 }

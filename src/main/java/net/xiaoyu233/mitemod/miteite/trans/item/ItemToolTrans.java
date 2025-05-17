@@ -79,10 +79,10 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
       ToolModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedToolModifiers(stack),player.getRNG());
       if (modifierType != null) {
          if (modifiers.hasKey(modifierType.nbtName)) {
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName(), this.addModifierLevelFor(modifiers, modifierType)));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color), this.addModifierLevelFor(modifiers, modifierType)));
          } else {
             this.addModifierLevelFor(modifiers, modifierType);
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName()));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color)));
          }
       }
 
