@@ -102,6 +102,7 @@ public class BlockForgingTable extends Block implements ITileEntityProvider,IBlo
         return this.subtypes.getNames();
     }
 
+    @Override
     public boolean isPortable(World world, EntityLivingBase entity_living_base, int x, int y, int z) {
         return true;
     }

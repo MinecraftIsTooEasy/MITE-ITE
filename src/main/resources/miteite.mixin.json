@@ -106,6 +106,7 @@
     "item.recipe.ShapedRecipeTrans",
     "item.recipe.ShapelessRecipeTrans",
     "network.ClientNetworkManagerTrans",
+    "network.NetClientHandleMixin",
     "network.NetworkManagerTrans",
     "network.PacketOpenWindowTrans",
     "network.ServerNetworkManagerTrans",

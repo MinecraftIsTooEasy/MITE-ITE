@@ -2,7 +2,7 @@ package net.xiaoyu233.mitemod.miteite.block;
 
 import net.minecraft.BlockFurnace;
 import net.minecraft.IconRegister;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 
 public class BlockFurnaceVibranium extends BlockFurnace {
     protected BlockFurnaceVibranium(int par1, boolean par2) {

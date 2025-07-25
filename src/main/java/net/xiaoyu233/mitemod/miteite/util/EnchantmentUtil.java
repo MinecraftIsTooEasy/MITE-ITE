@@ -1,7 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.util;
 
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 
 import java.util.*;

@@ -1,7 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.trans.item.enchantment;
 
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.SoftOverride;
@@ -19,7 +19,7 @@ public abstract class EnchantmentWeaponDamageXTrans extends Enchantment {
 
    @Inject(method = "canEnchantItem", at = @At("HEAD"), cancellable = true)
    public void injectVibraniumCheck(Item item, CallbackInfoReturnable<Boolean> cir) {
-      if (this == Enchantment.smite && ((item.getHardestMetalMaterial() == Materials.vibranium) && (item.getClass() == ItemSword.class))){
+      if (this == Enchantment.smite && ((item.getHardestMetalMaterial() == Materials.vibranium) && (item.getClass() == ItemSword.class))) {
          cir.setReturnValue(true);
       }
    }

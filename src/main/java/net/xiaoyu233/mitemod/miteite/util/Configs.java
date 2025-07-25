@@ -1,11 +1,17 @@
 package net.xiaoyu233.mitemod.miteite.util;
 
+import net.minecraft.Packet;
+import net.minecraft.ServerPlayer;
+import net.minecraft.server.MinecraftServer;
 import net.xiaoyu233.fml.config.ConfigCategory;
 import net.xiaoyu233.fml.config.ConfigEntry;
 import net.xiaoyu233.fml.config.ConfigRoot;
 import net.xiaoyu233.fml.util.FieldReference;
+import net.xiaoyu233.mitemod.miteite.network.ConfigSyncPacket;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Configs {
     public static final File CONFIG_FILE = new File("mite-ite-cfg.json");
@@ -20,6 +26,7 @@ public class Configs {
                     addEntry(ConfigEntry.of("fishing_xp", GameMechanics.FISHING_XP_SCALE).withComment("钓鱼经验(整数)")).
                     addEntry(ConfigEntry.of("in_rain_debuff_time", GameMechanics.IN_RAIN_DEBUFF_TIME).withComment("雨中获得负面效果所需时长(整数)")).
                     addEntry(ConfigEntry.of("first_day_longer_day_time", GameMechanics.FIRST_DAY_LONGER_DAY_TIME).withComment("加长第一天时间(开关)")).
+                    addEntry(ConfigEntry.of("player_enchant_defense", GameMechanics.PLAYER_ENCHANT_DEFENSE).withComment("玩家格挡需要附魔")).
                     addEntry(ConfigEntry.of("player_defense_cooldown", GameMechanics.PLAYER_DEFENSE_COOLDOWN).withComment("玩家格挡冷却")).
                     addEntry(ConfigEntry.of("player_defence_max_time", GameMechanics.PLAYER_DEFENCE_MAX_TIME).withComment("玩家格挡最大时间")).
                     addEntry(ConfigEntry.of("player_disarm_player", GameMechanics.PLAYER_DISARM_PLAYER).withComment("玩家缴械玩家")).
@@ -199,6 +206,7 @@ public class Configs {
         public static final FieldReference<Double> IN_WALL_DAMAGE_FOR_PLAYER = new FieldReference<>(10.0d);
         public static final FieldReference<Integer> PLAYER_DEFENCE_MAX_TIME = new FieldReference<>(2 * 20);
         public static final FieldReference<Integer> PLAYER_DEFENSE_COOLDOWN = new FieldReference<>(20 * 8);
+        public static final FieldReference<Boolean> PLAYER_ENCHANT_DEFENSE = new FieldReference<>(true);
         public static final FieldReference<Boolean> PLAYER_DISARM_PLAYER = new FieldReference<>(true);
         public static final FieldReference<Double> STEPPED_MOB_DAMAGE_PROGRESS_BASE = new FieldReference<>(1d);
         public static final FieldReference<Integer> STEPPED_MOB_DAMAGE_PROGRESS_INCREASE_DAY = new FieldReference<>(24);

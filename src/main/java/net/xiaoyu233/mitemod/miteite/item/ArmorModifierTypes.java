@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ArmorModifierTypes implements ItemModifierTypes {
-    private static final List<ArmorModifierTypes> VALUES = new ArrayList<>();
+    protected static final List<? extends ArmorModifierTypes> VALUES = new ArrayList<>();
 
     public final String nbtName;
     public final float levelAddition;
@@ -40,6 +40,11 @@ public class ArmorModifierTypes implements ItemModifierTypes {
     public static final ArmorModifierTypes IMMUNITY = new ArmorModifierTypes(
             0.15f, "immunity", EnumChatFormatting.GREEN, 3, 4, itemStack -> itemStack.getItem() instanceof ItemHelmet, "IMMUNITY");
 
+
+    public ArmorModifierTypes(float levelAddition, String unlocalizedName, EnumChatFormatting color, int weight, int maxLevel, Predicate<ItemStack> canApplyTo) {
+        this(levelAddition, unlocalizedName, color, weight, maxLevel, canApplyTo, unlocalizedName);
+    }
+
     public ArmorModifierTypes(float levelAddition, String unlocalizedName, EnumChatFormatting color, int weight, int maxLevel, Predicate<ItemStack> canApplyTo, String nbtName) {
         this.nbtName = nbtName.toLowerCase();
         this.levelAddition = levelAddition;
@@ -49,11 +54,17 @@ public class ArmorModifierTypes implements ItemModifierTypes {
         this.maxLevel = maxLevel;
         this.canApplyTo = canApplyTo;
 
-        VALUES.add(this);
+        addValue(this);
     }
 
+    @SuppressWarnings("unchecked")
+    protected static <T extends ArmorModifierTypes> void addValue(T item) {
+        ((List<T>) VALUES).add(item);
+    }
+
+    @SuppressWarnings("unchecked")
     public static ArmorModifierTypes[] values() {
-        return VALUES.toArray(new ArmorModifierTypes[0]);
+        return ((List<ArmorModifierTypes>) VALUES).toArray(new ArmorModifierTypes[0]);
     }
 
     public static ArmorModifierTypes valueOf(String name) {

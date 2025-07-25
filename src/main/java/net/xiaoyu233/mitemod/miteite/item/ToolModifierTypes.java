@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 // }
 
 public class ToolModifierTypes implements ItemModifierTypes {
-    private static final List<ToolModifierTypes> VALUES = new ArrayList<>();
+    protected static final List<? extends ToolModifierTypes> VALUES = new ArrayList<>();
 
     public final String nbtName;
     public final float levelAddition;
@@ -54,6 +54,10 @@ public class ToolModifierTypes implements ItemModifierTypes {
 //    public static final ToolModifierTypes BEHEADING_MODIFIER = new ToolModifierTypes(
 //          0.02f,"斩首",EnumChatFormats.DEAR_GREEN,1, ToolModifierTypes::isWeapon, 5, "BEHEADING_MODIFIER");
 
+    public ToolModifierTypes(float levelAddition, String unlocalizedName, EnumChatFormatting color, int weight, Predicate<ItemStack> canApplyTo, int maxLevel) {
+        this(levelAddition, unlocalizedName, color, weight, canApplyTo, maxLevel, unlocalizedName);
+    }
+
     public ToolModifierTypes(float levelAddition, String unlocalizedName, EnumChatFormatting color, int weight, Predicate<ItemStack> canApplyTo, int maxLevel, String nbtName) {
         this.nbtName = nbtName.toLowerCase();
         this.levelAddition = levelAddition;
@@ -63,11 +67,17 @@ public class ToolModifierTypes implements ItemModifierTypes {
         this.canApplyTo = canApplyTo;
         this.maxLevel = maxLevel;
 
-        VALUES.add(this);
+        addValue(this);
     }
 
+    @SuppressWarnings("unchecked")
+    protected static <T extends ToolModifierTypes> void addValue(T item) {
+        ((List<T>) VALUES).add(item);
+    }
+
+    @SuppressWarnings("unchecked")
     public static ToolModifierTypes[] values() {
-        return VALUES.toArray(new ToolModifierTypes[0]);
+        return ((List<ToolModifierTypes>) VALUES).toArray(new ToolModifierTypes[0]);
     }
 
     public static ToolModifierTypes valueOf(String name) {

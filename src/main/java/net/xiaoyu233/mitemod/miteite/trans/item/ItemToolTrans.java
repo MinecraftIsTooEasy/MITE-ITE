@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.IUpgradableItem;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
@@ -15,13 +15,12 @@ import net.xiaoyu233.mitemod.miteite.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.function.BiFunction;
 
-@Mixin(ItemTool.class)
+@Mixin(value = ItemTool.class, priority = 999)
 public abstract class ItemToolTrans extends Item implements IUpgradableItem {
    @Shadow protected List materials_effective_against;
    @Shadow protected float damageVsEntity;
@@ -192,8 +191,12 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
       return this.isWeapon(itemStack.getItem()) ? (float) (itemStack.getEnhanceFactor() * (double) this.getCombinedDamageVsEntity()) : 0.0f;
    }
 
-   public EnumItemInUseAction getItemInUseAction(ItemStack par1ItemStack, EntityPlayer player) {
-      return EnchantmentHelper.hasEnchantment(par1ItemStack, MITEITEEnchantmentRegistryInit.DEFENCED) ? EnumItemInUseAction.BLOCK : null;
+   @ModifyReturnValue(method = "getItemInUseAction", at = @At("TAIL"))
+   public EnumItemInUseAction getItemInUseAction(EnumItemInUseAction original, @Local(argsOnly = true) ItemStack par1ItemStack) {
+         if (EnchantmentHelper.hasEnchantment(par1ItemStack, MITEITEEnchantmentRegistryInit.DEFENCED) && Configs.GameMechanics.PLAYER_ENCHANT_DEFENSE.get())
+            return original;
+         if (!Configs.GameMechanics.PLAYER_ENCHANT_DEFENSE.get()) return original;
+      return null;
    }
 
    @Inject(method = "getMaterialHarvestEfficiency", at = @At("HEAD"), cancellable = true)

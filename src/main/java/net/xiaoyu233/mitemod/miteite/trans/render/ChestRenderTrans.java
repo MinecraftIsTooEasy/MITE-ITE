@@ -4,7 +4,7 @@ import net.minecraft.TileEntity;
 import net.minecraft.TileEntityChest;
 import net.minecraft.TileEntityChestRenderer;
 import net.minecraft.TileEntitySpecialRenderer;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

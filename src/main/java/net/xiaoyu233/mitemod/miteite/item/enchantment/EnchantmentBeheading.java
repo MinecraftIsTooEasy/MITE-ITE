@@ -1,6 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.item.enchantment;
 
 import net.minecraft.*;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 
 public class EnchantmentBeheading extends Enchantment {
     protected EnchantmentBeheading(int id, EnumRarity rarity, int difficulty) {
@@ -25,6 +26,6 @@ public class EnchantmentBeheading extends Enchantment {
 
     @Override
     public boolean isOnCreativeTab(CreativeTabs creativeModeTab) {
-        return creativeModeTab == CreativeTabs.tabCombat;
+        return creativeModeTab == MITEITEItemRegistryInit.tabMITEITE;
     }
 }

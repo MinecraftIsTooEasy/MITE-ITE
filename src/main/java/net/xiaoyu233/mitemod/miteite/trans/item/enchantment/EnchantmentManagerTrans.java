@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.util.EnchantmentUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +22,7 @@ public class EnchantmentManagerTrans {
    }
 
    @WrapOperation(method = "mapEnchantmentData", at = @At(value = "INVOKE", target = "Lnet/minecraft/Enchantment;getNumLevels()I"))
-   private static int modify(Enchantment instance, Operation<Integer> original, @Local Item item) {
+   private static int vibraniumMaterialBetterLevel(Enchantment instance, Operation<Integer> original, @Local(name = "item") Item item) {
       if (item.getHardestMetalMaterial() == Materials.vibranium) {
          return instance.getNumLevelsForVibranium();
       }

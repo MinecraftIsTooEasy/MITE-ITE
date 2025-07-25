@@ -3,7 +3,7 @@ package net.xiaoyu233.mitemod.miteite.registry;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlugin;
 import net.xiaoyu233.mitemod.miteite.api.ITERegistry;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
 
 public class ITEVanillaPlugin implements ITEPlugin {

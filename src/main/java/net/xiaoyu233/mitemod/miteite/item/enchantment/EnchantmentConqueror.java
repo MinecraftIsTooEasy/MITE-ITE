@@ -4,6 +4,7 @@ import net.minecraft.CreativeTabs;
 import net.minecraft.Enchantment;
 import net.minecraft.EnumRarity;
 import net.minecraft.Item;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 
 public class EnchantmentConqueror extends Enchantment {
     protected EnchantmentConqueror(int id, EnumRarity rarity, int difficulty) {
@@ -32,7 +33,7 @@ public class EnchantmentConqueror extends Enchantment {
 
     @Override
     public boolean isOnCreativeTab(CreativeTabs creativeModeTab) {
-        return creativeModeTab == CreativeTabs.tabCombat;
+        return creativeModeTab == MITEITEItemRegistryInit.tabMITEITE;
     }
 
 }

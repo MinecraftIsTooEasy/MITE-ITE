@@ -6,15 +6,13 @@ import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlayer;
 import net.xiaoyu233.mitemod.miteite.gui.GuiForgingTable;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import static net.minecraft.ClientPlayer.calcUnmodifiedCraftingPeriod;
 
 @Mixin(ClientPlayer.class)
 public abstract class ClientPlayerTrans extends AbstractClientPlayer implements ITEPlayer {

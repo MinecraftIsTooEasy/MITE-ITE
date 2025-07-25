@@ -41,25 +41,25 @@ public class PlayerCombatListener implements ICombatListener {
 
     @Override
     public float onPlayerRawMeleeDamageModify(EntityPlayer player, Entity target, boolean critical, boolean suspended_in_liquid, float original) {
-            ItemStack chestplate;
-            float critBouns = 0.0f;
-            ItemStack heldItemStack = player.getHeldItemStack();
-            int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
-            if (critical) {
-                critBouns = (float) (critLevel * Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get());
+        ItemStack chestplate;
+        float critBouns = 0.0f;
+        ItemStack heldItemStack = player.getHeldItemStack();
+        int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
+        if (critical) {
+            critBouns = (float) (critLevel * Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get());
+        }
+        float indomitableAmp = 1.0f;
+        float healthPercent = player.getHealth() / player.getMaxHealth();
+        if (healthPercent <= 0.5f && (chestplate = player.getCurrentArmor(1)) != null) {
+            float value = ArmorModifierTypes.INDOMITABLE.getModifierValue(chestplate.getTagCompound());
+            if (value != 0.0f) {
+                indomitableAmp = getIndomitableAmp(healthPercent);
             }
-            float indomitableAmp = 1.0f;
-            float healthPercent = player.getHealth() / player.getMaxHealth();
-            if (healthPercent <= 0.5f && (chestplate = player.getCurrentArmor(1)) != null) {
-                float value = ArmorModifierTypes.INDOMITABLE.getModifierValue(chestplate.getTagCompound());
-                if (value != 0.0f) {
-                    indomitableAmp = getIndomitableAmp(healthPercent);
-                }
-            }
-            float demonHunterAmp = 1.0f;
-            if (target != null && !target.getWorld().isOverworld() && heldItemStack != null) {
-                demonHunterAmp = 1.0f + ToolModifierTypes.DEMON_POWER.getModifierValue(heldItemStack.getTagCompound());
-            }
+        }
+        float demonHunterAmp = 1.0f;
+        if (target != null && !target.getWorld().isOverworld() && heldItemStack != null) {
+            demonHunterAmp = 1.0f + ToolModifierTypes.DEMON_POWER.getModifierValue(heldItemStack.getTagCompound());
+        }
         return (critBouns + original) * indomitableAmp * demonHunterAmp;
     }
 

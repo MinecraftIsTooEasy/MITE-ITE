@@ -8,7 +8,7 @@ import net.xiaoyu233.fml.reload.event.ItemRegistryEvent;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
 
 import static net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit.VIBRANIUM_INGOT;

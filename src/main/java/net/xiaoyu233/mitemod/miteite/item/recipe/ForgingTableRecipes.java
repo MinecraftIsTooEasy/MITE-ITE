@@ -5,7 +5,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 
 import java.util.function.Consumer;
 

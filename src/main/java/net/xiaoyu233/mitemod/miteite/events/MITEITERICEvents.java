@@ -16,7 +16,7 @@ import net.xiaoyu233.mitemod.miteite.events.listener.PlayerAttributeListener;
 import net.xiaoyu233.mitemod.miteite.events.listener.PlayerCombatListener;
 import net.xiaoyu233.mitemod.miteite.events.listener.CraftingRegistry;
 import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.registry.ITEVanillaPlugin;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
@@ -59,8 +59,8 @@ public class MITEITERICEvents extends Handlers {
         Smelting.register(new FurnaceExtend());
         Crafting.register(new CraftingRegistry());
         PropertiesRegistry.register(() -> {
-            MaterialProperties.RepairItem.register(Materials.vibranium, MITEITEItemRegistryInit.VIBRANIUM_NUGGET);
-            MaterialProperties.HarvestEfficiency.register(Materials.vibranium, Float.valueOf(3.5f));
+//            MaterialProperties.RepairItem.register(Materials.vibranium, MITEITEItemRegistryInit.VIBRANIUM_NUGGET);
+//            MaterialProperties.HarvestEfficiency.register(Materials.vibranium, Float.valueOf(3.5f));
             ItemProperties.BurnTime.register(MITEITEItemRegistryInit.BLAZE_COAL_POWDER, 6800);
             ItemProperties.HeatLevel.register(MITEITEItemRegistryInit.BLAZE_COAL_POWDER, 5);
             ITERegistryImpl MITEITERegistry = new ITERegistryImpl();

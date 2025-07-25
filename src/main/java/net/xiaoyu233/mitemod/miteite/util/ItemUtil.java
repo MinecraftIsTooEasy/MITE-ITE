@@ -2,7 +2,7 @@ package net.xiaoyu233.mitemod.miteite.util;
 
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 
 public class ItemUtil {
     public static float getProtectionForDamage(ItemStack armor, DamageSource damageSource, EntityLivingBase owner) {

@@ -19,16 +19,11 @@ public class GuiForgingTable extends GuiContainer implements ICrafting {
     private final EntityPlayer player;
     private static final int MAX_DISPLAY_TIME = 200;
     private final String timeInfo = StatCollector.translateToLocal("gui.forgingTable.time");
-    private final ContainerForgingTable forgingTable;
+    public final ContainerForgingTable forgingTable;
     private GuiButton startButton;
     private String infoString;
-    private int currentInfoTime;
-    private int currentInfoColor;
-    private int maxTime;
-    private int chanceOfFailure;
+    private int currentInfoTime, currentInfoColor, maxTime, chanceOfFailure, hammerCost, axeCost;
     private final List<FaultFeedbackData> faultFeedbackData = new ArrayList<>();
-    private int hammerCost;
-    private int axeCost;
 
     public GuiForgingTable(EntityPlayer player, int x, int y, int z, ForgingTableSlots slots) {
         super(new ContainerForgingTable(slots, player, x, y, z));
@@ -66,16 +61,16 @@ public class GuiForgingTable extends GuiContainer implements ICrafting {
         }
 
         if (this.maxTime != 0) {
-            this.drawString(this.mc.fontRenderer, this.timeInfo + ":" + (float)this.maxTime / 20.0F + "S", var3, var5, 16777215);
-            this.drawString(this.mc.fontRenderer, this.chanceOfFailureInfo + ":" + this.chanceOfFailure + "%", var3, var5 + 10, 16777215);
-            this.drawString(this.mc.fontRenderer, this.hammerCostInfo + ":" + this.hammerCost, var3, var5 + 20, 16777215);
-            this.drawString(this.mc.fontRenderer, this.axeCostInfo + ":" + this.axeCost, var3, var5 + 30, 16777215);
-            this.drawString(this.mc.fontRenderer, this.ifFail, var3, var5 + 40, 16777045);
+            this.drawString(this.mc.fontRenderer, this.timeInfo + ":" + (float)this.maxTime / 20.0F + "S", var3, var5, 0xffffff);
+            this.drawString(this.mc.fontRenderer, this.chanceOfFailureInfo + ":" + this.chanceOfFailure + "%", var3, var5 + 10, 0xffffff);
+            this.drawString(this.mc.fontRenderer, this.hammerCostInfo + ":" + this.hammerCost, var3, var5 + 20, 0xffffff);
+            this.drawString(this.mc.fontRenderer, this.axeCostInfo + ":" + this.axeCost, var3, var5 + 30, 0xffffff);
+            this.drawString(this.mc.fontRenderer, this.ifFail, var3, var5 + 40, 0xFFFF55);
             List<FaultFeedbackData> feedbackData = this.faultFeedbackData;
 
-            for(int i2 = 0; i2 < feedbackData.size(); ++i2) {
+            for (int i2 = 0; i2 < feedbackData.size(); ++i2) {
                 FaultFeedbackData faultFeedbackData = feedbackData.get(i2);
-                this.drawString(this.mc.fontRenderer, "   " + StatCollector.translateToLocalFormatted(faultFeedbackData.getName(), faultFeedbackData.getData()), var3, var5 + 50 + 10 * i2, 16733525);
+                this.drawString(this.mc.fontRenderer, "   " + StatCollector.translateToLocalFormatted(faultFeedbackData.getName(), faultFeedbackData.getData()), var3, var5 + 50 + 10 * i2, 0xFF5555);
             }
         }
     }

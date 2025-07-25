@@ -1,5 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.inventory.container;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.block.BlockForgingTable;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingRecipe;
@@ -15,12 +17,12 @@ public class ContainerForgingTable extends Container {
     @Nullable
     //null on client so we need to check when the method can be invoked in client
     private final TileEntityForgingTable tileentity;
-    private final ForgingTableSlots slots;
-    private final int blockX,blockY,blockZ;
+    public final ForgingTableSlots slots;
+    private final int blockX, blockY, blockZ;
     private int forgingTime;
     private int lastForgingTime;
 
-    public ContainerForgingTable(ForgingTableSlots slots,EntityPlayer player, int x, int y, int z) {
+    public ContainerForgingTable(ForgingTableSlots slots, EntityPlayer player, int x, int y, int z) {
         super(player);
         this.blockX = x;
         this.blockY = y;
@@ -29,19 +31,19 @@ public class ContainerForgingTable extends Container {
         this.slots = slots;
         if (!player.getWorld().isRemote) {
             this.tileentity = (TileEntityForgingTable) player.getWorldServer().getBlockTileEntity(x, y, z);
-        }else {
+        } else {
             this.tileentity = null;
         }
         this.onCraftMatrixChanged(slots);
 
         int index;
-        for(index = 0; index < 3; ++index) {
-            for(int var8 = 0; var8 < 9; ++var8) {
+        for (index = 0; index < 3; ++index) {
+            for (int var8 = 0; var8 < 9; ++var8) {
                 this.addSlot(new Slot(player.inventory, var8 + index * 9 + 9, 8 + var8 * 18, 84 + index * 18));
             }
         }
 
-        for(index = 0; index < 9; ++index) {
+        for (index = 0; index < 9; ++index) {
             this.addSlot(new Slot(player.inventory, index, 8 + index * 18, 142));
         }
 
@@ -108,7 +110,6 @@ public class ContainerForgingTable extends Container {
     }
 
     @Override
-    //onContainerClosed
     public void onContainerClosed(EntityPlayer par1EntityPlayer) {
         super.onContainerClosed(par1EntityPlayer);
         if (!this.world.isRemote){
@@ -122,7 +123,6 @@ public class ContainerForgingTable extends Container {
         par1ICrafting.sendProgressBarUpdate(this, 0, this.forgingTime);
     }
 
-    //onCraftMatrixChanged
     public void onCraftMatrixChanged(IInventory par1IInventory) {
         this.detectAndSendChanges();
         if (par1IInventory == this.slots){
@@ -130,6 +130,7 @@ public class ContainerForgingTable extends Container {
         }
     }
 
+    @Environment(EnvType.SERVER)
     //onlyInServer
     void onCraftMatrixChanged(){
         ((ServerPlayer) this.player).sendContainerAndContentsToPlayer(this,this.getInventory());
@@ -148,6 +149,7 @@ public class ContainerForgingTable extends Container {
         }
     }
 
+    @Environment(EnvType.SERVER)
     //OnlyInServer
     public void startForging(){
         if (!this.tileentity.startForging()) {

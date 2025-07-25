@@ -9,6 +9,7 @@ import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.block.MITEITEBlockRegistryInit;
 import net.xiaoyu233.mitemod.miteite.creativetab.CreativeTabsITE;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 
 @SuppressWarnings("ConstantConditions")

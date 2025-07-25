@@ -5,7 +5,7 @@ import net.minecraft.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.api.IUpgradableItem;
-import net.xiaoyu233.mitemod.miteite.item.Materials;
+import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
 import net.xiaoyu233.mitemod.miteite.util.ItemUtil;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
@@ -130,12 +130,12 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
       return this.getExpReqForLevel(i, this.armorType, ReflectHelper.dyCast(this));
    }
 
-   @Inject(method = "getMaterialProtection", at = @At("HEAD"), cancellable = true)
-   public void injectVibraniumProtections(CallbackInfoReturnable<Integer> cir) {
-      if (this.effective_material == Materials.vibranium){
-         cir.setReturnValue(15);
-      }
-   }
+//   @Inject(method = "getMaterialProtection", at = @At("HEAD"), cancellable = true)
+//   public void injectVibraniumProtections(CallbackInfoReturnable<Integer> cir) {
+//      if (this.effective_material == Materials.vibranium){
+//         cir.setReturnValue(15);
+//      }
+//   }
 
    @Override
    public int getMaxDamage(ItemStack item_stack) {
@@ -194,10 +194,10 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
       ArmorModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedArmorModifiers(stack),player.getRNG());
       if (modifierType != null) {
          if (modifiers.hasKey(modifierType.nbtName)) {
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName(), this.addModifierLevelFor(modifiers, modifierType)));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color), this.addModifierLevelFor(modifiers, modifierType)));
          } else {
             this.addModifierLevelFor(modifiers, modifierType);
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", stack.getMITEStyleDisplayName(), modifierType.color.toString() + modifierType.getDisplayName()));
+            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color)));
          }
       }
 

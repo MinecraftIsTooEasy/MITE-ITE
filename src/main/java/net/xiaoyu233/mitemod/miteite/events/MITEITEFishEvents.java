@@ -20,6 +20,7 @@ import net.xiaoyu233.mitemod.miteite.render.entity.RenderAncientDragon;
 import net.xiaoyu233.mitemod.miteite.render.entity.RenderAnnihilationSkeleton;
 import net.xiaoyu233.mitemod.miteite.render.entity.RenderWanderingWitch;
 import net.xiaoyu233.mitemod.miteite.tileentity.TileEntityForgingTable;
+import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 
 public class MITEITEFishEvents {

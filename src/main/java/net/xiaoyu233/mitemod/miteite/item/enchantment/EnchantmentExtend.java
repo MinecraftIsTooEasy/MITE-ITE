@@ -1,6 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.item.enchantment;
 
 import net.minecraft.*;
+import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 
 public class EnchantmentExtend extends Enchantment {
     protected EnchantmentExtend(int id, EnumRarity rarity, int difficulty) {
@@ -23,7 +24,7 @@ public class EnchantmentExtend extends Enchantment {
     }
 
     @Override
-    public boolean isOnCreativeTab(CreativeTabs var1) {
-        return var1 == CreativeTabs.tabTools;
+    public boolean isOnCreativeTab(CreativeTabs creativeTabs) {
+        return creativeTabs == MITEITEItemRegistryInit.tabMITEITE;
     }
 }

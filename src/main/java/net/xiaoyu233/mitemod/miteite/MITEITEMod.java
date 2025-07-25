@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.xiaoyu233.fml.ModResourceManager;
 import net.xiaoyu233.fml.config.ConfigRegistry;
 import net.xiaoyu233.mitemod.miteite.events.EventListeners;
+import net.xiaoyu233.mitemod.miteite.network.NetworkHandler;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 
 import java.util.Optional;
