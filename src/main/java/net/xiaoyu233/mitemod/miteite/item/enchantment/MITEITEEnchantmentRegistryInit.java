@@ -18,9 +18,9 @@ public class MITEITEEnchantmentRegistryInit {
     public static final List<Enchantment> individualEnchantments = new ArrayList<>();
 
     public static void registerEnchantments(EnchantmentRegistryEvent event) {
-        event.registerEnchantment(DEFENCED,CRIT,EXTEND,EMERGENCY,CONQUEROR,BEHEADING);
+        event.registerEnchantment(DEFENCED, CRIT, EXTEND, EMERGENCY, CONQUEROR, BEHEADING);
         for (Enchantment enchantment : Enchantment.enchantmentsList) {
-            if (enchantment != null && !MITEITEEnchantmentRegistryInit.individualEnchantments.contains(enchantment)){
+            if (enchantment != null && !MITEITEEnchantmentRegistryInit.individualEnchantments.contains(enchantment)) {
                 if (enchantment.enchantIndividually()){
                     MITEITEEnchantmentRegistryInit.individualEnchantments.add(enchantment);
                 }

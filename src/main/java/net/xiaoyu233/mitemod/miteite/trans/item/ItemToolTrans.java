@@ -75,7 +75,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
    @Override
    public void onItemLevelUp(NBTTagCompound tagCompound, EntityPlayer player, ItemStack stack) {
       NBTTagCompound modifiers = tagCompound.getCompoundTag("modifiers");
-      ToolModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedToolModifiers(stack),player.getRNG());
+      ToolModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedToolModifiers(stack), player.getRNG());
       if (modifierType != null) {
          if (modifiers.hasKey(modifierType.nbtName)) {
             player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color), this.addModifierLevelFor(modifiers, modifierType)));

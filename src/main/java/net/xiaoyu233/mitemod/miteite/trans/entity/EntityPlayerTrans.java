@@ -1,6 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.achievement.MITEITEAchievementRegistryInit;
@@ -14,6 +15,7 @@ import net.xiaoyu233.mitemod.miteite.network.SPacketCraftingBoost;
 import net.xiaoyu233.mitemod.miteite.network.SPacketOverlayMessage;
 import net.xiaoyu233.mitemod.miteite.trans.util.EntityDamageResultAccessor;
 import net.xiaoyu233.mitemod.miteite.util.BlockPos;
+import net.xiaoyu233.mitemod.miteite.util.CompatUtil;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
@@ -108,12 +110,12 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
    }
 
    @Redirect(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityPlayer;willDeliverCriticalStrike()Z"))
-   private boolean redirectCheckCriticalStrike(EntityPlayer instance){
+   private boolean redirectCheckCriticalStrike(EntityPlayer instance, @Local(argsOnly = true) Entity target) {
       ItemStack heldItemStack = this.getHeldItemStack();
-      if (EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT)) {
+      if (EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT) && CompatUtil.targetIsNotZombieBoss((EntityLivingBase) target)) {
          int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
          ITE$willCritOnLastAttack = instance.willDeliverCriticalStrike() || this.rand.nextInt(10) < (Configs.Item.Enchantment.CRIT_ENCHANTMENT_CHANCE_BOOST_PER_LVL.get()) * critLevel;
-      }else{
+      } else {
          ITE$willCritOnLastAttack = instance.willDeliverCriticalStrike();
       }
       return ITE$willCritOnLastAttack;
@@ -126,31 +128,31 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
    private boolean ITE$willCritOnLastAttack = false;
 
    @Redirect(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityPlayer;calcRawMeleeDamageVs(Lnet/minecraft/Entity;ZZ)F"))
-   private float modifyApplyITEBonusDamage(EntityPlayer instance, Entity target, boolean critical, boolean suspended_in_liquid){
+   private float modifyApplyITEBonusDamage(EntityPlayer instance, Entity target, boolean critical, boolean suspended_in_liquid) {
       float damage = this.calcRawMeleeDamageVs(target, critical, this.isSuspendedInLiquid());
       float critBouns = 0.0F;
       ItemStack heldItemStack = this.getHeldItemStack();
       //Check for crit enchantment
-      if (ITE$willCritOnLastAttack && EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT)) {
+      if (ITE$willCritOnLastAttack && EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT) && CompatUtil.targetIsNotZombieBoss((EntityLivingBase) target)) {
          int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
-         critBouns = (float)critLevel * (Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get()).floatValue();
+         critBouns = (float) critLevel * (Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get()).floatValue();
       }
 
       //Check for indomitable modifier
       float indomitableAmp = 1;
       float healthPercent = this.getHealth() / this.getMaxHealth();
-      if (healthPercent <= 0.5f){
+      if (healthPercent <= 0.5f) {
          ItemStack chestplate = this.getCurrentArmor(1);
-         if (chestplate != null){
+         if (chestplate != null) {
             float value = ArmorModifierTypes.INDOMITABLE.getModifierValue(chestplate.getTagCompound());
-            if (value != 0){
+            if (value != 0) {
                indomitableAmp = this.getIndomitableAmp(healthPercent);
             }
          }
       }
 
       float demonHunterAmp = 1;
-      if (!target.getWorld().isOverworld() && heldItemStack != null){
+      if (!target.getWorld().isOverworld() && heldItemStack != null) {
          demonHunterAmp += ToolModifierTypes.DEMON_POWER.getModifierValue(heldItemStack.getTagCompound());
       }
       return (critBouns + damage) * indomitableAmp * demonHunterAmp;
@@ -168,13 +170,13 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
 
    @Unique
    private float getIndomitableAmp(float healthPercent){
-      if (healthPercent <= 0.1f){
+      if (healthPercent <= 0.1f) {
          return 2.0f;
-      }else if (healthPercent <= 0.2f) {
+      } else if (healthPercent <= 0.2f) {
          return 1.6f;
-      }else if (healthPercent <= 0.35f){
+      } else if (healthPercent <= 0.35f) {
          return 1.35f;
-      }else if (healthPercent <= 0.5f){
+      } else if (healthPercent <= 0.5f) {
          return 1.25f;
       }
       return 1.0f;

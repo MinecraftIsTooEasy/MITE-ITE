@@ -6,6 +6,7 @@ import net.xiaoyu233.mitemod.miteite.api.ITEItemEntity;
 import net.xiaoyu233.mitemod.miteite.api.ITELivingEntity;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
+import net.xiaoyu233.mitemod.miteite.util.CompatUtil;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -98,21 +99,23 @@ public abstract class EntityLivingTrans extends EntityLivingBase implements ITEL
            )}
    )
    private void injectAttackEntityFrom(Damage damage, CallbackInfoReturnable<EntityDamageResult> callbackInfo) {
-      double max = Configs.GameMechanics.STEPPED_PLAYER_BASE_DAMAGE_MAX.get();
-      if (max != 0.0D) {
-         Entity responsibleEntity = damage.getSource().getResponsibleEntity();
-         ItemStack itemAttackedWith = damage.getItemAttackedWith();
-         if (responsibleEntity instanceof EntityPlayer && itemAttackedWith != null && itemAttackedWith.getItem() instanceof ItemTool) {
-            EntityPlayer player = (EntityPlayer) responsibleEntity;
-            if (this.playerSteppedCountMap.containsKey(responsibleEntity)) {
-               Integer time = this.playerSteppedCountMap.get(responsibleEntity);
-               damage.setAmount((float) (damage.getAmount() +
-                       //Increase per lvl: enchantment + player base
-                       (time * EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CONQUEROR,itemAttackedWith) * Configs.Item.Enchantment.CONQUEROR_DAMAGE_BOOST_PER_LVL.get()) +
-                       (Math.min(max, time * Math.max(0,player.getExperienceLevel()) * Configs.GameMechanics.STEPPED_PLAYER_DAMAGE_INCREASE_PER_LVL.get()))));
-               this.playerSteppedCountMap.put(player, time + 1);
-            } else {
-               this.playerSteppedCountMap.put(player, 1);
+      if (CompatUtil.targetIsNotZombieBoss(ReflectHelper.dyCast(EntityLiving.class, this))) {
+         double max = Configs.GameMechanics.STEPPED_PLAYER_BASE_DAMAGE_MAX.get();
+         if (max != 0.0D) {
+            Entity responsibleEntity = damage.getSource().getResponsibleEntity();
+            ItemStack itemAttackedWith = damage.getItemAttackedWith();
+            if (responsibleEntity instanceof EntityPlayer && itemAttackedWith != null && itemAttackedWith.getItem() instanceof ItemTool) {
+               EntityPlayer player = (EntityPlayer) responsibleEntity;
+               if (this.playerSteppedCountMap.containsKey(responsibleEntity)) {
+                  Integer time = this.playerSteppedCountMap.get(responsibleEntity);
+                  damage.setAmount((float) (damage.getAmount() +
+                          //Increase per lvl: enchantment + player base
+                          (time * EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CONQUEROR, itemAttackedWith) * Configs.Item.Enchantment.CONQUEROR_DAMAGE_BOOST_PER_LVL.get()) +
+                          (Math.min(max, time * Math.max(0, player.getExperienceLevel()) * Configs.GameMechanics.STEPPED_PLAYER_DAMAGE_INCREASE_PER_LVL.get()))));
+                  this.playerSteppedCountMap.put(player, time + 1);
+               } else {
+                  this.playerSteppedCountMap.put(player, 1);
+               }
             }
          }
       }

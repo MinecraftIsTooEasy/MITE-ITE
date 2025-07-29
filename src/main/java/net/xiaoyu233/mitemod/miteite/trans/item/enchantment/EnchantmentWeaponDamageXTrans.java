@@ -19,7 +19,10 @@ public abstract class EnchantmentWeaponDamageXTrans extends Enchantment {
 
    @Inject(method = "canEnchantItem", at = @At("HEAD"), cancellable = true)
    public void injectVibraniumCheck(Item item, CallbackInfoReturnable<Boolean> cir) {
-      if (this == Enchantment.smite && ((item.getHardestMetalMaterial() == Materials.vibranium) && (item.getClass() == ItemSword.class))) {
+      if (this == Enchantment.smite && item.getHardestMetalMaterial() == Materials.vibranium && item instanceof ItemSword) {
+         cir.setReturnValue(true);
+      }
+      if (this == Enchantment.sharpness && item instanceof ItemBattleAxe) {
          cir.setReturnValue(true);
       }
    }

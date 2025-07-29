@@ -109,7 +109,7 @@ public abstract class ItemStackTrans implements ITEStack {
                ToolModifierTypes[] var7 = ToolModifierTypes.values();
                var3 = var7.length;
 
-               for(var4 = 0; var4 < var3; ++var4) {
+               for (var4 = 0; var4 < var3; ++var4) {
                   ToolModifierTypes value = var7[var4];
                   if (compound.getTag(value.nbtName) instanceof NBTTagFloat) {
                      origin = compound.getFloat(value.nbtName);
