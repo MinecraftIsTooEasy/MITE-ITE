@@ -18,4 +18,9 @@ public class EntityLargeFireballNB extends EntityLargeFireball {
             this.setDead();
         }
     }
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
+    }
 }

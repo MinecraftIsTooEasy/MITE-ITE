@@ -116,14 +116,16 @@ public class MITEITEItemRegistryInit extends Item {
                 "# #",
                 '#', VIBRANIUM_INGOT,
                 'A', Item.bootsAdamantium).extendsNBT().keepQuality();
-        register.registerShapedRecipe(new ItemStack(VIBRANIUM_PICKAXE),
-                true,
-                "###",
-                " A ",
-                " S ",
-                '#', VIBRANIUM_INGOT,
-                'S', OBSIDIAN_STICK,
-                'A', pickaxeAncientMetal);
+        if (!FishModLoader.hasMod("extreme-lh")) {
+            register.registerShapedRecipe(new ItemStack(VIBRANIUM_PICKAXE),
+                    true,
+                    "###",
+                    " A ",
+                    " S ",
+                    '#', VIBRANIUM_INGOT,
+                    'S', OBSIDIAN_STICK,
+                    'A', pickaxeAncientMetal);
+        }
         register.registerShapedRecipe(new ItemStack(VIBRANIUM_SHOVEL),
                 true,
                 "#",
@@ -132,14 +134,16 @@ public class MITEITEItemRegistryInit extends Item {
                 '#', VIBRANIUM_INGOT,
                 'S', OBSIDIAN_STICK,
                 'A', shovelAncientMetal).extendsNBT().keepQuality();
-        register.registerShapedRecipe(new ItemStack(VIBRANIUM_SWORD),
-                true,
-                " # ",
-                " # ",
-                " A ",
-                '#', VIBRANIUM_INGOT,
-                'S', OBSIDIAN_STICK,
-                'A', swordAncientMetal).extendsNBT().keepQuality();
+        if (!FishModLoader.hasMod("extreme-lh")) {
+            register.registerShapedRecipe(new ItemStack(VIBRANIUM_SWORD),
+                    true,
+                    " # ",
+                    " # ",
+                    " A ",
+                    '#', VIBRANIUM_INGOT,
+                    'S', OBSIDIAN_STICK,
+                    'A', swordAncientMetal).extendsNBT().keepQuality();
+        }
         register.registerShapedRecipe(new ItemStack(VIBRANIUM_AXE),
                 true,
                 "##",

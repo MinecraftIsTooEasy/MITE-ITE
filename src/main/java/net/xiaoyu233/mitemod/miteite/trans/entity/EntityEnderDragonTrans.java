@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@Mixin(EntityDragon.class)
+@Mixin(value = EntityDragon.class, priority = 999)
 public abstract class EntityEnderDragonTrans extends EntityLiving implements IEntityMultiPart {
    @Shadow
    private Entity target;
@@ -31,7 +31,7 @@ public abstract class EntityEnderDragonTrans extends EntityLiving implements IEn
    @Override
    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
       super.readEntityFromNBT(par1NBTTagCompound);
-      if(par1NBTTagCompound.hasKey("WeaknessCountDown")){
+      if (par1NBTTagCompound.hasKey("WeaknessCountDown")){
          this.weaknessCountdown = par1NBTTagCompound.getInteger("WeaknessCountDown");
       }
    }

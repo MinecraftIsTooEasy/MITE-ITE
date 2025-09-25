@@ -10,6 +10,7 @@ import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
+import net.xiaoyu233.mitemod.miteite.util.CompatUtil;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
@@ -63,8 +64,8 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
    }
 
    @Override
-   public int getMaxToolLevel(ItemStack itemStack){
-      return 15 + itemStack.getForgingGrade();
+   public int getMaxToolLevel(ItemStack itemStack) {
+      return CompatUtil.getMaxToolLevel(itemStack);
    }
 
    @Override

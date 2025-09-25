@@ -94,12 +94,11 @@ public abstract class EntityLivingTrans extends EntityLivingBase implements ITEL
            method = {"attackEntityFrom(Lnet/minecraft/Damage;)Lnet/minecraft/EntityDamageResult;"},
            at = {@At(
                    value = "INVOKE",
-                   target = "Lnet/minecraft/EntityLivingBase;attackEntityFrom(Lnet/minecraft/Damage;)Lnet/minecraft/EntityDamageResult;",
-                   shift = At.Shift.BEFORE
+                   target = "Lnet/minecraft/EntityLivingBase;attackEntityFrom(Lnet/minecraft/Damage;)Lnet/minecraft/EntityDamageResult;"
            )}
    )
    private void injectAttackEntityFrom(Damage damage, CallbackInfoReturnable<EntityDamageResult> callbackInfo) {
-      if (CompatUtil.targetIsNotZombieBoss(ReflectHelper.dyCast(EntityLiving.class, this))) {
+      if (ReflectHelper.dyCast(this) instanceof EntityLivingBase && CompatUtil.targetIsNotZombieBoss(ReflectHelper.dyCast(EntityLiving.class, this))) {
          double max = Configs.GameMechanics.STEPPED_PLAYER_BASE_DAMAGE_MAX.get();
          if (max != 0.0D) {
             Entity responsibleEntity = damage.getSource().getResponsibleEntity();

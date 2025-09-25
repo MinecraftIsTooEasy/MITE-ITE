@@ -7,6 +7,7 @@ import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.api.ITEStack;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
+import net.xiaoyu233.mitemod.miteite.util.CompatUtil;
 import net.xiaoyu233.mitemod.miteite.util.Constant;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,8 +33,6 @@ public abstract class ItemStackTrans implements ITEStack {
    @Shadow public abstract ItemStack setTagCompound(NBTTagCompound par1NBTTagCompound);
    @Shadow @Nonnull public abstract EnumQuality getQuality();
    @Shadow @Nonnull public abstract Item getItem();
-
-   @Unique private boolean toolNbtFixed;
 
    public ItemStackTrans(int id, int stack_size, int subtype) {
       this.itemID = id;
@@ -74,52 +73,7 @@ public abstract class ItemStackTrans implements ITEStack {
    }
 
    public void fixNBT() {
-      if (!this.toolNbtFixed) {
-         this.toolNbtFixed = true;
-         if (this.stackTagCompound == null) {
-            this.setTagCompound(new NBTTagCompound());
-            this.stackTagCompound.setInteger("tool_level", 0);
-            this.stackTagCompound.setInteger("tool_exp", 0);
-            this.stackTagCompound.setCompoundTag("modifiers", new NBTTagCompound());
-         } else if (!this.stackTagCompound.hasKey("tool_level")) {
-            this.stackTagCompound.setInteger("tool_level", 0);
-            this.stackTagCompound.setInteger("tool_exp", 0);
-            this.stackTagCompound.setCompoundTag("modifiers", new NBTTagCompound());
-         }
-
-         if (this.stackTagCompound.hasKey("modifiers")) {
-            NBTTagCompound compound = this.stackTagCompound.getCompoundTag("modifiers");
-            int var3;
-            int var4;
-            float origin;
-            if (this.getItem() instanceof ItemArmor) {
-               if (!compound.hasNoTags()) {
-                  ArmorModifierTypes[] var2 = ArmorModifierTypes.values();
-                  var3 = var2.length;
-
-                  for(var4 = 0; var4 < var3; ++var4) {
-                     ArmorModifierTypes value = var2[var4];
-                     if (compound.getTag(value.nbtName) instanceof NBTTagFloat) {
-                        origin = compound.getFloat(value.nbtName);
-                        compound.setInteger(value.nbtName, (int)(origin / value.levelAddition));
-                     }
-                  }
-               }
-            } else if (!compound.hasNoTags()) {
-               ToolModifierTypes[] var7 = ToolModifierTypes.values();
-               var3 = var7.length;
-
-               for (var4 = 0; var4 < var3; ++var4) {
-                  ToolModifierTypes value = var7[var4];
-                  if (compound.getTag(value.nbtName) instanceof NBTTagFloat) {
-                     origin = compound.getFloat(value.nbtName);
-                     compound.setInteger(value.nbtName, (int)(origin / value.levelAddition));
-                  }
-               }
-            }
-         }
-      }
-
+      new CompatUtil().fixNBT(ReflectHelper.dyCast(this));
    }
 
    @Redirect(method = "getTooltip",at = @At(value = "INVOKE",target = "Lnet/minecraft/Translator;addToList(Lnet/minecraft/EnumChatFormatting;Ljava/lang/String;Ljava/util/List;)V",ordinal = 0))
