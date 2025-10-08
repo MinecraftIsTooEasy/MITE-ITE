@@ -34,4 +34,16 @@ public class BlockPos {
     public int hashCode() {
         return Objects.hashCode(x, y, z);
     }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
+    }
+
+    public int getZ() {
+        return this.z;
+    }
 }
