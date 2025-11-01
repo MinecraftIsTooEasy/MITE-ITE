@@ -29,9 +29,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
    @Unique private BiFunction<Integer,Boolean,Integer> expForLevel;
 
    @Unique
-   private final BiFunction<Integer, Boolean, Integer> defaultExp = (level, isWeapon) -> {
-      return Integer.valueOf(150 + (level.intValue() * 75 * (isWeapon.booleanValue() ? 2 : 1)));
-   };
+   private final BiFunction<Integer, Boolean, Integer> defaultExp = (level, isWeapon) -> Integer.valueOf(150 + (level.intValue() * 75 * (isWeapon.booleanValue() ? 2 : 1)));
 
    @Override
    public int getExpReqForLevel(int level, boolean isSword) {

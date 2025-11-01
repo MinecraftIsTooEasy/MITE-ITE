@@ -5,11 +5,7 @@ import net.minecraft.MapColor;
 import net.minecraft.Material;
 
 public class Materials extends Material {
-    public static final Material vibranium;
-
-    static {
-        vibranium = new MaterialVibranium(EnumEquipmentMaterials.MITE_ITE_VIBRANIUM);
-    }
+    public static final Material vibranium = new MaterialVibranium(EnumEquipmentMaterials.MITE_ITE_VIBRANIUM);
 
     public Materials(EnumEquipmentMaterial enum_crafting_material) {
         super(enum_crafting_material);

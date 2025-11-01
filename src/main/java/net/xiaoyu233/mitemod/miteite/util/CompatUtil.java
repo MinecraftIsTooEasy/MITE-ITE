@@ -7,9 +7,10 @@ import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 
 public class CompatUtil {
     private boolean toolNbtFixed;
-    private boolean pushTimeNextTick;
+    private long lastResetDay = -1;
 
-    public static boolean targetIsNotZombieBoss(EntityLivingBase target) {
+    public static boolean targetIsNotZombieBoss(Entity target) {
+        if (!(target instanceof EntityLivingBase)) return true;
         if (!FishModLoader.hasMod("extreme")) return true;
         return true;
     }
@@ -66,15 +67,16 @@ public class CompatUtil {
         return 15 + itemStack.getForgingGrade();
     }
 
-    public boolean longDayTime(World world) {
-        if (!Configs.GameMechanics.FIRST_DAY_LONGER_DAY_TIME.get() || world.getDayOfOverworld() != 1 || (long) world.getTimeOfDay() >= 12000L) {
-            return true;
-        } else if (this.pushTimeNextTick) {
-            this.pushTimeNextTick = false;
-            return true;
-        } else {
-            this.pushTimeNextTick = true;
-            return false;
+    public void longDayTime(WorldServer world) {
+        if (!Configs.GameMechanics.FIRST_DAY_LONGER_DAY_TIME.get()) return;
+
+        long totalWorldTime = world.getTotalWorldTime();
+        long currentDay = world.getDayOfOverworld() - 1;
+        long currentTime = totalWorldTime % 24000L;
+
+        if (currentDay < 1 && currentTime == 12000L && this.lastResetDay != currentDay) {
+            world.setTotalWorldTime(currentDay * 24000L, true);
+            this.lastResetDay = currentDay;
         }
     }
 }

@@ -31,19 +31,19 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
    @Inject(method = "<init>", at = @At("RETURN"))
    private void injectInitExpForLevel(int par1, Material material, int par2, boolean is_chain_mail, CallbackInfo callbackInfo) {
       if (material == Material.copper || material == Material.silver) {
-         this.expForLevel = this.createExpForLevel(16,8);
+         this.expForLevel = this.createExpForLevel(16, 8);
       } else if (material == Material.gold) {
-         this.expForLevel = this.createExpForLevel(18,9);
+         this.expForLevel = this.createExpForLevel(18, 9);
       } else if (material == Material.iron || material == Material.ancient_metal) {
-         this.expForLevel = this.createExpForLevel(20,10);
+         this.expForLevel = this.createExpForLevel(20, 10);
       } else if (material == Material.mithril) {
-         this.expForLevel = this.createExpForLevel(24,12);
+         this.expForLevel = this.createExpForLevel(24, 12);
       } else if (material == Material.adamantium) {
-         this.expForLevel = this.createExpForLevel(28,14);
+         this.expForLevel = this.createExpForLevel(28, 14);
       } else if (material == Materials.vibranium) {
-         this.expForLevel = this.createExpForLevel(32,16);
+         this.expForLevel = this.createExpForLevel(32, 16);
       } else {
-         this.expForLevel = this.createExpForLevel(150,75);
+         this.expForLevel = this.createExpForLevel(150, 75);
       }
    }
 
@@ -123,7 +123,7 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
 
    @Unique
    private float getEnhancedProtection(ItemStack itemStack) {
-      return (float)(itemStack.getEnhanceFactor() * (double)this.getRawProtection() * 0.68f + (double)((float)itemStack.getForgingGrade() / 3.0F)) * (0.75f);
+      return (float) (itemStack.getEnhanceFactor() * (double) this.getRawProtection() * 0.68f + (double) ((float) itemStack.getForgingGrade() / 3.0F)) * (0.75f);
    }
 
    public int getExpReqForLevel(int i, boolean weapon) {
@@ -177,7 +177,7 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
       return true;
    }
 
-   public int getMaxToolLevel(ItemStack itemStack){
+   public int getMaxToolLevel(ItemStack itemStack) {
       return this.getMaterialForDurability().getMinHarvestLevel() * 3 + itemStack.getForgingGrade();
    }
 

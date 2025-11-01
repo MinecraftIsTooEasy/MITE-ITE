@@ -150,9 +150,7 @@ public class ItemTrans implements ITEItem {
 
    @Override
    public boolean isMeat(Item item) {
-      return ITERegistryImpl.meatCriteria.stream().anyMatch(x -> {
-         return x.test(item);
-      });
+      return ITERegistryImpl.meatCriteria.stream().anyMatch(x -> x.test(item));
    }
 
 //   @Inject(method = "getRepairItem", at = @At("HEAD"), cancellable = true)

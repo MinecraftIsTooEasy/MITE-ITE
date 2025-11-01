@@ -112,7 +112,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
    @Redirect(method = "attackTargetEntityWithCurrentItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityPlayer;willDeliverCriticalStrike()Z"))
    private boolean redirectCheckCriticalStrike(EntityPlayer instance, @Local(argsOnly = true) Entity target) {
       ItemStack heldItemStack = this.getHeldItemStack();
-      if (EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT) && ReflectHelper.dyCast(this) instanceof EntityLivingBase && CompatUtil.targetIsNotZombieBoss((EntityLivingBase) target)) {
+      if (EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT) && CompatUtil.targetIsNotZombieBoss(target)) {
          int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
          ITE$willCritOnLastAttack = instance.willDeliverCriticalStrike() || this.rand.nextInt(10) < (Configs.Item.Enchantment.CRIT_ENCHANTMENT_CHANCE_BOOST_PER_LVL.get()) * critLevel;
       } else {
@@ -133,7 +133,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
       float critBouns = 0.0F;
       ItemStack heldItemStack = this.getHeldItemStack();
       //Check for crit enchantment
-      if (ITE$willCritOnLastAttack && EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT) && ReflectHelper.dyCast(this) instanceof EntityLivingBase && CompatUtil.targetIsNotZombieBoss((EntityLivingBase) target)) {
+      if (ITE$willCritOnLastAttack && EnchantmentHelper.hasEnchantment(heldItemStack, MITEITEEnchantmentRegistryInit.CRIT) && CompatUtil.targetIsNotZombieBoss(target)) {
          int critLevel = EnchantmentHelper.getEnchantmentLevel(MITEITEEnchantmentRegistryInit.CRIT, heldItemStack);
          critBouns = (float) critLevel * (Configs.Item.Enchantment.CRIT_ENCHANTMENT_DAMAGE_BOOST_PER_LVL.get()).floatValue();
       }

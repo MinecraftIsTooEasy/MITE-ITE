@@ -2,6 +2,7 @@ package net.xiaoyu233.mitemod.miteite.events;
 
 import moddedmite.rustedironcore.api.event.Handlers;
 import moddedmite.rustedironcore.api.event.handler.GravelDropHandler;
+import moddedmite.rustedironcore.api.event.listener.IArmorModelListener;
 import moddedmite.rustedironcore.api.event.listener.IBeaconUpdateHandler;
 import moddedmite.rustedironcore.api.event.listener.IEnchantingListener;
 import moddedmite.rustedironcore.api.event.listener.IFurnaceUpdateListener;
@@ -22,9 +23,13 @@ import net.xiaoyu233.mitemod.miteite.registry.ITEVanillaPlugin;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class MITEITERICEvents extends Handlers {
+    private static final Map<String, ResourceLocation> ITE_TEXTURE_MAP = new HashMap<>();
+
     public static void register() {
         FurnaceUpdate.register(new IFurnaceUpdateListener() {
             public int onFurnaceCookTimeTargetModify(TileEntityFurnace tileEntityFurnace, int original) {
@@ -81,6 +86,19 @@ public class MITEITERICEvents extends Handlers {
             });
         });
         PlayerAttribute.register(new PlayerAttributeListener());
+        ArmorModel.register(new IArmorModelListener() {
+            @Override
+            public ResourceLocation getArmorTexture(ItemArmor itemArmor, int slotIndex) {
+                if (!(itemArmor.getArmorMaterial() == Materials.vibranium)) return null;
+                String var3 = String.format("textures/models/armor/%s_layer_%d.png", itemArmor.getTextureFilenamePrefix(), slotIndex == 2 ? 2 : 1);
+                ResourceLocation var4 = ITE_TEXTURE_MAP.get(var3);
+                if (var4 == null) {
+                    var4 = new ResourceLocation("miteite", var3);
+                    ITE_TEXTURE_MAP.put(var3, var4);
+                }
+                return var4;
+            }
+        });
     }
 
 }

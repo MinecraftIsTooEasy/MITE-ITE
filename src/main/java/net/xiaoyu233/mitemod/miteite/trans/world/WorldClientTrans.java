@@ -9,6 +9,8 @@ import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldClient.class)
 public abstract class WorldClientTrans extends World {
@@ -17,9 +19,18 @@ public abstract class WorldClientTrans extends World {
       super(par1ISaveHandler, par2Str, par3WorldProvider, par4WorldSettings, par5Profiler, par6ILogAgent, world_creation_time, total_world_time);
    }
 
-   @WrapWithCondition(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/WorldClient;setTotalWorldTime(J)V"))
-   private boolean wrapTimeStep(WorldClient instance, long l) {
-      MITEITEMod.compatUtil.longDayTime(instance);
-      return true;
-   }
+//   @WrapWithCondition(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/WorldClient;setTotalWorldTime(J)V"))
+//   private boolean wrapTimeStep(WorldClient instance, long l) {
+//      return MITEITEMod.compatUtil.longDayTime(instance);
+//   }
+
+//   @Inject(method={"tick"}, at={@At(value="INVOKE", target="Lnet/minecraft/WorldServer;shouldTimeProgress()Z")})
+//   private void wrap(CallbackInfo ci) {
+//      if (Configs.GameMechanics.FIRST_DAY_LONGER_DAY_TIME.get()
+//              && !this.hasRerun
+//              && this.getTotalWorldTime() < 96L * 24000L) {
+//         this.setTotalWorldTime(0L);
+//         this.hasRerun = true;
+//      }
+//   }
 }

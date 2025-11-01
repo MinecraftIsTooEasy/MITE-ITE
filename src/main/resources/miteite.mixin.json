@@ -118,7 +118,6 @@
     "network.ServerNetworkManagerTrans",
     "network.SPacketMobSpawnTrans",
     "render.ChestRenderTrans",
-    "render.RenderBipedMixin",
     "render.RenderEarthElementalTrans",
     "render.RenderIronGolemTrans",
     "util.ChestItemRenderHelperTrans",
