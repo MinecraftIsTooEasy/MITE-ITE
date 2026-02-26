@@ -157,7 +157,7 @@ public class ContainerForgingTable extends Container {
             ItemStack toolItem = this.slots.getToolItem();
             if (toolItem != null){
                 ForgingRecipe recipeFromTool = this.slots.getRecipeFromTool(toolItem);
-                if (recipeFromTool != null && this.tileentity.getBlockMetadata() >= recipeFromTool.getForgingTableLevelReq().getLevel() && this.slots.getHammerItem() != null && this.slots.getAxeItem() != null && !this.world.isRemote){
+                if (recipeFromTool != null && this.tileentity.getBlockMetadata() >= recipeFromTool.forgingTableLevelReq().getLevel() && this.slots.getHammerItem() != null && this.slots.getAxeItem() != null && !this.world.isRemote){
                     this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.ReqItems.of(this.slots.getNeedItems(recipeFromTool))));
                 }
             }
@@ -190,30 +190,30 @@ public class ContainerForgingTable extends Container {
 //                return null;
 //            }
             if (index < this.slots.getSize()){
-                if (!this.mergeItemStack(itemstack1,this.slots.getSize(),this.inventorySlots.size(),false)){
+                if (!this.mergeItemStack(itemstack1,this.slots.getSize(),this.inventorySlots.size(),false)) {
                     return null;
                 }
-            }else {
-                if (itemstack1.getItem() instanceof ItemAxe){
-                    if (!this.mergeItemStack(itemstack1,this.slots.getAxeSlotIndex(),this.slots.getAxeSlotIndex() + 1,false)){
-                        if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)){
+            } else {
+                if (itemstack1.getItem() instanceof ItemAxe) {
+                    if (!this.mergeItemStack(itemstack1,this.slots.getAxeSlotIndex(),this.slots.getAxeSlotIndex() + 1,false)) {
+                        if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)) {
                             return null;
                         }
                     }
-                }else if (itemstack1.getItem() instanceof ItemWarHammer){
+                } else if (itemstack1.getItem() instanceof ItemWarHammer) {
                     if (!this.mergeItemStack(itemstack1,this.slots.getHammerSlotIndex(),this.slots.getHammerSlotIndex() + 1,false)){
-                        if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)){
+                        if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)) {
                             return null;
                         }
                     }
-                }else if (itemstack1.getItem() instanceof ItemTool || itemstack1.getItem() instanceof ItemArmor){
-                    if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)){
+                } else if (itemstack1.getItem() instanceof ItemTool || itemstack1.getItem() instanceof ItemArmor) {
+                    if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)) {
                         if (!this.mergeItemStack(itemstack1,0,this.slots.getSize(),false)){
                             return null;
                         }
                     }
-                }else {
-                    if (!this.mergeItemStack(itemstack1,0,this.slots.getSize(),false)){
+                } else {
+                    if (!this.mergeItemStack(itemstack1,0,this.slots.getSize(),false)) {
                         return null;
                     }
                 }
@@ -244,10 +244,10 @@ public class ContainerForgingTable extends Container {
 
 
     void updateInfo(@Nullable ForgingRecipe recipe) {
-        if (!this.world.isRemote){
+        if (!this.world.isRemote) {
             if (recipe != null){
-                this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(this.slots.getChanceOfFailure(recipe),recipe.getFaultFeedback(),this.slots.getForgingTime(recipe),recipe.getHammerDurabilityCost(),recipe.getAxeDurabilityCost())));
-            }else {
+                this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(this.slots.getChanceOfFailure(recipe),recipe.faultFeedback(),this.slots.getForgingTime(recipe),recipe.hammerDurabilityCost(),recipe.axeDurabilityCost())));
+            } else {
                 this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(0,null,0,0,0)));
             }
         }

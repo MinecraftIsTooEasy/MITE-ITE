@@ -90,10 +90,10 @@ public class MITEITEBlockRegistryInit extends Block {
     }
 
     private static void registerForgingTableUpgradeRecipes(CraftingRecipeRegisterEvent register, ForgingTableLevel originalLevel, Item ingot){
-        register.registerShapedRecipe(new ItemStack(MITEITEBlockRegistryInit.blockForgingTable,1,originalLevel.getLevel() + 1),true,
+        register.registerShapedRecipe(new ItemStack(MITEITEBlockRegistryInit.blockForgingTable, 1, originalLevel.getLevel() + 1), true,
                 "III",
                 " T ",
                 'I', ingot,
-                'T', new ItemStack(MITEITEBlockRegistryInit.blockForgingTable,1,originalLevel.getLevel()));
+                'T', new ItemStack(MITEITEBlockRegistryInit.blockForgingTable, 1, originalLevel.getLevel()));
     }
 }

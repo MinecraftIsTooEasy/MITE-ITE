@@ -46,7 +46,7 @@ public class ForgingTableSlots extends InventoryBasic {
         super("ForgingTable",true,slotSize/*Size*/);
         if (forgingTable instanceof TileEntityForgingTable){
             this.tileEntityForgingTable = (TileEntityForgingTable) forgingTable;
-        }else {
+        } else {
             this.tileEntityForgingTable = null;
         }
         up = new Slot(forgingTable,0, 42,6);
@@ -74,7 +74,7 @@ public class ForgingTableSlots extends InventoryBasic {
 
     public void costItems(ForgingRecipe recipe) {
         List<Slot> currentMaterials = Lists.newArrayList(this.up, this.left, this.right, this.downLeft, this.downRight);
-        List<ItemStack> materialsRequired = Lists.newArrayList(recipe.getMaterialsToUpgrade());
+        List<ItemStack> materialsRequired = Lists.newArrayList(recipe.materialsToUpgrade());
 
         for (Slot current : currentMaterials) {
             for (ItemStack req : materialsRequired) {
@@ -130,7 +130,7 @@ public class ForgingTableSlots extends InventoryBasic {
         if (axeItem != null) {
             bounceChanceFromTool += Math.max((axeItem.getMaterialForRepairs().getMinHarvestLevel() - ironLevel) * 2,0);
         }
-        return recipe.getChanceOfFailure() - bounceChanceFromTool;
+        return recipe.chanceOfFailure() - bounceChanceFromTool;
     }
 
     public int getToolItemSlotIndex(){
@@ -191,7 +191,7 @@ public class ForgingTableSlots extends InventoryBasic {
 
     public List<ItemStack> getNeedItems(@Nonnull ForgingRecipe recipe) {
         List<ItemStack> currentMaterials = Lists.newArrayList(this.up.getStack(), this.left.getStack(), this.right.getStack(), this.downLeft.getStack(), this.downRight.getStack());
-        List<ItemStack> materialsRequired = Lists.newArrayList(recipe.getMaterialsToUpgrade());
+        List<ItemStack> materialsRequired = Lists.newArrayList(recipe.materialsToUpgrade());
         materialsRequired.removeIf((req) -> currentMaterials.stream().anyMatch((current) -> ItemStack.areItemStacksEqual(req, current, true, false, false, true) && current.stackSize >= req.stackSize));
         return materialsRequired;
     }
@@ -257,7 +257,7 @@ public class ForgingTableSlots extends InventoryBasic {
         if (toolStack != null) {
             ForgingRecipe recipe = this.getRecipeFromTool(toolStack);
             if (recipe != null) {
-                if (blockLevel >= recipe.getForgingTableLevelReq().getLevel()) {
+                if (blockLevel >= recipe.forgingTableLevelReq().getLevel()) {
                     if (this.hammer.getStack() != null) {
                         if (this.axe.getStack() != null) {
                             if (this.getNeedItems(recipe).isEmpty()) {
@@ -270,7 +270,7 @@ public class ForgingTableSlots extends InventoryBasic {
                         this.container.sendToolInfo(SPacketForgingTableInfo.ToolInfo.Tool.HAMMER);
                     }
                 } else {
-                    this.container.sendTableInfo(SPacketForgingTableInfo.TableLevelInfo.of(recipe.getForgingTableLevelReq()));
+                    this.container.sendTableInfo(SPacketForgingTableInfo.TableLevelInfo.of(recipe.forgingTableLevelReq()));
                 }
             }else {
                 this.container.sendToolInfo(SPacketForgingTableInfo.ToolInfo.Tool.MAX_LEVEL);
@@ -316,7 +316,7 @@ public class ForgingTableSlots extends InventoryBasic {
     }
 
     public int getForgingTime(ForgingRecipe recipe) {
-        return Math.round(recipe.getTimeReq() / this.getEffectivityFactorFromTool());
+        return Math.round(recipe.timeReq() / this.getEffectivityFactorFromTool());
     }
 
     private void tryWriteSlotStack(NBTTagCompound nbt,Slot slot,String name){

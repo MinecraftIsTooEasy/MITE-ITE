@@ -35,15 +35,15 @@ public class TileEntityForgingTable extends TileEntity implements IInventory {
     private void completeForging() {
         ForgingRecipe currentRecipe = this.usedRecipe;
         ItemStack toolItem = this.slots.getToolItem();
-        toolItem.setForgingGrade(currentRecipe.getLevelToUpgrade() + 1);
-        EnumQuality qualityReward = currentRecipe.getQualityReward();
+        toolItem.setForgingGrade(currentRecipe.levelToUpgrade() + 1);
+        EnumQuality qualityReward = currentRecipe.qualityReward();
         if (qualityReward != null){
             toolItem.setQuality(qualityReward);
         }
         this.getWorldObj().playSoundAtBlock(this.xCoord, this.yCoord, this.zCoord, "random.levelup", 1.0F, 1.0F);
         this.slots.setOutput(toolItem);
         this.slots.onFinishForging(SPacketFinishForging.Status.COMPLETED);
-        this.slots.damageHammerAndAxe(currentRecipe.getHammerDurabilityCost(), currentRecipe.getAxeDurabilityCost());
+        this.slots.damageHammerAndAxe(currentRecipe.hammerDurabilityCost(), currentRecipe.axeDurabilityCost());
         this.slots.costItems(currentRecipe);
         this.slots.setToolItem(null);
         this.slots.updateSlots();
@@ -77,10 +77,10 @@ public class TileEntityForgingTable extends TileEntity implements IInventory {
         ForgingRecipe currentRecipe = this.usedRecipe;
         this.getWorldObj().playSoundAtBlock(this.xCoord, this.yCoord, this.zCoord, "random.anvil_break", 1.0F, 1.1F);
         this.slots.onFinishForging(SPacketFinishForging.Status.FAILED);
-        this.slots.damageHammerAndAxe(currentRecipe.getHammerDurabilityCost() / 2, currentRecipe.getAxeDurabilityCost() / 2);
+        this.slots.damageHammerAndAxe(currentRecipe.hammerDurabilityCost() / 2, currentRecipe.axeDurabilityCost() / 2);
         this.slots.costItems(currentRecipe);
         ItemStack result = this.slots.getToolItem();
-        for (IFaultFeedback iFaultFeedback : currentRecipe.getFaultFeedback()) {
+        for (IFaultFeedback iFaultFeedback : currentRecipe.faultFeedback()) {
             result = iFaultFeedback.accept(result);
         }
         this.slots.setToolItem(result);
@@ -189,7 +189,7 @@ public class TileEntityForgingTable extends TileEntity implements IInventory {
         this.usedRecipe = this.slots.getUsedRecipe(this.getBlockMetadata());
         if (this.usedRecipe != null) {
             this.isForging = true;
-            this.maxTime = Math.round((float)this.usedRecipe.getTimeReq() / this.slots.getEffectivityFactorFromTool());
+            this.maxTime = Math.round((float)this.usedRecipe.timeReq() / this.slots.getEffectivityFactorFromTool());
             this.currentFailCheckTime = this.getWorldObj().rand.nextInt(this.maxTime);
             return true;
         } else {

@@ -17,7 +17,7 @@ public class FurnaceExtend implements Consumer<SmeltingRecipeRegisterEvent> {
     public void accept(SmeltingRecipeRegisterEvent event) {
         event.register(Block.coalBlock.blockID, new ItemStack(MITEITEItemRegistryInit.DIAMOND_CHUNK));
         event.register(MITEITEBlockRegistryInit.netherAdamantiumOre.blockID, new ItemStack(Item.ingotAdamantium));
-        if (!FishModLoader.hasMod("extreme")) {
+        if (!FishModLoader.hasMod("extreme") || !FishModLoader.hasMod("extreme-lh")) {
             event.register(Block.blockIron.blockID, new ItemStack(Item.ingotMithril));
             event.register(Block.blockMithril.blockID, new ItemStack(Item.ingotAdamantium));
             event.registerSpecial((itemStack, i) -> itemStack.itemID == Block.blockIron.blockID && i >= 3 && itemStack.stackSize >= Configs.Item.Recipes.IRON_TO_MITHRIL_COOK_TIME.get() ? SmeltingHandler.result(4, new ItemStack(Item.ingotMithril)) : null);

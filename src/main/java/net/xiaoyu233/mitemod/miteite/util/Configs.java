@@ -1,17 +1,11 @@
 package net.xiaoyu233.mitemod.miteite.util;
 
-import net.minecraft.Packet;
-import net.minecraft.ServerPlayer;
-import net.minecraft.server.MinecraftServer;
 import net.xiaoyu233.fml.config.ConfigCategory;
 import net.xiaoyu233.fml.config.ConfigEntry;
 import net.xiaoyu233.fml.config.ConfigRoot;
 import net.xiaoyu233.fml.util.FieldReference;
-import net.xiaoyu233.mitemod.miteite.network.ConfigSyncPacket;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Configs {
     public static final File CONFIG_FILE = new File("mite-ite-cfg.json");

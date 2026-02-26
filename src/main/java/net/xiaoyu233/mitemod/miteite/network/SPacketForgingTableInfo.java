@@ -57,7 +57,7 @@ public class SPacketForgingTableInfo extends Packet {
         this.info.writeData(var1);
     }
 
-    enum InfoTypes {
+    public enum InfoTypes {
         Enhance(EnhanceInfo::new),
         Failed(Failed::new),
         ReqItems(ReqItems::new),
@@ -335,11 +335,11 @@ public class SPacketForgingTableInfo extends Packet {
 
         private TableLevelInfo(){}
 
-        private TableLevelInfo(ForgingTableLevel req){
+        private TableLevelInfo(ForgingTableLevel req) {
             this.req = req;
         }
 
-        public static TableLevelInfo of(ForgingTableLevel req){
+        public static TableLevelInfo of(ForgingTableLevel req) {
             return new TableLevelInfo(req);
         }
 

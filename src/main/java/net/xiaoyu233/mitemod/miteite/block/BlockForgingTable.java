@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class BlockForgingTable extends Block implements ITileEntityProvider,IBlockWithSubtypes {
-    private final BlockSubtypes subtypes = new BlockSubtypes(Arrays.stream(ForgingTableLevel.values()).map(value -> value.name().toLowerCase(Locale.ROOT)).collect(Collectors.toList()).toArray(new String[0]));
+    private final BlockSubtypes subtypes = new BlockSubtypes(Arrays.stream(ForgingTableLevel.values()).map(value -> value.name().toLowerCase(Locale.ROOT)).toList().toArray(new String[0]));
     private final Map<Integer, SideIconHolder> textureMap = new HashMap<>();
 
     protected BlockForgingTable(int par1) {

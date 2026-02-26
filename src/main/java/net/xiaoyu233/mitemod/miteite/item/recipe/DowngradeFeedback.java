@@ -14,7 +14,7 @@ public class DowngradeFeedback implements IFaultFeedback{
 
     @Override
     public ItemStack accept(ItemStack itemStack) {
-        itemStack.setForgingGrade(Math.max(itemStack.getForgingGrade() - this.level,0));
+        itemStack.setForgingGrade(Math.max(itemStack.getForgingGrade() - this.level, 0));
         return itemStack;
     }
 

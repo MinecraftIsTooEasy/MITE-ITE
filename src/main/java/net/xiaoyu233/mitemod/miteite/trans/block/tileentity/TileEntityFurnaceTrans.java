@@ -18,7 +18,7 @@ public class TileEntityFurnaceTrans extends TileEntity {
       if (item_id == MITEITEBlockRegistryInit.netherAdamantiumOre.blockID) {
          cir.setReturnValue(4);
       }
-      if (!FishModLoader.hasMod("extreme")) {
+      if (!FishModLoader.hasMod("extreme") || !FishModLoader.hasMod("extreme-lh")) {
          if (item_id == Block.blockIron.blockID || item_id == Block.blockMithril.blockID) {
             cir.setReturnValue(4);
          }

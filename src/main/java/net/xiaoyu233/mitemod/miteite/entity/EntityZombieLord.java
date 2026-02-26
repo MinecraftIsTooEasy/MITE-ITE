@@ -55,7 +55,7 @@ public class EntityZombieLord extends EntityZombie {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if (!this.getWorld().isRemote){
+        if (!this.getWorld().isRemote) {
             if (fx_counter > 0){
                 fx_counter--;
             } else {

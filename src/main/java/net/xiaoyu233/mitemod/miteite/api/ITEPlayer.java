@@ -5,9 +5,6 @@ import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
 import net.xiaoyu233.mitemod.miteite.util.BlockPos;
 
 public interface ITEPlayer {
-    default void displayGUIChestForMinecartEntity(EntityMinecartChest par1IInventory){
-        throw new IllegalStateException("Should be implemented in Mixin");
-    };
     default void displayGUIForgingTable(int x, int y, int z, ForgingTableSlots slots){
         throw new IllegalStateException("Should be implemented in Mixin");
     };

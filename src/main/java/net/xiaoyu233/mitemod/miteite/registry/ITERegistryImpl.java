@@ -14,9 +14,9 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 public class ITERegistryImpl implements ITERegistry {
-    public static final Map<Material, BiFunction<Integer, Boolean, Integer>> expForLevelMap = new HashMap();
-    public static final List<Predicate<Item>> weaponCriteria = new ArrayList();
-    public static final List<Predicate<Item>> meatCriteria = new ArrayList();
+    public static final Map<Material, BiFunction<Integer, Boolean, Integer>> expForLevelMap = new HashMap<>();
+    public static final List<Predicate<Item>> weaponCriteria = new ArrayList<>();
+    public static final List<Predicate<Item>> meatCriteria = new ArrayList<>();
 
     @Override
     public void registerExpForLevel(Material material, int base, int increase) {
@@ -24,9 +24,7 @@ public class ITERegistryImpl implements ITERegistry {
     }
 
     private BiFunction<Integer, Boolean, Integer> createExpForLevel(int base, int increase) {
-        return (level, isWeapon) -> {
-            return Integer.valueOf(base + (level.intValue() * increase * (isWeapon.booleanValue() ? 2 : 1)));
-        };
+        return (level, isWeapon) -> base + (level * increase * (isWeapon ? 2 : 1));
     }
 
     @Override

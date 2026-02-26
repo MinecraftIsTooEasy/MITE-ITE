@@ -7,6 +7,7 @@ import net.xiaoyu233.mitemod.miteite.api.ITEPortal;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -24,9 +25,38 @@ public abstract class BlockPortalTrans extends Block implements ITEPortal {
    @Shadow protected abstract int getFrameMinZ(World world, int x, int y, int z);
 
    @Shadow protected abstract int getFrameMaxZ(World world, int x, int y, int z);
+   
+   @Shadow public abstract BlockRunestone getRunegateType(World world, int x, int y, int z);
+   
+   @Shadow protected abstract int getRunegateSeed(World world, int x, int y, int z);
+   
+   @Unique private BlockRunestone mITE_ITEPlugin$runestoneOverride;
+   @Unique private int mITE_ITEPlugin$portalSeedOverride;
 
    protected BlockPortalTrans(int par1, Material par2Material, BlockConstants constants) {
       super(par1, par2Material, constants);
+   }
+   
+   @Redirect(method = "getRunegateDestinationCoords", at = @At(value = "INVOKE", target = "Lnet/minecraft/BlockPortal;getRunegateType(Lnet/minecraft/World;III)Lnet/minecraft/BlockRunestone;"))
+   private BlockRunestone redirectOverrideRuneType(BlockPortal instance, World world, int x, int y, int z){
+      if (this.mITE_ITEPlugin$runestoneOverride != null){
+         BlockRunestone cached = this.mITE_ITEPlugin$runestoneOverride;
+         this.mITE_ITEPlugin$runestoneOverride = null;
+         return cached;
+      }else {
+         return getRunegateType(world,x,y,z);
+      }
+   }
+   
+   @Redirect(method = "getRunegateDestinationCoords", at = @At(value = "INVOKE", target = "Lnet/minecraft/BlockPortal;getRunegateSeed(Lnet/minecraft/World;III)I"))
+   private int redirectOverrideRuneSeed(BlockPortal instance, World world, int x, int y, int z){
+      if (this.mITE_ITEPlugin$portalSeedOverride != 0){
+         int cached = this.mITE_ITEPlugin$portalSeedOverride;
+         this.mITE_ITEPlugin$portalSeedOverride = 0;
+         return cached;
+      }else {
+         return getRunegateSeed(world,x,y,z);
+      }
    }
 
    @ModifyReturnValue(method = "getRunegateDestinationCoords", at = @At("TAIL"))
@@ -77,5 +107,17 @@ public abstract class BlockPortalTrans extends Block implements ITEPortal {
             }
          }
       }
+   }
+   
+   @Override
+   @Unique
+   public void setRuneTypeOverride(BlockRunestone runeTypeOverride) {
+      mITE_ITEPlugin$runestoneOverride = runeTypeOverride;
+   }
+   
+   @Override
+   @Unique
+   public void setPortalSeedOverride(int newSeed) {
+      mITE_ITEPlugin$portalSeedOverride = newSeed;
    }
 }

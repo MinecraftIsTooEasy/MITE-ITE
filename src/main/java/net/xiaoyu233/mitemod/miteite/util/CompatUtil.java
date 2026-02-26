@@ -1,9 +1,12 @@
 package net.xiaoyu233.mitemod.miteite.util;
 
 import net.minecraft.*;
+import net.minecraft.server.MinecraftServer;
 import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
+
+import java.util.List;
 
 public class CompatUtil {
     private boolean toolNbtFixed;
@@ -69,14 +72,14 @@ public class CompatUtil {
 
     public void longDayTime(WorldServer world) {
         if (!Configs.GameMechanics.FIRST_DAY_LONGER_DAY_TIME.get()) return;
-
-        long totalWorldTime = world.getTotalWorldTime();
-        long currentDay = world.getDayOfOverworld() - 1;
-        long currentTime = totalWorldTime % 24000L;
-
-        if (currentDay < 1 && currentTime == 12000L && this.lastResetDay != currentDay) {
-            world.setTotalWorldTime(currentDay * 24000L, true);
-            this.lastResetDay = currentDay;
+        WorldServer rWorld = MinecraftServer.getServer().worldServers[0];
+        
+        long currentDay = rWorld.getDayOfOverworld() - 1;
+        if (rWorld.getHourOfDay() >= 18) {
+            if (this.lastResetDay != currentDay) {
+                rWorld.setTotalWorldTime(currentDay * 24000L);
+                this.lastResetDay = currentDay;
+            }
         }
     }
 }

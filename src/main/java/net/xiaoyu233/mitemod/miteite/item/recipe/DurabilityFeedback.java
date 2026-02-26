@@ -18,9 +18,9 @@ public class DurabilityFeedback implements IFaultFeedback {
         int rawDamage = itemStack.getItemDamage();
         int maxDamage = itemStack.getMaxDamage();
         int resultDamage = maxDamage - this.feedbackType.acceptDurability(maxDamage - rawDamage);
-        if (resultDamage > maxDamage){
+        if (resultDamage > maxDamage) {
             return null;
-        }else {
+        } else {
             return itemStack.setItemDamage(resultDamage);
         }
     }
@@ -35,8 +35,8 @@ public class DurabilityFeedback implements IFaultFeedback {
         return this.feedbackType.getData();
     }
 
-    public interface Type{
-        static Type ofPercentage(int percentage){
+    public interface Type {
+        static Type ofPercentage(int percentage) {
             return new Type() {
                 @Override
                 public int acceptDurability(int raw) {
@@ -54,7 +54,7 @@ public class DurabilityFeedback implements IFaultFeedback {
                 }
             };
         }
-        static Type ofAmount(int amount){
+        static Type ofAmount(int amount) {
             return new Type() {
                 @Override
                 public int acceptDurability(int raw) {

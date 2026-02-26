@@ -275,10 +275,6 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
    }
 
    @Override
-   public void displayGUIChestForMinecartEntity(EntityMinecartChest par1IInventory) {
-   }
-
-   @Override
    public void displayGUIForgingTable(int x, int y, int z, ForgingTableSlots slots) {
    }
 

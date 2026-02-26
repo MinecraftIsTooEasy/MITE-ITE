@@ -26,11 +26,6 @@ public abstract class ClientPlayerTrans extends AbstractClientPlayer implements 
    }
 
    @Override
-   public void displayGUIChestForMinecartEntity(EntityMinecartChest par1IInventory) {
-      this.mc.displayGuiScreen(new GuiChest(this, par1IInventory));
-   }
-
-   @Override
    public void displayGUIForgingTable(int x, int y, int z, ForgingTableSlots slots) {
       this.mc.displayGuiScreen(new GuiForgingTable(this, x, y, z, slots));
    }
