@@ -20,7 +20,7 @@
     "miteite.mixin.json"
   ],
   "icon": "miteite_icon.png",
-  "accessWidener": "miteite.accesswidener",
+  "accessWidener": "miteite.accessWidener",
   "contact": {
     "homepage": "https://github.com/ysesiq/MITE-ITE",
     "issues": "https://github.com/ysesiq/MITE-ITE/issues",
