@@ -1,16 +1,12 @@
 package net.xiaoyu233.mitemod.miteite.util;
 
 import net.minecraft.*;
-import net.minecraft.server.MinecraftServer;
 import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 
-import java.util.List;
-
 public class CompatUtil {
     private boolean toolNbtFixed;
-    private long lastResetDay = -1;
 
     public static boolean targetIsNotZombieBoss(Entity target) {
         if (!(target instanceof EntityLivingBase)) return true;
@@ -70,16 +66,4 @@ public class CompatUtil {
         return 15 + itemStack.getForgingGrade();
     }
 
-    public void longDayTime(WorldServer world) {
-        if (!Configs.GameMechanics.FIRST_DAY_LONGER_DAY_TIME.get()) return;
-        WorldServer rWorld = MinecraftServer.getServer().worldServers[0];
-        
-        long currentDay = rWorld.getDayOfOverworld() - 1;
-        if (rWorld.getHourOfDay() >= 18) {
-            if (this.lastResetDay != currentDay) {
-                rWorld.setTotalWorldTime(currentDay * 24000L);
-                this.lastResetDay = currentDay;
-            }
-        }
-    }
 }

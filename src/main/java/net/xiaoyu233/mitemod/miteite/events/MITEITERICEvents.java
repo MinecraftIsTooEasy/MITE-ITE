@@ -2,26 +2,18 @@ package net.xiaoyu233.mitemod.miteite.events;
 
 import moddedmite.rustedironcore.api.event.Handlers;
 import moddedmite.rustedironcore.api.event.handler.GravelDropHandler;
-import moddedmite.rustedironcore.api.event.listener.IArmorModelListener;
-import moddedmite.rustedironcore.api.event.listener.IBeaconUpdateHandler;
-import moddedmite.rustedironcore.api.event.listener.IEnchantingListener;
-import moddedmite.rustedironcore.api.event.listener.IFurnaceUpdateListener;
+import moddedmite.rustedironcore.api.event.listener.*;
 import moddedmite.rustedironcore.property.ItemProperties;
-import moddedmite.rustedironcore.property.MaterialProperties;
 import net.minecraft.*;
 import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlugin;
 import net.xiaoyu233.mitemod.miteite.block.MITEITEBlockRegistryInit;
-import net.xiaoyu233.mitemod.miteite.events.listener.FurnaceExtend;
-import net.xiaoyu233.mitemod.miteite.events.listener.PlayerAttributeListener;
-import net.xiaoyu233.mitemod.miteite.events.listener.PlayerCombatListener;
-import net.xiaoyu233.mitemod.miteite.events.listener.CraftingRegistry;
+import net.xiaoyu233.mitemod.miteite.events.listener.*;
 import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.registry.ITEVanillaPlugin;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -99,6 +91,7 @@ public class MITEITERICEvents extends Handlers {
                 return var4;
             }
         });
+        Tick.register(new TickListener());
     }
 
 }

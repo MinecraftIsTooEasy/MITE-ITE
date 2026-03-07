@@ -131,10 +131,11 @@
     "world.ChunkProviderHellTrans",
     "world.ChunkProviderUnderworldTrans",
     "world.ChunkTrans",
+    "world.IWorldInfoTrans",
     "world.SpawnerCreatureTrans",
     "world.WorldClientTrans",
     "world.WorldGenMinableTrans",
-    "world.WorldServerTrans",
+    "world.WorldInfoSharedTrans",
     "world.WorldTrans"
   ]
 }
