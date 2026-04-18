@@ -5,7 +5,7 @@ import net.minecraft.EntityPlayer;
 
 public class PlayerAttributeListener  implements IPlayerAttributeListener {
     public float onHealthLimitModify(EntityPlayer player, float original) {
-        int max = Math.max(Math.min(6 + ((player.getExperienceLevel() / 5) * 2), 40), 6);
+        int max = Math.max(Math.min(6 + ((player.getExperienceLevel() / 5) * 2), 60), 6);
         return Math.max(max, (int) original);
     }
 }
