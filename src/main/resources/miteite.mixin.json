@@ -119,6 +119,7 @@
     "render.ChestRenderTrans",
     "render.RenderEarthElementalTrans",
     "render.RenderIronGolemTrans",
+    "render.RenderLightningBoltTrans",
     "util.ChestItemRenderHelperTrans",
     "util.DamageTrans",
     "util.DataWatcherTrans",

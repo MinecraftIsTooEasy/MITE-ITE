@@ -113,23 +113,39 @@ public class Configs {
             addEntry(ConfigCategory.of("WorldGen").
                     addEntry(ConfigCategory.of("Overworld").
                             addEntry(ConfigEntry.of("overworld_adamantite_ore", WorldGen.Overworld.OVERWORLD_ADAMANTITE_ORE).withComment("主世界生成艾德曼")).
-                            addEntry(ConfigEntry.of("copper_frequency_overworld",WorldGen.Overworld.COPPER_FREQUENCY_OVERWORLD).withComment("主世界铜矿生成频率")).
-                            addEntry(ConfigEntry.of("silver_frequency_overworld",WorldGen.Overworld.SILVER_FREQUENCY_OVERWORLD).withComment("主世界银矿生成频率")).
-                            addEntry(ConfigEntry.of("iron_frequency_overworld",WorldGen.Overworld.IRON_FREQUENCY_OVERWORLD).withComment("主世界铁矿生成频率")).
-                            addEntry(ConfigEntry.of("gold_frequency_overworld",WorldGen.Overworld.GOLD_FREQUENCY_OVERWORLD).withComment("主世界金矿生成频率")).
-                            addEntry(ConfigEntry.of("mithril_frequency_overworld",WorldGen.Overworld.MITHRIL_FREQUENCY_OVERWORLD).withComment("主世界秘银矿生成频率")).
-                            addEntry(ConfigEntry.of("lapis_frequency_overworld",WorldGen.Overworld.LAPIS_FREQUENCY_OVERWORLD).withComment("主世界青金石矿生成频率")).
-                            addEntry(ConfigEntry.of("diamond_frequency_overworld",WorldGen.Overworld.DIAMOND_FREQUENCY_OVERWORLD).withComment("主世界钻石矿生成频率")).
-                            addEntry(ConfigEntry.of("adamantium_frequency_overworld",WorldGen.Overworld.ADAMANTIUM_FREQUENCY_OVERWORLD).withComment("主世界艾德曼矿生成频率"))).
+                            addEntry(ConfigEntry.of("copper_frequency_overworld",WorldGen.Overworld.COPPER_FREQUENCY_OVERWORLD).withComment("主世界铜矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("copper_chance_overworld",WorldGen.Overworld.COPPER_CHANCE_OVERWORLD).withComment("主世界铜矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("silver_frequency_overworld",WorldGen.Overworld.SILVER_FREQUENCY_OVERWORLD).withComment("主世界银矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("silver_chance_overworld",WorldGen.Overworld.SILVER_CHANCE_OVERWORLD).withComment("主世界银矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("iron_frequency_overworld",WorldGen.Overworld.IRON_FREQUENCY_OVERWORLD).withComment("主世界铁矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("iron_chance_overworld",WorldGen.Overworld.IRON_CHANCE_OVERWORLD).withComment("主世界铁矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("gold_frequency_overworld",WorldGen.Overworld.GOLD_FREQUENCY_OVERWORLD).withComment("主世界金矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("gold_chance_overworld",WorldGen.Overworld.GOLD_CHANCE_OVERWORLD).withComment("主世界金矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("mithril_frequency_overworld",WorldGen.Overworld.MITHRIL_FREQUENCY_OVERWORLD).withComment("主世界秘银矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("mithril_chance_overworld",WorldGen.Overworld.MITHRIL_CHANCE_OVERWORLD).withComment("主世界秘银矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("lapis_frequency_overworld",WorldGen.Overworld.LAPIS_FREQUENCY_OVERWORLD).withComment("主世界青金石矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("lapis_chance_overworld",WorldGen.Overworld.LAPIS_CHANCE_OVERWORLD).withComment("主世界青金石矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("diamond_frequency_overworld",WorldGen.Overworld.DIAMOND_FREQUENCY_OVERWORLD).withComment("主世界钻石矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("diamond_chance_overworld",WorldGen.Overworld.DIAMOND_CHANCE_OVERWORLD).withComment("主世界钻石矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("adamantium_frequency_overworld",WorldGen.Overworld.ADAMANTIUM_FREQUENCY_OVERWORLD).withComment("主世界艾德曼矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("adamantium_chance_overworld",WorldGen.Overworld.ADAMANTIUM_CHANCE_OVERWORLD).withComment("主世界艾德曼矿生成概率百分比(整数) "))).
                     addEntry(ConfigCategory.of("Underworld").
-                            addEntry(ConfigEntry.of("copper_frequency_underworld",WorldGen.Underworld.COPPER_FREQUENCY_UNDERWORLD).withComment("地底世界铜矿生成频率")).
-                            addEntry(ConfigEntry.of("silver_frequency_underworld",WorldGen.Underworld.SILVER_FREQUENCY_UNDERWORLD).withComment("地底世界银矿生成频率")).
-                            addEntry(ConfigEntry.of("iron_frequency_underworld",WorldGen.Underworld.IRON_FREQUENCY_UNDERWORLD).withComment("地底世界铁矿生成频率")).
-                            addEntry(ConfigEntry.of("gold_frequency_underworld",WorldGen.Underworld.GOLD_FREQUENCY_UNDERWORLD).withComment("地底世界金矿生成频率")).
-                            addEntry(ConfigEntry.of("mithril_frequency_underworld",WorldGen.Underworld.MITHRIL_FREQUENCY_UNDERWORLD).withComment("地底世界秘银矿生成频率")).
-                            addEntry(ConfigEntry.of("lapis_frequency_underworld",WorldGen.Underworld.LAPIS_FREQUENCY_UNDERWORLD).withComment("地底世界青金石矿生成频率")).
-                            addEntry(ConfigEntry.of("diamond_frequency_underworld",WorldGen.Underworld.DIAMOND_FREQUENCY_UNDERWORLD).withComment("地底世界钻石矿生成频率")).
-                            addEntry(ConfigEntry.of("adamantium_frequency_underworld",WorldGen.Underworld.ADAMANTIUM_FREQUENCY_UNDERWORLD).withComment("地底世界艾德曼矿生成频率")).
+                            addEntry(ConfigEntry.of("copper_frequency_underworld",WorldGen.Underworld.COPPER_FREQUENCY_UNDERWORLD).withComment("地底世界铜矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("copper_chance_underworld",WorldGen.Underworld.COPPER_CHANCE_UNDERWORLD).withComment("地底世界铜矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("silver_frequency_underworld",WorldGen.Underworld.SILVER_FREQUENCY_UNDERWORLD).withComment("地底世界银矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("silver_chance_underworld",WorldGen.Underworld.SILVER_CHANCE_UNDERWORLD).withComment("地底世界银矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("iron_frequency_underworld",WorldGen.Underworld.IRON_FREQUENCY_UNDERWORLD).withComment("地底世界铁矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("iron_chance_underworld",WorldGen.Underworld.IRON_CHANCE_UNDERWORLD).withComment("地底世界铁矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("gold_frequency_underworld",WorldGen.Underworld.GOLD_FREQUENCY_UNDERWORLD).withComment("地底世界金矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("gold_chance_underworld",WorldGen.Underworld.GOLD_CHANCE_UNDERWORLD).withComment("地底世界金矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("mithril_frequency_underworld",WorldGen.Underworld.MITHRIL_FREQUENCY_UNDERWORLD).withComment("地底世界秘银矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("mithril_chance_underworld",WorldGen.Underworld.MITHRIL_CHANCE_UNDERWORLD).withComment("地底世界秘银矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("lapis_frequency_underworld",WorldGen.Underworld.LAPIS_FREQUENCY_UNDERWORLD).withComment("地底世界青金石矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("lapis_chance_underworld",WorldGen.Underworld.LAPIS_CHANCE_UNDERWORLD).withComment("地底世界青金石矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("diamond_frequency_underworld",WorldGen.Underworld.DIAMOND_FREQUENCY_UNDERWORLD).withComment("地底世界钻石矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("diamond_chance_underworld",WorldGen.Underworld.DIAMOND_CHANCE_UNDERWORLD).withComment("地底世界钻石矿生成概率百分比(整数) ")).
+                            addEntry(ConfigEntry.of("adamantium_frequency_underworld",WorldGen.Underworld.ADAMANTIUM_FREQUENCY_UNDERWORLD).withComment("地底世界艾德曼矿生成频率(权重) ")).
+                            addEntry(ConfigEntry.of("adamantium_chance_underworld",WorldGen.Underworld.ADAMANTIUM_CHANCE_UNDERWORLD).withComment("地底世界艾德曼矿生成概率百分比(整数) ")).
                             addEntry(ConfigEntry.of("underworld_mantle_block_offset",WorldGen.Underworld.UNDERWORLD_MANTLE_BLOCK_OFFSET).withComment("地底世界地幔位置向上偏移"))).
                     addEntry(ConfigCategory.of("Nether").
                             addEntry(ConfigEntry.of("nether_adamantium_max_count_per_chunk",WorldGen.Nether.NETHER_ADAMANTIUM_MAX_COUNT_PER_CHUNK).withComment("地狱艾德曼每个区块最大生成数量")).
@@ -277,24 +293,40 @@ public class Configs {
 
         public static class Overworld {
             public static final FieldReference<Integer> ADAMANTIUM_FREQUENCY_OVERWORLD = new FieldReference<>(1);
+            public static final FieldReference<Integer> ADAMANTIUM_CHANCE_OVERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> COPPER_FREQUENCY_OVERWORLD = new FieldReference<>(40);
+            public static final FieldReference<Integer> COPPER_CHANCE_OVERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> DIAMOND_FREQUENCY_OVERWORLD = new FieldReference<>(5);
+            public static final FieldReference<Integer> DIAMOND_CHANCE_OVERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> GOLD_FREQUENCY_OVERWORLD = new FieldReference<>(20);
+            public static final FieldReference<Integer> GOLD_CHANCE_OVERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> IRON_FREQUENCY_OVERWORLD = new FieldReference<>(40);
+            public static final FieldReference<Integer> IRON_CHANCE_OVERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> LAPIS_FREQUENCY_OVERWORLD = new FieldReference<>(4);
+            public static final FieldReference<Integer> LAPIS_CHANCE_OVERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> MITHRIL_FREQUENCY_OVERWORLD = new FieldReference<>(10);
+            public static final FieldReference<Integer> MITHRIL_CHANCE_OVERWORLD = new FieldReference<>(100);
             public static final FieldReference<Boolean> OVERWORLD_ADAMANTITE_ORE = new FieldReference<>(false);
             public static final FieldReference<Integer> SILVER_FREQUENCY_OVERWORLD = new FieldReference<>(10);
+            public static final FieldReference<Integer> SILVER_CHANCE_OVERWORLD = new FieldReference<>(100);
         }
         public static class Underworld {
             public static final FieldReference<Integer> ADAMANTIUM_FREQUENCY_UNDERWORLD = new FieldReference<>(8);
+            public static final FieldReference<Integer> ADAMANTIUM_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> COPPER_FREQUENCY_UNDERWORLD = new FieldReference<>(40);
+            public static final FieldReference<Integer> COPPER_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> DIAMOND_FREQUENCY_UNDERWORLD = new FieldReference<>(5);
+            public static final FieldReference<Integer> DIAMOND_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> GOLD_FREQUENCY_UNDERWORLD = new FieldReference<>(20);
+            public static final FieldReference<Integer> GOLD_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> IRON_FREQUENCY_UNDERWORLD = new FieldReference<>(60);
+            public static final FieldReference<Integer> IRON_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> LAPIS_FREQUENCY_UNDERWORLD = new FieldReference<>(5);
+            public static final FieldReference<Integer> LAPIS_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> MITHRIL_FREQUENCY_UNDERWORLD = new FieldReference<>(10);
+            public static final FieldReference<Integer> MITHRIL_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> SILVER_FREQUENCY_UNDERWORLD = new FieldReference<>(10);
+            public static final FieldReference<Integer> SILVER_CHANCE_UNDERWORLD = new FieldReference<>(100);
             public static final FieldReference<Integer> UNDERWORLD_MANTLE_BLOCK_OFFSET = new FieldReference<>(75);
         }
 
