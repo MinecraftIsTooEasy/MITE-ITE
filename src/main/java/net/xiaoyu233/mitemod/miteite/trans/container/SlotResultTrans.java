@@ -34,15 +34,4 @@ public class SlotResultTrans {
          return !((ITERecipe)recipe).isExtendsNBT() && caller.hasDamagedItem();
       }
    }
-
-   @Inject(method = "onCrafting(Lnet/minecraft/ItemStack;)V", at = @At("HEAD"))
-   protected void injectTriggerAchievement(ItemStack par1ItemStack, CallbackInfo ci) {
-      Item item = par1ItemStack.getItem();
-      Block block = item instanceof ItemBlock ? ((ItemBlock)item).getBlock() : null;
-      if (item == MITEITEItemRegistryInit.VIBRANIUM_INGOT) {
-         this.thePlayer.triggerAchievement(MITEITEAchievementRegistryInit.vibraniumIngot);
-      } else if (block == MITEITEBlockRegistryInit.anvilVibranium) {
-         this.thePlayer.triggerAchievement(MITEITEAchievementRegistryInit.vibraniumAnvil);
-      }
-   }
 }

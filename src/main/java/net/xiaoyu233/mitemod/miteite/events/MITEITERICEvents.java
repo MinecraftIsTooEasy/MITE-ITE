@@ -92,6 +92,7 @@ public class MITEITERICEvents extends Handlers {
             }
         });
         Tick.register(new TickListener());
+        Achievement.register(new AchievementListener());
     }
 
 }
