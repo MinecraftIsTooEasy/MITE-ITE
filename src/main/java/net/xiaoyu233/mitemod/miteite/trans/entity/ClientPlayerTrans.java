@@ -9,6 +9,7 @@ import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
 import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -55,6 +56,23 @@ public abstract class ClientPlayerTrans extends AbstractClientPlayer implements 
 
    @ModifyReturnValue(method = "getCraftingPeriod", at = @At("TAIL"))
    public int modifyCraftingPeriod(int original, @Local(name = "period") int period, @Local(name = "bench_and_tools_modifier") float bench_and_tools_modifier) {
-      return Math.round(Math.max((float) period * (1.0F - bench_and_tools_modifier) * (1.0f - Math.min(this.getExperienceLevel(), 100) * 0.006f), 1) / (this.getCraftingBoostFactor() + 1.0F));
+      float benchModifier = this.miteite$normalizeBenchAndToolsModifier(bench_and_tools_modifier);
+      float levelModifier = 1.0F - Math.min(this.getExperienceLevel(), 100) * 0.006F;
+      float boostModifier = Math.max(this.getCraftingBoostFactor(), 0.0F);
+      int modifiedPeriod = Math.round((float) period * (1.0F - benchModifier) * levelModifier / (boostModifier + 1.0F));
+      return Math.max(modifiedPeriod, 25);
+   }
+
+   @Unique
+   private float miteite$normalizeBenchAndToolsModifier(float modifier) {
+      if (modifier <= 0.0F) {
+         return 0.0F;
+      }
+
+      if (modifier >= 1.0F) {
+         return modifier / (modifier + 1.0F);
+      }
+
+      return modifier;
    }
 }
