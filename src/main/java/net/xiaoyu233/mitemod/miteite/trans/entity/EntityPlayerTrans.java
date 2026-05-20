@@ -86,7 +86,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                if (((ITELivingEntity) entity_living).canBeDisarmed()) {
                   EntityItem entityItem = entity_living.dropItemStack(item_stack_to_drop, entity_living.height / 2.0F);
                   //Only for natural generated weapons
-                  if (!((ITELivingEntity) entity_living).getPickedUpAHeldItemArray()[0]) {
+                  if (entityItem != null && !((ITELivingEntity) entity_living).getPickedUpAHeldItemArray()[0]) {
                      ((ITEItemEntity) entityItem).setCanBePickUpByPlayer(false);
                      //Only exist for half a minute
                      entityItem.age = 5400;
@@ -99,9 +99,11 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                if (!player.isBlocking() && Configs.GameMechanics.PLAYER_DISARM_PLAYER.get()){
                   EntityItem entityItem = player.dropItemStack(item_stack_to_drop, player.height / 2.0F);
                   Vec3 lookVec = player.getLookVec();
-                  entityItem.delayBeforeCanPickup = 20;
-                  //Rotate 90 degrees,to the right side of the player
-                  entityItem.addVelocity(-lookVec.zCoord * 0.4,0,lookVec.xCoord  * 0.4);
+                  if (entityItem != null) {
+                     entityItem.delayBeforeCanPickup = 20;
+                     //Rotate 90 degrees,to the right side of the player
+                     entityItem.addVelocity(-lookVec.zCoord * 0.4,0,lookVec.xCoord  * 0.4);
+                  }
                   player.setHeldItemStack(null);
                }
             }
