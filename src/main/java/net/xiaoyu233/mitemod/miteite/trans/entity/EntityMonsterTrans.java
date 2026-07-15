@@ -214,6 +214,38 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
             fireParticleTick = 20;
          }
       }
+
+      ItemStack heldItem = this.getHeldItemStack();
+      if (this.worldObj.isRemote
+              && this.ticksExisted % 20 == 0
+              && heldItem != null
+              && heldItem.hasEnchantment(Enchantment.disarming, false)) {
+         this.spawnDisarmingParticles();
+      }
+   }
+
+   @Unique
+   private void spawnDisarmingParticles() {
+      Minecraft minecraft = Minecraft.getMinecraft();
+      if (minecraft.effectRenderer == null) {
+         return;
+      }
+
+      for (int i = 0; i < 5; ++i) {
+         double motionX = this.rand.nextGaussian() * 0.02D;
+         double motionY = this.rand.nextGaussian() * 0.02D;
+         double motionZ = this.rand.nextGaussian() * 0.02D;
+         EntityFX particle = new EntityCritFX(
+                 this.worldObj,
+                 this.posX + this.rand.nextFloat() * this.width * 2.0F - this.width,
+                 this.posY + 1.0D + this.rand.nextFloat() * this.height,
+                 this.posZ + this.rand.nextFloat() * this.width * 2.0F - this.width,
+                 motionX,
+                 motionY,
+                 motionZ
+         ).setMaxAge(20);
+         minecraft.effectRenderer.addEffect(particle);
+      }
    }
 
    @Unique
