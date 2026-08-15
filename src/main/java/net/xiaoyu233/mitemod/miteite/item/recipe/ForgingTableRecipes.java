@@ -135,7 +135,7 @@ public class ForgingTableRecipes {
         }
         if (maxLevel >= 7) {
             ForgingRecipe.Builder
-                    .of(Materials.vibranium, 7, ForgingTableLevel.VIBRANIUM)
+                    .of(material, 7, ForgingTableLevel.VIBRANIUM)
                     .setChanceOfFailure(MITEITEItemRegistryInit.ADAMANTIUM_ENHANCE_STONE.getFailChance())
                     .setAxeDurabilityCost(6144)
                     .setHammerDurabilityCost(8192)
@@ -153,7 +153,7 @@ public class ForgingTableRecipes {
         }
         if (maxLevel >= 8) {
             ForgingRecipe.Builder
-                    .of(Materials.vibranium, 8, ForgingTableLevel.VIBRANIUM)
+                    .of(material, 8, ForgingTableLevel.VIBRANIUM)
                     .setChanceOfFailure(MITEITEItemRegistryInit.ADAMANTIUM_ENHANCE_STONE.getFailChance())
                     .setAxeDurabilityCost(8192)
                     .setHammerDurabilityCost(10240)
@@ -171,7 +171,7 @@ public class ForgingTableRecipes {
         }
         if (maxLevel >= 9) {
             ForgingRecipe.Builder
-                    .of(Materials.vibranium, 9, ForgingTableLevel.VIBRANIUM)
+                    .of(material, 9, ForgingTableLevel.VIBRANIUM)
                     .setChanceOfFailure(MITEITEItemRegistryInit.ADAMANTIUM_ENHANCE_STONE.getFailChance())
                     .setAxeDurabilityCost(8192)
                     .setHammerDurabilityCost(10240)
