@@ -3,6 +3,8 @@ package net.xiaoyu233.mitemod.miteite.registry;
 import net.minecraft.Item;
 import net.minecraft.Material;
 import net.xiaoyu233.mitemod.miteite.api.ITERegistry;
+import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
+import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableRecipes;
 
@@ -40,5 +42,15 @@ public class ITERegistryImpl implements ITERegistry {
     @Override
     public void registerForgingRecipe(Material material, ForgingTableLevel tableLevel, int maxLevel) {
         ForgingTableRecipes.registerForgingRecipe(material, tableLevel, maxLevel);
+    }
+
+    @Override
+    public void registerArmorModifier(ArmorModifierTypes modifier) {
+        ArmorModifierTypes.register(modifier);
+    }
+
+    @Override
+    public void registerToolModifier(ToolModifierTypes modifier) {
+        ToolModifierTypes.register(modifier);
     }
 }

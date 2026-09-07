@@ -93,13 +93,15 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
             NBTTagCompound compound = itemStack.stackTagCompound.getCompoundTag("modifiers");
             if (!compound.hasNoTags()) {
                info.add(I18n.getString("miteite.tool.modifier.modifiers"));
-               ArmorModifierTypes[] var9 = ArmorModifierTypes.values();
-
-                for (ArmorModifierTypes value : var9) {
-                    if (compound.hasKey(value.nbtName)) {
-                        info.add("  " + value.color.toString() + value.getDisplayName() + "§r " + StringUtil.intToRoman(compound.getInteger(value.nbtName)));
-                    }
-                }
+               for (Object tag : compound.getTags()) {
+                  String nbtName = ((NBTBase) tag).getName();
+                  ArmorModifierTypes value = ArmorModifierTypes.getByNbtName(nbtName);
+                  if (value != null) {
+                     info.add("  " + value.color.toString() + value.getDisplayName() + "§r " + StringUtil.intToRoman(compound.getInteger(nbtName)));
+                  } else {
+                     info.add("  " + EnumChatFormatting.WHITE + nbtName + "§r " + StringUtil.intToRoman(compound.getInteger(nbtName)));
+                  }
+               }
             }
          }
       }

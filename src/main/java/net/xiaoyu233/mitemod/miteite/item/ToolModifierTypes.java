@@ -5,6 +5,7 @@ import net.xiaoyu233.fml.FishModLoader;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.EnumChatFormats;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -75,6 +76,12 @@ public class ToolModifierTypes implements ItemModifierTypes {
         ((List<T>) VALUES).add(item);
     }
 
+    public static void register(ToolModifierTypes modifier) {
+        if (modifier != null && !VALUES.contains(modifier)) {
+            addValue(modifier);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static ToolModifierTypes[] values() {
         return ((List<ToolModifierTypes>) VALUES).toArray(new ToolModifierTypes[0]);
@@ -82,11 +89,30 @@ public class ToolModifierTypes implements ItemModifierTypes {
 
     public static ToolModifierTypes valueOf(String name) {
         for (ToolModifierTypes modifier : VALUES) {
-            if (modifier.unlocalizedName.equalsIgnoreCase(name)) {
+            if (modifier.unlocalizedName.equalsIgnoreCase(name) || modifier.nbtName.equalsIgnoreCase(name)) {
                 return modifier;
             }
         }
         throw new IllegalArgumentException("No enum constant " + ToolModifierTypes.class.getName() + "." + name);
+    }
+
+    @Nullable
+    public static ToolModifierTypes getByNbtName(String nbtName) {
+        for (ToolModifierTypes modifier : VALUES) {
+            if (modifier.nbtName.equals(nbtName)) {
+                return modifier;
+            }
+        }
+        return null;
+    }
+
+    public static String resolveNbtName(String name) {
+        for (ToolModifierTypes modifier : VALUES) {
+            if (modifier.unlocalizedName.equalsIgnoreCase(name) || modifier.nbtName.equalsIgnoreCase(name)) {
+                return modifier.nbtName;
+            }
+        }
+        return name;
     }
 
     public static boolean isWeapon(ItemStack itemStack) {

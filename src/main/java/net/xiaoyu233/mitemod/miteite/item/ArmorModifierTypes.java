@@ -62,6 +62,12 @@ public class ArmorModifierTypes implements ItemModifierTypes {
         ((List<T>) VALUES).add(item);
     }
 
+    public static void register(ArmorModifierTypes modifier) {
+        if (modifier != null && !VALUES.contains(modifier)) {
+            addValue(modifier);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static ArmorModifierTypes[] values() {
         return ((List<ArmorModifierTypes>) VALUES).toArray(new ArmorModifierTypes[0]);
@@ -69,11 +75,30 @@ public class ArmorModifierTypes implements ItemModifierTypes {
 
     public static ArmorModifierTypes valueOf(String name) {
         for (ArmorModifierTypes modifier : VALUES) {
-            if (modifier.unlocalizedName.equalsIgnoreCase(name)) {
+            if (modifier.unlocalizedName.equalsIgnoreCase(name) || modifier.nbtName.equalsIgnoreCase(name)) {
                 return modifier;
             }
         }
         throw new IllegalArgumentException("No enum constant " + ArmorModifierTypes.class.getName() + "." + name);
+    }
+
+    @Nullable
+    public static ArmorModifierTypes getByNbtName(String nbtName) {
+        for (ArmorModifierTypes modifier : VALUES) {
+            if (modifier.nbtName.equals(nbtName)) {
+                return modifier;
+            }
+        }
+        return null;
+    }
+
+    public static String resolveNbtName(String name) {
+        for (ArmorModifierTypes modifier : VALUES) {
+            if (modifier.unlocalizedName.equalsIgnoreCase(name) || modifier.nbtName.equalsIgnoreCase(name)) {
+                return modifier.nbtName;
+            }
+        }
+        return name;
     }
 
     private static boolean hasNotOtherProtectionModifier(ItemStack stack,int protectionType){

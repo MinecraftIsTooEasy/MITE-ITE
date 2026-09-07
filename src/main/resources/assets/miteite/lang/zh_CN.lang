@@ -126,6 +126,8 @@ modifier.tool.geology.name=地质学
 
 commands.forging.usage=/forging <玩家> <set> <等级>
 commands.forging.set.success=成功将手持物品锻造等级设置为%d
-commands.itemlevel.usage=/itemlevel <玩家> <set> <level/xp> <数值>
+commands.itemlevel.usage=/itemlevel <玩家> <set/add> <level/xp/属性> <数值>
 commands.itemlevel.set.level.success=成功将手持物品等级设置为%d
 commands.itemlevel.set.xp.success=成功将手持物品经验设置为%d
+commands.itemlevel.add.armor.success=成功将手持物品添加了%s %d级
+commands.itemlevel.add.tool.success=成功将手持物品添加了%s %d级

@@ -151,11 +151,13 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
             NBTTagCompound compound = item_stack.stackTagCompound.getCompoundTag("modifiers");
             if (!compound.hasNoTags()) {
                info.add(I18n.getString("miteite.tool.modifier.modifiers"));
-               ToolModifierTypes[] var8 = ToolModifierTypes.values();
-
-               for (ToolModifierTypes value : var8) {
-                  if (compound.hasKey(value.nbtName)) {
-                     info.add("  " + value.color.toString() + value.getDisplayName() + "§r " + StringUtil.intToRoman(compound.getInteger(value.nbtName)));
+               for (Object tag : compound.getTags()) {
+                  String nbtName = ((NBTBase) tag).getName();
+                  ToolModifierTypes value = ToolModifierTypes.getByNbtName(nbtName);
+                  if (value != null) {
+                     info.add("  " + value.color.toString() + value.getDisplayName() + "§r " + StringUtil.intToRoman(compound.getInteger(nbtName)));
+                  } else {
+                     info.add("  " + EnumChatFormatting.WHITE + nbtName + "§r " + StringUtil.intToRoman(compound.getInteger(nbtName)));
                   }
                }
             }

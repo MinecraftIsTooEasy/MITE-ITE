@@ -127,7 +127,9 @@ modifier.tool.geology.name=Geology
 
 commands.forging.usage=/forging <PLayer> <set> <Level>
 commands.forging.set.success=Successfully set the item forging grade to %d level.
-commands.itemlevel.usage=/itemlevel <Player> <set> <level/xp> <nNum>
+commands.itemlevel.usage=/itemlevel <Player> <set/add> <level/xp/modifier> <Num>
 commands.itemlevel.set.level.success=Successfully set the item level to %d.
 commands.itemlevel.set.xp.success=Successfully set the item xp to %d.
+commands.itemlevel.add.armor.success=Successfully added %s %d level to the handheld item
+commands.itemlevel.add.tool.success=Successfully added %s %d level to the handheld item
 

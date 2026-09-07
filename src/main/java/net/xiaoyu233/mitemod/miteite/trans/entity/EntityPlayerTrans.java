@@ -77,13 +77,11 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
 
    @Unique
    protected void tryDisarmTarget(Entity target){
-      if (this.onServer() && target instanceof EntityLivingBase) {
-         EntityLivingBase entity_living_base = (EntityLivingBase)target;
-         ItemStack item_stack_to_drop = entity_living_base.getHeldItemStack();
+      if (this.onServer() && target instanceof EntityLivingBase entity_living_base) {
+	      ItemStack item_stack_to_drop = entity_living_base.getHeldItemStack();
          if (item_stack_to_drop != null && this.rand.nextFloat() < this.getDisarmingChance(this.getHeldItemStack())) {
-            if (entity_living_base instanceof EntityLiving){
-               EntityLiving entity_living = (EntityLiving)entity_living_base;
-               if (((ITELivingEntity) entity_living).canBeDisarmed()) {
+            if (entity_living_base instanceof EntityLiving entity_living){
+	            if (((ITELivingEntity) entity_living).canBeDisarmed()) {
                   EntityItem entityItem = entity_living.dropItemStack(item_stack_to_drop, entity_living.height / 2.0F);
                   //Only for natural generated weapons
                   if (entityItem != null && !((ITELivingEntity) entity_living).getPickedUpAHeldItemArray()[0]) {
@@ -94,9 +92,8 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                   entity_living.clearMatchingEquipmentSlot(item_stack_to_drop);
                   entity_living.ticks_disarmed = 40;
                }
-            }else if (entity_living_base instanceof EntityPlayer){
-               EntityPlayer player = (EntityPlayer) entity_living_base;
-               if (!player.isBlocking() && Configs.GameMechanics.PLAYER_DISARM_PLAYER.get()){
+            }else if (entity_living_base instanceof EntityPlayer player){
+	            if (!player.isBlocking() && Configs.GameMechanics.PLAYER_DISARM_PLAYER.get()){
                   EntityItem entityItem = player.dropItemStack(item_stack_to_drop, player.height / 2.0F);
                   Vec3 lookVec = player.getLookVec();
                   if (entityItem != null) {
