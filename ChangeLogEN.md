@@ -13,6 +13,12 @@
 
 ---
 
+# v2.0.31 Changelog
+## Bug Fixes
+* Fixed a client crash when drawing a vibranium arrow with an Infinity-enchanted bow because its registered material was missing from the game's arrow index
+
+---
+
 # v2.0.29 Changelog
 ## Added
 * Monsters holding weapons enchanted with Disarming now continuously emit identifying particles
