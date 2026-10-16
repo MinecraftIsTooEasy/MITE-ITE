@@ -23,11 +23,6 @@ public abstract class EntityEnderDragonTrans extends EntityLiving implements IEn
    }
 
 
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(1250D);
-   }
-
    @Override
    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
       super.readEntityFromNBT(par1NBTTagCompound);

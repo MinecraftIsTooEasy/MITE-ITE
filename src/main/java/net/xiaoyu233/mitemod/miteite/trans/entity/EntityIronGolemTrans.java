@@ -20,14 +20,6 @@ public class EntityIronGolemTrans extends EntityGolem implements ITEIronGolem {
       super(par1World);
    }
 
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(200.0D + day / 26D);
-      this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.25D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 0.0D);
-   }
-
    @Redirect(method = "attackEntityAsMob", at = @At(value = "NEW", target = "(Lnet/minecraft/DamageSource;F)Lnet/minecraft/Damage;"))
    private Damage redirectModifyDamage(DamageSource source, float amount){
       int day = this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0;

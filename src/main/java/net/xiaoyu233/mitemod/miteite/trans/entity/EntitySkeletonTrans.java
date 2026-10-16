@@ -79,22 +79,6 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
 //      ci.cancel();
    }
 
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
-      if (this.getSkeletonType() == WITHER_SKELETON_ID) {
-         this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 45D + (double)day / 16.0D);
-         this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.25D);
-         this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 13.0D + (double)day / 24.0D);
-      } else {
-         this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 15.0D + (double)day / 14.0D);
-         this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.30000001192092896D);
-         this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 8 + day / 24d);
-      }
-
-   }
-
    /**
     * @author XiaoYu233
     * @reason TODO Inject this later...

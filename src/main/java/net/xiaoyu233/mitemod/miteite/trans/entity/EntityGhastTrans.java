@@ -21,7 +21,6 @@ public class EntityGhastTrans extends EntityFlying implements IMob {
    @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
    protected void applyEntityAttributes(CallbackInfo ci) {
       this.explosionStrength = 6;
-      super.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(15.0D);
    }
 
    @Shadow

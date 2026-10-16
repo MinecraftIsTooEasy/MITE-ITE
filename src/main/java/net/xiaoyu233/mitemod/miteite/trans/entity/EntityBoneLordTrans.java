@@ -39,16 +39,6 @@ public abstract class EntityBoneLordTrans extends EntitySkeletonTrans {
       return Configs.Entities.BONE_LORD_AND_LONGDEAD_CHANGE_WEAPON_CHANCE.get() > this.rand.nextFloat();
    }
 
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      boolean boneLordTweak = Configs.Entities.BONE_LORD_TWEAK.get();
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 44.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.27000001072883606D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage, boneLordTweak ? 10 + day /20D : 3.5D);
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, boneLordTweak ? 35 + day / 16D : 22.0D);
-   }
-
    protected void enchantEquipment(ItemStack item_stack) {
       if ((double)this.getRNG().nextFloat() <= 0.2 + (double)this.getWorld().getDayOfOverworld() / 64.0 / 10.0) {
          EnchantmentHelper.addRandomEnchantment(this.getRNG(), item_stack, (int)(5.0F + (float)((this.getRNG().nextInt(15 + this.getWorld().getDayOfOverworld() / 24) + 3) / 10) * (float)this.getRNG().nextInt(18)));

@@ -2,6 +2,7 @@ package net.xiaoyu233.mitemod.miteite.registry;
 
 import net.minecraft.Item;
 import net.minecraft.Material;
+import net.xiaoyu233.mitemod.miteite.api.IItemLevelUpListener;
 import net.xiaoyu233.mitemod.miteite.api.ITERegistry;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
@@ -19,6 +20,7 @@ public class ITERegistryImpl implements ITERegistry {
     public static final Map<Material, BiFunction<Integer, Boolean, Integer>> expForLevelMap = new HashMap<>();
     public static final List<Predicate<Item>> weaponCriteria = new ArrayList<>();
     public static final List<Predicate<Item>> meatCriteria = new ArrayList<>();
+    public static final List<IItemLevelUpListener> itemLevelUpListeners = new ArrayList<>();
 
     @Override
     public void registerExpForLevel(Material material, int base, int increase) {
@@ -52,5 +54,12 @@ public class ITERegistryImpl implements ITERegistry {
     @Override
     public void registerToolModifier(ToolModifierTypes modifier) {
         ToolModifierTypes.register(modifier);
+    }
+
+    @Override
+    public void registerItemLevelUpListener(IItemLevelUpListener listener) {
+        if (listener != null) {
+            itemLevelUpListeners.add(listener);
+        }
     }
 }

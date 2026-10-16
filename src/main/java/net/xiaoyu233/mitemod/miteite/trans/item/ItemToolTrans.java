@@ -12,12 +12,14 @@ import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistry
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.CompatUtil;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
+import net.xiaoyu233.mitemod.miteite.util.ItemLevelUpHelper;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -73,17 +75,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
 
    @Override
    public void onItemLevelUp(NBTTagCompound tagCompound, EntityPlayer player, ItemStack stack) {
-      NBTTagCompound modifiers = tagCompound.getCompoundTag("modifiers");
-      ToolModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedToolModifiers(stack), player.getRNG());
-      if (modifierType != null) {
-         if (modifiers.hasKey(modifierType.nbtName)) {
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color), this.addModifierLevelFor(modifiers, modifierType)));
-         } else {
-            this.addModifierLevelFor(modifiers, modifierType);
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color)));
-         }
-      }
-
+      ItemLevelUpHelper.fireItemLevelUp(stack, player, tagCompound, new ArrayList<>(ModifierUtils.getAllCanBeAppliedToolModifiers(stack)), false);
    }
 
    @Override

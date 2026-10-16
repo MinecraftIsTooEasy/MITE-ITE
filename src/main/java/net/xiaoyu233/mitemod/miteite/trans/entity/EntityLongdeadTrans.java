@@ -39,25 +39,11 @@ public abstract class EntityLongdeadTrans extends EntitySkeletonTrans {
       return Configs.Entities.BONE_LORD_AND_LONGDEAD_CHANGE_WEAPON_CHANCE.get() > this.rand.nextFloat();
    }
 
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 40.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, (this.isGuardian() ? 26.0D : 15.0D) + day / 16D);
-      this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.28999999165534973D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage, (this.isGuardian() ? 10.0D : 8.0D) + day / 20D);
-   }
-
    protected void enchantEquipment(ItemStack item_stack) {
       int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
       if ((double)this.getRNG().nextFloat() <= 0.2D + (double) day / 64.0D / 10.0D) {
          EnchantmentHelper.addRandomEnchantment(this.getRNG(), item_stack, (int)(5.0F + (float)(this.getRNG().nextInt(15 + day / 48) / 10) * (float)this.getRNG().nextInt(18)));
       }
 
-   }
-
-   @Shadow
-   public boolean isGuardian() {
-      return false;
    }
 }

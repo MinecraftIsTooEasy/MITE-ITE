@@ -6,9 +6,6 @@ import net.xiaoyu233.mitemod.miteite.util.Configs;
 import net.xiaoyu233.mitemod.miteite.util.MonsterUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityRevenant.class)
 public class EntityRevenantTrans extends EntityZombie {
@@ -33,16 +30,6 @@ public class EntityRevenantTrans extends EntityZombie {
          MonsterUtil.addDefaultArmor(day, this, true);
       }
 
-   }
-
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.2800000011920929D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 12.0D + day / 24d);
-      this.setEntityAttribute(EntityZombie.field_110186_bp, this.getRNG().nextDouble() * 0.10000000149011612D);
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 35.0D + day / 16D);
    }
 
    protected void enchantEquipment(ItemStack item_stack) {

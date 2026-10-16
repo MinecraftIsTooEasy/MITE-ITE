@@ -11,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EntityZombie.class)
 class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
-   @Shadow @Final protected static Attribute field_110186_bp;
-
    public EntityZombieTrans(World world) {
       super(world);
    }
@@ -23,16 +21,6 @@ class EntityZombieTrans extends EntityAnimalWatcher implements ITEMob {
       if (this.worldObj.isUnderworld() && this.worldObj.getDayOfOverworld() < 64) {
          MonsterUtil.addDefaultArmor(64, this, true);
       }
-   }
-
-   @Inject(method = "applyEntityAttributes", at = @At("HEAD"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.23000000417232513D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 8D + (double)day / 24.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 15D + (double)day / 16.0D);
-      this.setEntityAttribute(field_110186_bp, this.getRNG().nextDouble() * 0.10000000149011612D);
    }
 
    @Override

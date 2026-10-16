@@ -37,18 +37,6 @@ public abstract class EntityEarthElementalTrans extends EntityAnimalWatcher {
       return super.attackEntityFrom(damage);
    }
 
-   protected void applyEntityAttributes() {
-      super.applyEntityAttributes();
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 20.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.20000000298023224D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 12.0D);
-      if (this.getWorld().isTheNether()){
-         this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 60.0D);
-      }else {
-         this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 30.0D);
-      }
-   }
-
    @Inject(method = "convertToMagma", at = @At("HEAD"), cancellable = true)
    public void preventWoodConvert(CallbackInfo ci) {
        if (this.isWood()) {

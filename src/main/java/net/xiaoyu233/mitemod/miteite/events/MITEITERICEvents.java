@@ -85,6 +85,7 @@ public class MITEITERICEvents extends Handlers {
             });
         });
         PlayerAttribute.register(new PlayerAttributeListener());
+        EntityAttribute.register(new EntityAttributeListener());
         ArmorModel.register(new IArmorModelListener() {
             @Override
             public ResourceLocation getArmorTexture(ItemArmor itemArmor, int slotIndex) {

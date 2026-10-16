@@ -2,7 +2,6 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.EntityCreeper;
 import net.minecraft.EntityMob;
-import net.minecraft.SharedMonsterAttributes;
 import net.minecraft.World;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,14 +18,6 @@ public class EntityCreeperTrans extends EntityMob {
 
    public EntityCreeperTrans(World par1World) {
       super(par1World);
-   }
-
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.setEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.25D);
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 20 + (double)day / 8.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
    }
 
    @Inject(method = "<init>",at = @At("RETURN"))

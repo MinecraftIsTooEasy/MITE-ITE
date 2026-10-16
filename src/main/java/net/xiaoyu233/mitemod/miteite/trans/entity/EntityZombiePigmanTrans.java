@@ -33,16 +33,6 @@ public class EntityZombiePigmanTrans extends EntityZombie implements IRangedAtta
       super(par1World);
    }
 
-   @Inject(method = "applyEntityAttributes", at = @At("RETURN"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      this.setEntityAttribute(SharedMonsterAttributes.maxHealth, 40.0D + (double)day / 16.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 64.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.movementSpeed, 0.25D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage, 12.0D + (double)day / 20.0D);
-      this.setEntityAttribute(EntityZombie.field_110186_bp, this.rand.nextDouble() * 0.10000000149011612D);
-   }
-
    @Override
    public EntityDamageResult attackEntityAsMob(Entity target) {
       if (target != null && target.isEntityAlive() && rand.nextFloat() < Configs.Entities.NETHER_MOD_ATTACK_FIRE_CHANCE.get()){

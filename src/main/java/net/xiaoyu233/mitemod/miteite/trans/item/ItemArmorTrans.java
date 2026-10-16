@@ -7,6 +7,7 @@ import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.api.IUpgradableItem;
 import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
+import net.xiaoyu233.mitemod.miteite.util.ItemLevelUpHelper;
 import net.xiaoyu233.mitemod.miteite.util.ItemUtil;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
 import org.spongepowered.asm.mixin.*;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -192,17 +194,7 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
    }
 
    public void onItemLevelUp(NBTTagCompound tagCompound, EntityPlayer player, ItemStack stack) {
-      NBTTagCompound modifiers = tagCompound.getCompoundTag("modifiers");
-      ArmorModifierTypes modifierType = ModifierUtils.getModifierWithWeight(ModifierUtils.getAllCanBeAppliedArmorModifiers(stack),player.getRNG());
-      if (modifierType != null) {
-         if (modifiers.hasKey(modifierType.nbtName)) {
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.level", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color), this.addModifierLevelFor(modifiers, modifierType)));
-         } else {
-            this.addModifierLevelFor(modifiers, modifierType);
-            player.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("miteite.msg.modifier.new", ChatMessageComponent.createFromTranslationKey(stack.getUnlocalizedName() + ".name"), modifierType.getDisplayName().setColor(modifierType.color)));
-         }
-      }
-
+      ItemLevelUpHelper.fireItemLevelUp(stack, player, tagCompound, new ArrayList<>(ModifierUtils.getAllCanBeAppliedArmorModifiers(stack)), true);
       player.suppressNextStatIncrement();
    }
 }

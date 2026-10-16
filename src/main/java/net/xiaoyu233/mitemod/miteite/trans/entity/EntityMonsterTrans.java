@@ -146,20 +146,6 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
       return 0;
    }
 
-   @Inject(method = "applyEntityAttributes", at = @At("HEAD"))
-   protected void applyEntityAttributes(CallbackInfo ci) {
-      try {
-         this.setEntityAttribute(SharedMonsterAttributes.maxHealth, this.getEntityAttributeValue(SharedMonsterAttributes.maxHealth) * 2.0D);
-         this.setEntityAttribute(SharedMonsterAttributes.attackDamage, this.getEntityAttributeValue(SharedMonsterAttributes.attackDamage) * 2.0D);
-      } catch (NullPointerException var2) {
-         this.setEntityAttribute(SharedMonsterAttributes.maxHealth, SharedMonsterAttributes.maxHealth.getDefaultValue() * 2.0D);
-         this.setEntityAttribute(SharedMonsterAttributes.attackDamage, SharedMonsterAttributes.attackDamage.getDefaultValue() * 2.0D);
-      }
-
-      this.setEntityAttribute(SharedMonsterAttributes.followRange, 32.0D);
-      this.setEntityAttribute(SharedMonsterAttributes.attackDamage);
-   }
-
    @Inject(
            locals = LocalCapture.CAPTURE_FAILHARD,
            method = "attackEntityAsMob(Lnet/minecraft/Entity;)Lnet/minecraft/EntityDamageResult;",

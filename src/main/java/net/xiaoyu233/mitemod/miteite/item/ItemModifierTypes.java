@@ -1,5 +1,7 @@
 package net.xiaoyu233.mitemod.miteite.item;
 
+import net.minecraft.ChatMessageComponent;
+import net.minecraft.EnumChatFormatting;
 import net.minecraft.ItemStack;
 import net.minecraft.NBTTagCompound;
 
@@ -20,4 +22,12 @@ public interface ItemModifierTypes {
     String getNbtName();
     boolean canApplyTo(ItemStack itemStack);
     int getMaxLevel();
+
+    default ChatMessageComponent getDisplayName() {
+        return ChatMessageComponent.createFromTranslationKey("modifier." + this.getNbtName() + ".name");
+    }
+
+    default EnumChatFormatting getColor() {
+        return EnumChatFormatting.WHITE;
+    }
 }

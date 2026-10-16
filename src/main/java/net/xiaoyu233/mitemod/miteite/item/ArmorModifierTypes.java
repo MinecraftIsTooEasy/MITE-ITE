@@ -158,4 +158,9 @@ public class ArmorModifierTypes implements ItemModifierTypes {
     public ChatMessageComponent getDisplayName() {
         return ChatMessageComponent.createFromTranslationKey("modifier.armor." + this.unlocalizedName + ".name");
     }
+
+    @Override
+    public EnumChatFormatting getColor() {
+        return this.color;
+    }
 }

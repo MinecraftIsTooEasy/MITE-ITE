@@ -20,4 +20,6 @@ public interface ITERegistry {
     void registerArmorModifier(ArmorModifierTypes modifier);
 
     void registerToolModifier(ToolModifierTypes modifier);
+
+    void registerItemLevelUpListener(IItemLevelUpListener listener);
 }
