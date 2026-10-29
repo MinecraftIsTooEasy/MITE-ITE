@@ -4,10 +4,7 @@ import net.minecraft.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.api.*;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
-import net.xiaoyu233.mitemod.miteite.util.Configs;
-import net.xiaoyu233.mitemod.miteite.util.EntityUtil;
-import net.xiaoyu233.mitemod.miteite.util.MathUtil;
-import net.xiaoyu233.mitemod.miteite.util.MonsterUtil;
+import net.xiaoyu233.mitemod.miteite.util.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -61,7 +58,7 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
    public void attackEntityFrom(Damage damage, CallbackInfoReturnable<EntityDamageResult> c) {
       if ((Configs.Entities.MOB_DEFENSE.get())
               && damage.getResponsibleEntityP() != null
-              && this.getHeldItem() != null && this.rand.nextInt(10) > 8) {
+              && DeciderMisc.mobCanBlock(this)) {
          damage.scaleAmount(0.5F);
          if (Configs.Entities.MOB_DISARM_WHEN_DEFENCE.get()){
             this.tryDisarmTarget(damage.getResponsibleEntityP());

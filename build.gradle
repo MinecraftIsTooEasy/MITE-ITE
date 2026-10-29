@@ -38,10 +38,14 @@ dependencies {
     fml "com.github.MinecraftIsTooEasy:FishModLoader:3.4.2"
     implementation "com.github.MinecraftIsTooEasy:FishModLoader:3.4.2"
 
+    implementation files(
+            'libs/rusted-iron-core-1.5.8.1.jar',
+    )
+
     implementation "com.github.MinecraftIsTooEasy:ManyLib:2.3.0"
     implementation "com.github.MinecraftIsTooEasy:ModMenu:10.1.1"
-    implementation "org.moddedmite:rusted-iron-core:1.5.8.1"
-    compileOnly "org.moddedmite:rusted-iron-core:1.5.8.1:sources"
+//    implementation "org.moddedmite:rusted-iron-core:1.5.8.1"
+//    compileOnly "org.moddedmite:rusted-iron-core:1.5.8.1:sources"
     implementation "com.github.MinecraftIsTooEasy:Conditional-Mixin:0.6.4"
 
     implementation "com.github.MinecraftIsTooEasy:Baubles:1.1.2"
