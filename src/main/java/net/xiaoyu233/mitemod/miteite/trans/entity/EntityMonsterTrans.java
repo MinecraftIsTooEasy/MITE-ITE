@@ -5,6 +5,7 @@ import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.api.*;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
 import net.xiaoyu233.mitemod.miteite.util.*;
+import net.xiaoyu233.mitemod.miteite.util.hooks.EntityMonsterEffect;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -102,27 +103,8 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
    protected void addRandomArmor() {
       int hour = this.getWorld().getHourOfDay();
       int day = Math.min(Configs.Entities.ENHANCE_LIMIT.get(), this.getWorld() != null ? this.getWorld().getDayOfOverworld() : 0);
-      if (day > 32 && ((day % 2 == 0 || day > 64) && hour >= 18 || ((day - 1) % 2 == 0 || day > 64) && hour <= 6)) {
-         this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 999999, Math.min(this.getRNG().nextInt(Math.max((day - 32) / 96, 1)), 4), true));
-         Random rand = this.getRNG();
-         if (rand.nextInt(5) == 0) {
-            this.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 999999, Math.min(this.getRNG().nextInt(Math.max((day - 32) / 128, 1)), 3), true));
-         }
-
-         MonsterUtil.addDefaultArmor(day, this, false);
-      } else if (day > 128) {
-         Random rand = this.getRNG();
-         if (rand.nextInt(4) < (day - 96) / 32) {
-            this.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 999999, Math.min(this.getRNG().nextInt(Math.max((day - 32) / 96, 1)), 4), true));
-         }
-
-         if (rand.nextInt(5) < (day - 96) / 32) {
-            this.addPotionEffect(new PotionEffect(Potion.damageBoost.id, 999999, Math.min(this.getRNG().nextInt(Math.max((day - 32) / 128, 1)), 3), true));
-         }
-
-         MonsterUtil.addDefaultArmor(day, this, false);
-      }
-
+      EntityMonsterEffect.addDefaultPotionEffect(this,hour,day);
+      MonsterUtil.addDefaultArmor(day, this, false);
    }
 
    protected void enchantEquipment(ItemStack item_stack) {
