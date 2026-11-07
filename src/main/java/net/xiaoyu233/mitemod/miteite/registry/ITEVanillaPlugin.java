@@ -5,9 +5,11 @@ import net.xiaoyu233.mitemod.miteite.MITEITEMod;
 import net.xiaoyu233.mitemod.miteite.api.ITEPlugin;
 import net.xiaoyu233.mitemod.miteite.api.ITERegistry;
 import net.xiaoyu233.mitemod.miteite.api.forging.ForgingSlot;
+import net.xiaoyu233.mitemod.miteite.api.forging.IForgingBonusModifier;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingListener;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingRecipeProvider;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
+import net.xiaoyu233.mitemod.miteite.item.DefaultForgingBonusModifier;
 import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.material.Materials;
@@ -20,6 +22,7 @@ import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableRecipes;
 
 public class ITEVanillaPlugin implements ITEPlugin {
     private static final IForgingListener DEFAULT_FORGING_LISTENER = new DefaultForgingListener();
+    private static final IForgingBonusModifier DEFAULT_FORGING_BONUS_MODIFIER = new DefaultForgingBonusModifier();
     private static final IForgingRecipeProvider DEFAULT_FORGING_RECIPE_PROVIDER = context -> {
         ItemStack tool = context.getToolStack();
         if (tool == null) {
@@ -97,6 +100,7 @@ public class ITEVanillaPlugin implements ITEPlugin {
                 new ResourceLocation(MITEITEMod.ITEID, "textures/gui/container/forging_table/arrow_full.png"));
 
         registry.registerForgingListener(DEFAULT_FORGING_LISTENER);
+        registry.registerForgingBonusModifier(DEFAULT_FORGING_BONUS_MODIFIER);
         registry.registerForgingRecipeProvider(DEFAULT_FORGING_RECIPE_PROVIDER);
 
         this.registerForgingRecipeSet(registry, Material.iron, ForgingTableLevel.IRON, 2);

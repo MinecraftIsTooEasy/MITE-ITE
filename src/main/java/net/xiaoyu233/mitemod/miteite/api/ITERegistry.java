@@ -5,6 +5,7 @@ import net.minecraft.ItemStack;
 import net.minecraft.Material;
 import net.minecraft.ResourceLocation;
 import net.xiaoyu233.mitemod.miteite.api.forging.ForgingSlot;
+import net.xiaoyu233.mitemod.miteite.api.forging.IForgingBonusModifier;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingListener;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingRecipe;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingRecipeProvider;
@@ -48,6 +49,8 @@ public interface ITERegistry {
     void registerForgingArrow(@Nonnull ResourceLocation id, int x, int y, @Nullable ResourceLocation texture, @Nullable ResourceLocation fullTexture);
 
     void registerForgingListener(IForgingListener listener);
+
+    void registerForgingBonusModifier(IForgingBonusModifier modifier);
 
     void registerArmorModifier(ArmorModifierTypes modifier);
 

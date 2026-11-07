@@ -8,6 +8,7 @@ import net.xiaoyu233.mitemod.miteite.api.IItemLevelUpListener;
 import net.xiaoyu233.mitemod.miteite.api.ITERegistry;
 import net.xiaoyu233.mitemod.miteite.api.forging.ForgingArrowDefinition;
 import net.xiaoyu233.mitemod.miteite.api.forging.ForgingSlot;
+import net.xiaoyu233.mitemod.miteite.api.forging.IForgingBonusModifier;
 import net.xiaoyu233.mitemod.miteite.api.forging.ForgingSlotDefinition;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingListener;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingRecipe;
@@ -39,6 +40,7 @@ public class ITERegistryImpl implements ITERegistry {
     public static final List<ForgingSlotDefinition> forgingSlots = new ArrayList<>();
     public static ForgingArrowDefinition forgingArrow;
     public static final List<IForgingListener> forgingListeners = new ArrayList<>();
+    public static final List<IForgingBonusModifier> forgingBonusModifiers = new ArrayList<>();
 
     @Override
     public void registerExpForLevel(Material material, int base, int increase) {
@@ -153,6 +155,41 @@ public class ITERegistryImpl implements ITERegistry {
         if (listener != null && !forgingListeners.contains(listener)) {
             forgingListeners.add(listener);
         }
+    }
+
+    @Override
+    public void registerForgingBonusModifier(IForgingBonusModifier modifier) {
+        if (modifier != null && !forgingBonusModifiers.contains(modifier)) {
+            forgingBonusModifiers.add(modifier);
+        }
+    }
+
+    public static float modifyForgingAttackBonus(ItemStack stack, float bonus) {
+        for (IForgingBonusModifier modifier : forgingBonusModifiers) {
+            bonus = modifier.modifyAttackBonus(stack, bonus);
+        }
+        return bonus;
+    }
+
+    public static float modifyForgingHarvestBonus(ItemStack stack, float bonus) {
+        for (IForgingBonusModifier modifier : forgingBonusModifiers) {
+            bonus = modifier.modifyHarvestBonus(stack, bonus);
+        }
+        return bonus;
+    }
+
+    public static float modifyForgingProtectionBonus(ItemStack stack, float bonus) {
+        for (IForgingBonusModifier modifier : forgingBonusModifiers) {
+            bonus = modifier.modifyProtectionBonus(stack, bonus);
+        }
+        return bonus;
+    }
+
+    public static float modifyForgingExpBonus(ItemStack stack, float bonus) {
+        for (IForgingBonusModifier modifier : forgingBonusModifiers) {
+            bonus = modifier.modifyExpBonus(stack, bonus);
+        }
+        return bonus;
     }
 
     @Override

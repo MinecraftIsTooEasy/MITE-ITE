@@ -20,7 +20,11 @@
 ---
 
 # v2.0.32 更新日志
+## 兼容
+* 加入了emi锻造信息页
+* emi信息页可显示副属性介绍
 ## 优化
+* `ITERegistry#registerExpForLevel`改为弃用，取而代之的是`ITERegistry#registerToolExpForLevel`和`ITERegistry#registerArmorExpForLevel`
 * 重构锻造系统，ITERegistry加入了以下方法
   + registerEnhanceStone
   + registerForgingRecipe
@@ -29,8 +33,10 @@
   + registerForgingArrow
   + registerForgingListener
 * 拆分了锻造台gui纹理
+* 优化了代码，减少冲突
 ## Bug修复
 * 修复锻造台方块显示名称不正确的问题
+* 修复了部分英文本地化错误
 
 ---
 

@@ -105,7 +105,7 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
 
    @Unique
    private float getEnhancedProtection(ItemStack itemStack) {
-      return (float) (itemStack.getEnhanceFactor() * (double) this.getRawProtection() * 0.68f + (double) ((float) itemStack.getForgingGrade() / 3.0F)) * (0.75f);
+      return ITERegistryImpl.modifyForgingProtectionBonus(itemStack, 0.0F);
    }
 
    public int getExpReqForLevel(int i, boolean weapon) {
@@ -143,15 +143,8 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
    @Shadow
    public abstract float getProtectionAfterDamageFactor(ItemStack itemStack, EntityLivingBase owner);
 
-   @Unique
-   private float getRawProtection() {
-      return (float)(this.getNumComponentsForDurability() * this.getMaterialProtection()) / 24.0F;
-   }
-
    @Shadow
    public abstract int getRepairCost();
-
-   @Shadow public abstract int getMaterialProtection();
 
    @Shadow public abstract String getArmorType();
 
