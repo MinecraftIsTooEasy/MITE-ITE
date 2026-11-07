@@ -11,13 +11,14 @@ import java.util.Optional;
 
 @SuppressWarnings("unused")
 public class MITEITEMod implements ModInitializer {
-    public static String ITENameSpace = "MITE-ITE";
+    public static String ITEID = "miteite";
+    public static String ITENameSpace = ITEID;
     private final ConfigRegistry configRegistry = new ConfigRegistry(Configs.ROOT, Configs.CONFIG_FILE);
     public static CompatUtil compatUtil = new CompatUtil();
 
     public void onInitialize() {
         EventListeners.registerAllEvents();
-        ModResourceManager.addResourcePackDomain("miteite");
+        ModResourceManager.addResourcePackDomain(ITEID);
     }
 
     public Optional<ConfigRegistry> createConfig() {

@@ -54,7 +54,7 @@ public class ArmorModifierTypes implements ItemModifierTypes {
         this.maxLevel = maxLevel;
         this.canApplyTo = canApplyTo;
 
-        addValue(this);
+//        addValue(this);
     }
 
     @SuppressWarnings("unchecked")

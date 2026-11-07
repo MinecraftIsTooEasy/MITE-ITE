@@ -56,10 +56,10 @@ enchantment.emergency=Emergency
 enchantment.beheading=Beheading
 enchantment.conqueror=Conqueror
 
-entity.EntityZombieLord.name=Zombie Lord
-entity.EntityZombiePigmanLord.name=Zombie Pigman Lord
-entity.EntityAnnihilationSkeleton.name=Annihilation Skeleton
-entity.EntityWanderingWitch.name=Wandering Witch
+entity.miteite:zombie_lord.name=Zombie Lord
+entity.miteite:zombie_pigman_lord.name=Zombie Pigman Lord
+entity.miteite:annihilation_skeleton.name=Annihilation Skeleton
+entity.miteite:wandering_witch.name=Wandering Witch
 
 gui.forgingTable.start=Start Forging
 gui.forgingTable.item_req=Forging require materials
@@ -132,4 +132,7 @@ commands.itemlevel.set.level.success=Successfully set the item level to %d.
 commands.itemlevel.set.xp.success=Successfully set the item xp to %d.
 commands.itemlevel.add.armor.success=Successfully added %s %d level to the handheld item
 commands.itemlevel.add.tool.success=Successfully added %s %d level to the handheld item
+
+emi.category.miteite.forging=Forging Table
+emi.miteite.forging.grade=Forging grade
 

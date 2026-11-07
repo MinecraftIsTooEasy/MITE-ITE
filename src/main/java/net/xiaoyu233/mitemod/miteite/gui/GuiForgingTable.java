@@ -1,17 +1,21 @@
 package net.xiaoyu233.mitemod.miteite.gui;
 
 import net.minecraft.*;
+import net.xiaoyu233.mitemod.miteite.MITEITEMod;
+import net.xiaoyu233.mitemod.miteite.api.forging.ForgingArrowDefinition;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ContainerForgingTable;
+import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlot;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
 import net.xiaoyu233.mitemod.miteite.network.CPacketStartForging;
 import net.xiaoyu233.mitemod.miteite.network.SPacketForgingTableInfo.EnhanceInfo.FaultFeedbackData;
+import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuiForgingTable extends GuiContainer implements ICrafting {
-    private static final ResourceLocation FORGING_TABLE_TEXTURE = new ResourceLocation("miteite", "textures/gui/container/forging_table.png");
+    private static final ResourceLocation FORGING_TABLE_TEXTURE = new ResourceLocation(MITEITEMod.ITEID, "textures/gui/container/forging_table/base.png");
     private final String axeCostInfo = StatCollector.translateToLocal("gui.forgingTable.axeCost");
     private final String chanceOfFailureInfo = StatCollector.translateToLocal("gui.forgingTable.chanceOfFailure");
     private final String hammerCostInfo = StatCollector.translateToLocal("gui.forgingTable.hammerCost");
@@ -51,9 +55,21 @@ public class GuiForgingTable extends GuiContainer implements ICrafting {
         int var3 = (this.width + this.xSize) / 2;
         int var5 = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(var4, var5, 0, 0, this.xSize, this.ySize);
-        int forgingTime = this.forgingTable.getForgingTime();
-        if (forgingTime != 0 && this.maxTime != 0) {
-            this.drawTexturedModalRect(this.width / 2 + 8, this.height / 2 - 48, 176, 0, (int)(30.0F * (float)forgingTime / (float)this.maxTime), 16);
+        for (ForgingTableSlot slot : this.forgingTable.slots.getForgingSlots()) {
+            ResourceLocation texture = slot.getTexture();
+            if (texture != null) {
+                this.drawTexture(texture, var4 + slot.xDisplayPosition - 1, var5 + slot.yDisplayPosition - 1, 0, 0, 18, 18, 18, 18);
+            }
+        }
+        ForgingArrowDefinition arrow = ITERegistryImpl.forgingArrow;
+        if (arrow != null && arrow.texture() != null) {
+            int arrowX = var4 + arrow.x();
+            int arrowY = var5 + arrow.y();
+            this.drawTexture(arrow.texture(), arrowX, arrowY, 0, 0, 30, 16, 30, 16);
+            int forgingTime = this.forgingTable.getForgingTime();
+            if (forgingTime != 0 && this.maxTime != 0 && arrow.fullTexture() != null) {
+                this.drawTexture(arrow.fullTexture(), arrowX, arrowY, 0, 0, (int)(30.0F * (float)forgingTime / (float)this.maxTime), 16, 30, 16);
+            }
         }
 
         if (this.infoString != null) {
@@ -73,6 +89,19 @@ public class GuiForgingTable extends GuiContainer implements ICrafting {
                 this.drawString(this.mc.fontRenderer, "   " + StatCollector.translateToLocalFormatted(faultFeedbackData.getName(), faultFeedbackData.getData()), var3, var5 + 50 + 10 * i2, 0xFF5555);
             }
         }
+    }
+
+    private void drawTexture(ResourceLocation texture, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight) {
+        this.mc.getTextureManager().bindTexture(texture);
+        float scaleU = 1.0F / (float) textureWidth;
+        float scaleV = 1.0F / (float) textureHeight;
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV(x, y + height, this.zLevel, (float) u * scaleU, (float) (v + height) * scaleV);
+        tessellator.addVertexWithUV(x + width, y + height, this.zLevel, (float) (u + width) * scaleU, (float) (v + height) * scaleV);
+        tessellator.addVertexWithUV(x + width, y, this.zLevel, (float) (u + width) * scaleU, (float) v * scaleV);
+        tessellator.addVertexWithUV(x, y, this.zLevel, (float) u * scaleU, (float) v * scaleV);
+        tessellator.draw();
     }
 
     public void sendProgressBarUpdate(Container container, int i, int i1) {

@@ -219,12 +219,12 @@ public class MITEITEFishEvents {
 
     @Subscribe
     public void onEntityRegister(EntityRegisterEvent event) {
-        event.register(EntityAncientDragon.class, MITEITEMod.ITENameSpace, "EntityTest", IdUtil.getNextEntityID());
+        event.register(EntityAncientDragon.class, MITEITEMod.ITENameSpace, "test", IdUtil.getNextEntityID());
 //        event.register(EntityRideMarker.class, MITEITEMod.ITENameSpace, "EntityMarker", IdUtil.getNextEntityID());
-        event.register(EntityZombieLord.class, MITEITEMod.ITENameSpace, "EntityZombieLord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
-        event.register(EntityZombiePigmanLord.class, MITEITEMod.ITENameSpace, "EntityZombiePigmanLord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
-        event.register(EntityAnnihilationSkeleton.class, MITEITEMod.ITENameSpace, "EntityAnnihilationSkeleton", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
-        event.register(EntityWanderingWitch.class, MITEITEMod.ITENameSpace, "EntityWanderingWitch", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
+        event.register(EntityZombieLord.class, MITEITEMod.ITENameSpace, "zombie_lord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
+        event.register(EntityZombiePigmanLord.class, MITEITEMod.ITENameSpace, "zombie_pigman_lord", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
+        event.register(EntityAnnihilationSkeleton.class, MITEITEMod.ITENameSpace, "annihilation_skeleton", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
+        event.register(EntityWanderingWitch.class, MITEITEMod.ITENameSpace, "wandering_witch", IdUtil.getNextEntityID(), 0xffffff, 0xcccccc);
     }
 
     @Subscribe

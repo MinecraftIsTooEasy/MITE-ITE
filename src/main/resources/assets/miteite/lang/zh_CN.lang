@@ -56,10 +56,10 @@ enchantment.emergency=紧急守备
 enchantment.beheading=斩首
 enchantment.conqueror=征服者
 
-entity.EntityZombieLord.name=僵尸领主
-entity.EntityZombiePigmanLord.name=僵尸猪人领主
-entity.EntityAnnihilationSkeleton.name=湮灭骷髅
-entity.EntityWanderingWitch.name=流浪女巫
+entity.miteite:zombie_lord.name=僵尸领主
+entity.miteite:zombie_pigman_lord.name=僵尸猪人领主
+entity.miteite:annihilation_skeleton.name=湮灭骷髅
+entity.miteite:wandering_witch.name=流浪女巫
 
 gui.forgingTable.start=开始锻造
 gui.forgingTable.item_req=锻造需要
@@ -131,3 +131,6 @@ commands.itemlevel.set.level.success=成功将手持物品等级设置为%d
 commands.itemlevel.set.xp.success=成功将手持物品经验设置为%d
 commands.itemlevel.add.armor.success=成功将手持物品添加了%s %d级
 commands.itemlevel.add.tool.success=成功将手持物品添加了%s %d级
+
+emi.category.miteite.forging=锻造台
+emi.miteite.forging.grade=锻造等级

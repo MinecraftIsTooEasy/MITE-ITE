@@ -19,6 +19,21 @@
 
 ---
 
+# v2.0.32 更新日志
+## 优化
+* 重构锻造系统，ITERegistry加入了以下方法
+  + registerEnhanceStone
+  + registerForgingRecipe
+  + registerForgingRecipeProvider
+  + registerForgingSlot
+  + registerForgingArrow
+  + registerForgingListener
+* 拆分了锻造台gui纹理
+## Bug修复
+* 修复锻造台方块显示名称不正确的问题
+
+---
+
 # v2.0.31 更新日志
 ## Bug修复
 * 修复振金箭材质未同步到游戏箭矢索引，导致振金弓使用无限附魔拉弓时客户端崩溃的问题

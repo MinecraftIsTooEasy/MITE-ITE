@@ -37,7 +37,7 @@ public class MITEITEBlockRegistryInit extends Block {
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "miteite:block_vibranium", "block_vibranium", blockVibranium);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace,"furnace_vibranium_idle", furnaceVibraniumIdle);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "furnace_vibranium_burning", furnaceVibraniumBurning);
-        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "block_forging_table", blockForgingTable);
+        registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, blockForgingTable);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "miteite:nether_adamantium_ore", "nether_adamantium_ore", netherAdamantiumOre);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "vibranium_chest", chestVibranium);
         registryEvent.registerItemBlock(MITEITEMod.ITENameSpace, "toolbench.vibranium", vibraniumWorkBench);
