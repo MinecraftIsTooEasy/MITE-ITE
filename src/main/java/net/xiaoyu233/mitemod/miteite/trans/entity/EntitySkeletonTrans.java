@@ -2,6 +2,7 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.*;
 import net.minecraft.server.MinecraftServer;
 import net.xiaoyu233.mitemod.miteite.api.ITESkeleton;
@@ -79,14 +80,25 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
 //      ci.cancel();
    }
 
-   /**
-    * @author XiaoYu233
-    * @reason TODO Inject this later...
-    */
-   @Overwrite
-   public void attackEntityWithRangedAttack(EntityLivingBase target, float par2) {
-      EntityArrow center = new EntityArrow(this.getWorld(), this, target, 1.6F, (float)(14 - this.getWorld().difficultySetting * 4), this.isLongdead() ? Item.arrowAncientMetal : Item.arrowRustedIron, false);
-      this.processArrow(center, par2);
+   @WrapOperation(method = "attackEntityWithRangedAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityArrow;setDamage(D)V", ordinal = 0))
+   private void applyArrowStats(EntityArrow arrow, double damage, Operation<Void> original, @Local(argsOnly = true) float par2) {
+      this.processArrow(arrow, par2);
+   }
+
+   @WrapOperation(method = "attackEntityWithRangedAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityArrow;setDamage(D)V", ordinal = 1))
+   private void ignoreVanillaDamageBonus(EntityArrow arrow, double damage, Operation<Void> original) {
+   }
+
+   @WrapOperation(method = "attackEntityWithRangedAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityArrow;setKnockbackStrength(I)V"))
+   private void ignoreVanillaKnockback(EntityArrow arrow, int strength, Operation<Void> original) {
+   }
+
+   @WrapOperation(method = "attackEntityWithRangedAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/EntityArrow;setFire(I)V"))
+   private void ignoreVanillaFire(EntityArrow arrow, int seconds, Operation<Void> original) {
+   }
+
+   @Inject(method = "attackEntityWithRangedAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/World;spawnEntityInWorld(Lnet/minecraft/Entity;)Z"))
+   private void injectTripleShot(EntityLivingBase target, float par2, CallbackInfo ci) {
       if ((Configs.Entities.SKELETON_TRIPLE_SHOT.get()) && this.dataWatcher.getWatchableObjectByte(this.DATA_OBJ_ID_CAN_USE_TRIPLE_ARROW) > 0) {
          EntityArrow left = new EntityArrow(this.getWorld(), this, target, 1.6F, (float)(14 - this.getWorld().difficultySetting * 4), this.isLongdead() ? Item.arrowAncientMetal : Item.arrowRustedIron, false);
          left.motionX *= 1.5D;
@@ -97,9 +109,6 @@ public abstract class EntitySkeletonTrans extends EntityMob implements IRangedAt
          this.processArrow(right, par2);
          this.getWorld().spawnEntityInWorld(right);
       }
-
-      this.playSound("random.bow", 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-      this.getWorld().spawnEntityInWorld(center);
    }
 
    @SoftOverride //ITEMob

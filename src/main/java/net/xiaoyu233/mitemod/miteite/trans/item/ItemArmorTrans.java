@@ -5,8 +5,8 @@ import net.minecraft.*;
 import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.api.IUpgradableItem;
-import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
+import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.ItemLevelUpHelper;
 import net.xiaoyu233.mitemod.miteite.util.ItemUtil;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 @Mixin(ItemArmor.class)
 public abstract class ItemArmorTrans extends Item implements IDamageableItem, IUpgradableItem {
@@ -28,30 +28,7 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
    protected Material effective_material;
 
    @Unique
-   private Function<Integer,Integer> expForLevel;
-
-   @Inject(method = "<init>", at = @At("RETURN"))
-   private void injectInitExpForLevel(int par1, Material material, int par2, boolean is_chain_mail, CallbackInfo callbackInfo) {
-      if (material == Material.copper || material == Material.silver) {
-         this.expForLevel = this.createExpForLevel(16, 8);
-      } else if (material == Material.gold) {
-         this.expForLevel = this.createExpForLevel(18, 9);
-      } else if (material == Material.iron || material == Material.ancient_metal) {
-         this.expForLevel = this.createExpForLevel(20, 10);
-      } else if (material == Material.mithril) {
-         this.expForLevel = this.createExpForLevel(24, 12);
-      } else if (material == Material.adamantium) {
-         this.expForLevel = this.createExpForLevel(28, 14);
-      } else if (material == Materials.vibranium) {
-         this.expForLevel = this.createExpForLevel(32, 16);
-      } else {
-         this.expForLevel = this.createExpForLevel(150, 75);
-      }
-   }
-
-   private Function<Integer, Integer> createExpForLevel(int base,int increase){
-      return (level) -> base + level * increase;
-   }
+   private final BiFunction<Integer, Boolean, Integer> defaultExp = (level, isWeapon) -> Integer.valueOf(150 + (level.intValue() * 75 * (isWeapon.booleanValue() ? 2 : 1)));
 
    @Redirect(method = "getTotalArmorProtection", at = @At(value = "INVOKE", target = "Lnet/minecraft/ItemArmor;getProtectionAfterDamageFactor(Lnet/minecraft/ItemStack;Lnet/minecraft/EntityLivingBase;)F"), slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/Item;isArmor()Z")))
    private static float redirectAddTotalDefense(ItemArmor instance, ItemStack item_stack, EntityLivingBase owner, ItemStack[] armors, DamageSource damage_source, boolean include_enchantments, EntityLivingBase ownerPar) {
@@ -116,11 +93,12 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
 
    @Unique
    public int getExpReqForLevel(int tool_level, int slotIndexl, ItemArmor armor) {
+       int base = ITERegistryImpl.aExpForLevelMap.getOrDefault(this.effective_material, this.defaultExp).apply(Integer.valueOf(tool_level), Boolean.FALSE).intValue();
        return switch (slotIndexl) {
-           case 0 -> 2 * this.expForLevel.apply(tool_level);
-           case 1 -> 4 * this.expForLevel.apply(tool_level);
-           case 2 -> 3 * this.expForLevel.apply(tool_level);
-           case 3 -> this.expForLevel.apply(tool_level);
+           case 0 -> 2 * base;
+           case 1 -> 4 * base;
+           case 2 -> 3 * base;
+           case 3 -> base;
            default -> 64 * tool_level;
        };
    }

@@ -35,7 +35,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
 
    @Override
    public int getExpReqForLevel(int level, boolean isSword) {
-      return ITERegistryImpl.expForLevelMap.getOrDefault(this.effective_material, this.defaultExp).apply(Integer.valueOf(level), Boolean.valueOf(isSword)).intValue();
+      return ITERegistryImpl.tExpForLevelMap.getOrDefault(this.effective_material, this.defaultExp).apply(Integer.valueOf(level), Boolean.valueOf(isSword)).intValue();
    }
 
    @Override

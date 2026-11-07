@@ -20,7 +20,12 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public interface ITERegistry {
+    @Deprecated
     void registerExpForLevel(Material material, int base, int increase);
+
+    void registerToolExpForLevel(Material material, int base, int increase);
+
+    void registerArmorExpForLevel(Material material, int base, int increase);
 
     void registerWeaponCriteria(Predicate<Item> predicate);
 

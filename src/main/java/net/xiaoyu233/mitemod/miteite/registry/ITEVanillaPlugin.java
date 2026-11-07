@@ -33,16 +33,23 @@ public class ITEVanillaPlugin implements ITEPlugin {
         registry.registerWeaponCriteria(item -> item instanceof ItemSword || item instanceof ItemBattleAxe || item instanceof ItemWarHammer);
         registry.registerMeatCriteria(item -> item instanceof ItemMeat);
 
-        registry.registerExpForLevel(Material.copper, 100, 50);
-        registry.registerExpForLevel(Material.silver, 100, 50);
-        registry.registerExpForLevel(Material.gold, 125, 60);
-        registry.registerExpForLevel(Material.iron, 150, 75);
-        registry.registerExpForLevel(Material.ancient_metal, 150, 75);
-        registry.registerExpForLevel(Material.mithril, 200, 100);
-        registry.registerExpForLevel(Material.adamantium, 200, 120);
-        registry.registerExpForLevel(Materials.vibranium, 200, 150);
+        registry.registerToolExpForLevel(Material.copper, 100, 50);
+        registry.registerToolExpForLevel(Material.silver, 100, 50);
+        registry.registerToolExpForLevel(Material.gold, 125, 60);
+        registry.registerToolExpForLevel(Material.iron, 150, 75);
+        registry.registerToolExpForLevel(Material.ancient_metal, 150, 75);
+        registry.registerToolExpForLevel(Material.mithril, 200, 100);
+        registry.registerToolExpForLevel(Material.adamantium, 200, 120);
+        registry.registerToolExpForLevel(Materials.vibranium, 200, 150);
 
-        this.registerForgingContent(registry);
+        registry.registerArmorExpForLevel(Material.copper, 16, 8);
+        registry.registerArmorExpForLevel(Material.silver, 16, 8);
+        registry.registerArmorExpForLevel(Material.gold, 18, 9);
+        registry.registerArmorExpForLevel(Material.iron, 20, 10);
+        registry.registerArmorExpForLevel(Material.ancient_metal, 20, 10);
+        registry.registerArmorExpForLevel(Material.mithril, 24, 12);
+        registry.registerArmorExpForLevel(Material.adamantium, 28, 14);
+        registry.registerArmorExpForLevel(Materials.vibranium, 32, 16);
 
         registry.registerArmorModifier(ArmorModifierTypes.DURABILITY_MODIFIER);
         registry.registerArmorModifier(ArmorModifierTypes.PROJECTILE_PROTECTION_MODIFIER);
@@ -61,6 +68,8 @@ public class ITEVanillaPlugin implements ITEPlugin {
         registry.registerToolModifier(ToolModifierTypes.UNNATURAL_MODIFIER);
         registry.registerToolModifier(ToolModifierTypes.DEMON_POWER);
         registry.registerToolModifier(ToolModifierTypes.GEOLOGY);
+        
+        this.registerForgingContent(registry);
     }
 
     private void registerForgingContent(ITERegistry registry) {

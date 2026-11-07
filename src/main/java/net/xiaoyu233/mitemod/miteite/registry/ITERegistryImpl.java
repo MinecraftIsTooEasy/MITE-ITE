@@ -28,7 +28,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class ITERegistryImpl implements ITERegistry {
-    public static final Map<Material, BiFunction<Integer, Boolean, Integer>> expForLevelMap = new HashMap<>();
+    public static final Map<Material, BiFunction<Integer, Boolean, Integer>> tExpForLevelMap = new HashMap<>();
+    public static final Map<Material, BiFunction<Integer, Boolean, Integer>> aExpForLevelMap = new HashMap<>();
     public static final List<Predicate<Item>> weaponCriteria = new ArrayList<>();
     public static final List<Predicate<Item>> meatCriteria = new ArrayList<>();
     public static final Map<Material, Integer> enhanceStoneFailChances = new HashMap<>();
@@ -41,7 +42,17 @@ public class ITERegistryImpl implements ITERegistry {
 
     @Override
     public void registerExpForLevel(Material material, int base, int increase) {
-        expForLevelMap.put(material, createExpForLevel(base, increase));
+        tExpForLevelMap.put(material, createExpForLevel(base, increase));
+    }
+
+    @Override
+    public void registerToolExpForLevel(Material material, int base, int increase) {
+        tExpForLevelMap.put(material, createExpForLevel(base, increase));
+    }
+
+    @Override
+    public void registerArmorExpForLevel(Material material, int base, int increase) {
+        aExpForLevelMap.put(material, createExpForLevel(base, increase));
     }
 
     private BiFunction<Integer, Boolean, Integer> createExpForLevel(int base, int increase) {
