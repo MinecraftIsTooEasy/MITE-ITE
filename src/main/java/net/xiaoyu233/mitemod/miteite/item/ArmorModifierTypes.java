@@ -54,7 +54,7 @@ public class ArmorModifierTypes implements ItemModifierTypes {
         this.maxLevel = maxLevel;
         this.canApplyTo = canApplyTo;
 
-        addValue(this);
+//        addValue(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -157,6 +157,17 @@ public class ArmorModifierTypes implements ItemModifierTypes {
 
     public ChatMessageComponent getDisplayName() {
         return ChatMessageComponent.createFromTranslationKey("modifier.armor." + this.unlocalizedName + ".name");
+    }
+
+    public String getDisplayNameS() {
+        return I18n.getString("modifier.tool." + this.unlocalizedName + ".name");
+    }
+
+    @Nullable
+    public String getDescription() {
+        String key = "modifier.armor." + this.unlocalizedName + ".info";
+        String description = I18n.getString(key);
+        return key.equals(description) ? null : description;
     }
 
     @Override

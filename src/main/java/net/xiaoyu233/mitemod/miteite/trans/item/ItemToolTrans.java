@@ -35,7 +35,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
 
    @Override
    public int getExpReqForLevel(int level, boolean isSword) {
-      return ITERegistryImpl.expForLevelMap.getOrDefault(this.effective_material, this.defaultExp).apply(Integer.valueOf(level), Boolean.valueOf(isSword)).intValue();
+      return ITERegistryImpl.tExpForLevelMap.getOrDefault(this.effective_material, this.defaultExp).apply(Integer.valueOf(level), Boolean.valueOf(isSword)).intValue();
    }
 
    @Override
@@ -134,7 +134,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
                if (this.isWeapon(item_stack.getItem())){
                   info.add(I18n.getString("miteite.tool.forging.attack") + ItemStack.field_111284_a.format(this.getEnhancedDamage(item_stack)));
                } else {
-                  info.add(I18n.getString("miteite.tool.forging.dig") + ItemStack.field_111284_a.format(item_stack.getEnhanceFactor() * 100) + "%");
+                  info.add(I18n.getString("miteite.tool.forging.dig") + ItemStack.field_111284_a.format(ITERegistryImpl.modifyForgingHarvestBonus(item_stack, 0.0F) * 100) + "%");
                }
             }
          }
@@ -181,7 +181,10 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
 
    @Unique
    private float getEnhancedDamage(ItemStack itemStack) {
-      return this.isWeapon(itemStack.getItem()) ? (float) (itemStack.getEnhanceFactor() * (double) this.getCombinedDamageVsEntity()) : 0.0f;
+      if (!this.isWeapon(itemStack.getItem())) {
+         return 0.0F;
+      }
+      return ITERegistryImpl.modifyForgingAttackBonus(itemStack, 0.0F);
    }
 
    @ModifyReturnValue(method = "getItemInUseAction", at = @At("TAIL"))
@@ -214,7 +217,7 @@ public abstract class ItemToolTrans extends Item implements IUpgradableItem {
             commonModifierValue += (float)deltaLevel * unnaturalModifierValue;
          }
       }
-      float enhanceModifierValue = (float) (1 + itemStack.getEnhanceFactor());
+      float enhanceModifierValue = 1.0F + ITERegistryImpl.modifyForgingHarvestBonus(itemStack, 0.0F);
 
        if (!player.isInWater() && !player.isInRain())
            return this.getBaseHarvestEfficiency(block) * (this.getMaterialHarvestEfficiency() + commonModifierValue) * enhanceModifierValue;

@@ -5,8 +5,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.item.MITEITEItemRegistryInit;
-import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 
+import java.util.Collection;
 import java.util.function.Consumer;
 
 public class ForgingTableRecipes {
@@ -20,6 +20,11 @@ public class ForgingTableRecipes {
         return RECIPES.get(new RecipeKey(toolItem, forgingLevel));
     }
 
+    public static Collection<ForgingRecipe> getAllRecipes() {
+        return RECIPES.values();
+    }
+
+    @Deprecated
     public static void registerForgingRecipe(Material material, ForgingTableLevel level, int maxLevel) {
         if (maxLevel >= 0) {
             ForgingRecipe.Builder.of(material, 0, level)

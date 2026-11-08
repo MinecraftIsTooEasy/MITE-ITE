@@ -160,6 +160,15 @@ public class ToolModifierTypes implements ItemModifierTypes {
     public ChatMessageComponent getDisplayName() {
         return ChatMessageComponent.createFromTranslationKey("modifier.tool." + this.unlocalizedName + ".name");
     }
+    
+    public String getDisplayNameS() {
+        return I18n.getString("modifier.tool." + this.unlocalizedName + ".name");
+    }
+
+    @Nullable
+    public String getDescription() {
+        return I18n.getString("modifier.tool." + this.unlocalizedName + ".info");
+    }
 
     @Override
     public EnumChatFormatting getColor() {

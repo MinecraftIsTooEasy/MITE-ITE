@@ -4,7 +4,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.block.BlockForgingTable;
-import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingRecipe;
+import net.xiaoyu233.mitemod.miteite.api.forging.ForgingContext;
+import net.xiaoyu233.mitemod.miteite.api.forging.ForgingSlot;
+import net.xiaoyu233.mitemod.miteite.api.forging.IForgingEffect;
+import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
+import net.xiaoyu233.mitemod.miteite.item.recipe.IFaultFeedback;
 import net.xiaoyu233.mitemod.miteite.network.SPacketFinishForging;
 import net.xiaoyu233.mitemod.miteite.network.SPacketForgingTableInfo;
 import net.xiaoyu233.mitemod.miteite.tileentity.TileEntityForgingTable;
@@ -126,7 +130,7 @@ public class ContainerForgingTable extends Container {
     public void onCraftMatrixChanged(IInventory par1IInventory) {
         this.detectAndSendChanges();
         if (par1IInventory == this.slots){
-            this.slots.onItemsChanged();
+            this.slots.onItemsChanged(this.player);
         }
     }
 
@@ -134,7 +138,7 @@ public class ContainerForgingTable extends Container {
     //onlyInServer
     void onCraftMatrixChanged(){
         ((ServerPlayer) this.player).sendContainerAndContentsToPlayer(this,this.getInventory());
-        this.slots.onItemsChanged();
+        this.slots.onItemsChanged(this.player);
     }
 
     public void sendToolInfo(SPacketForgingTableInfo.ToolInfo.Tool tool) {
@@ -152,16 +156,32 @@ public class ContainerForgingTable extends Container {
     @Environment(EnvType.SERVER)
     //OnlyInServer
     public void startForging(){
-        if (!this.tileentity.startForging()) {
+        if (!this.tileentity.startForging(this.player)) {
             this.finishForging(SPacketFinishForging.Status.CANCELED);
-            ItemStack toolItem = this.slots.getToolItem();
-            if (toolItem != null){
-                ForgingRecipe recipeFromTool = this.slots.getRecipeFromTool(toolItem);
-                if (recipeFromTool != null && this.tileentity.getBlockMetadata() >= recipeFromTool.forgingTableLevelReq().getLevel() && this.slots.getHammerItem() != null && this.slots.getAxeItem() != null && !this.world.isRemote){
-                    this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.ReqItems.of(this.slots.getNeedItems(recipeFromTool))));
+            ForgingContext context = this.slots.previewContext(this.player);
+            if (context != null && context.getRecipe() != null && !this.world.isRemote) {
+                ForgingTableLevel requiredLevel = context.getRecipe().getRequiredTableLevel();
+                boolean hasTools = (!context.getRecipe().requiresHammer() || this.slots.getHammerItem() != null)
+                        && (!context.getRecipe().requiresAxe() || this.slots.getAxeItem() != null);
+                if (this.tileentity.getBlockMetadata() >= requiredLevel.getLevel() && hasTools) {
+                    this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.ReqItems.of(this.slots.getNeedItems(context.getMaterials()))));
                 }
             }
         }
+    }
+
+    private boolean tryInsertIntoForgingSlots(ItemStack stack) {
+        for (ForgingSlot slotType : ForgingSlot.values()) {
+            if (slotType == ForgingSlot.OUTPUT) {
+                continue;
+            }
+            for (int i = 0; i < this.slots.getSize(); i++) {
+                if (this.slots.getSlotType(i) == slotType && this.slots.canInsert(i, stack) && this.mergeItemStack(stack, i, i + 1, false)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -194,28 +214,8 @@ public class ContainerForgingTable extends Container {
                     return null;
                 }
             } else {
-                if (itemstack1.getItem() instanceof ItemAxe) {
-                    if (!this.mergeItemStack(itemstack1,this.slots.getAxeSlotIndex(),this.slots.getAxeSlotIndex() + 1,false)) {
-                        if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)) {
-                            return null;
-                        }
-                    }
-                } else if (itemstack1.getItem() instanceof ItemWarHammer) {
-                    if (!this.mergeItemStack(itemstack1,this.slots.getHammerSlotIndex(),this.slots.getHammerSlotIndex() + 1,false)){
-                        if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)) {
-                            return null;
-                        }
-                    }
-                } else if (itemstack1.getItem() instanceof ItemTool || itemstack1.getItem() instanceof ItemArmor) {
-                    if (!this.mergeItemStack(itemstack1,this.slots.getToolItemSlotIndex(),this.slots.getToolItemSlotIndex() + 1,false)) {
-                        if (!this.mergeItemStack(itemstack1,0,this.slots.getSize(),false)){
-                            return null;
-                        }
-                    }
-                } else {
-                    if (!this.mergeItemStack(itemstack1,0,this.slots.getSize(),false)) {
-                        return null;
-                    }
+                if (!this.tryInsertIntoForgingSlots(itemstack1)) {
+                    return null;
                 }
             }
 /*
@@ -243,10 +243,16 @@ public class ContainerForgingTable extends Container {
 
 
 
-    void updateInfo(@Nullable ForgingRecipe recipe) {
+    void updateInfo(@Nullable ForgingContext context) {
         if (!this.world.isRemote) {
-            if (recipe != null){
-                this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(this.slots.getChanceOfFailure(recipe),recipe.faultFeedback(),this.slots.getForgingTime(recipe),recipe.hammerDurabilityCost(),recipe.axeDurabilityCost())));
+            if (context != null && context.getRecipe() != null) {
+                List<IFaultFeedback> faultFeedbacks = new ArrayList<>();
+                for (IForgingEffect effect : context.getFailureEffects()) {
+                    if (effect instanceof IFaultFeedback) {
+                        faultFeedbacks.add((IFaultFeedback) effect);
+                    }
+                }
+                this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(context.getFailureChance(), faultFeedbacks, context.getTime(), context.getHammerDurabilityCost(), context.getAxeDurabilityCost())));
             } else {
                 this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(0,null,0,0,0)));
             }

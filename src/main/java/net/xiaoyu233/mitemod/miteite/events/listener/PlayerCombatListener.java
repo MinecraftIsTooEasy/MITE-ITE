@@ -5,6 +5,7 @@ import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
+import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 
 public class PlayerCombatListener implements ICombatListener {
@@ -94,7 +95,7 @@ public class PlayerCombatListener implements ICombatListener {
         if (unnaturalModifierValue > 0.0f && (deltaLevel = itemStack.getItem().getMaterialForRepairs().min_harvest_level - block.blockMaterial.min_harvest_level) > 0) {
             commonModifierValue += deltaLevel * unnaturalModifierValue;
         }
-        float enhanceModifierValue = (float) (1.0d + itemStack.getEnhanceFactor());
+        float enhanceModifierValue = 1.0F + ITERegistryImpl.modifyForgingHarvestBonus(itemStack, 0.0F);
         return (player.isInWater() || player.isInRain()) ? tool.getBaseHarvestEfficiency(block) * (tool.getMaterialHarvestEfficiency() + commonModifierValue + ToolModifierTypes.AQUADYNAMIC_MODIFIER.getModifierValue(itemStack.getTagCompound())) : tool.getBaseHarvestEfficiency(block) * (tool.getMaterialHarvestEfficiency() + commonModifierValue) * enhanceModifierValue;
     }
 }

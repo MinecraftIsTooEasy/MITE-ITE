@@ -5,16 +5,16 @@
   "depends": {
     "minecraft": "1.6.4-mite",
     "fishmodloader": ">=3.4.0",
-    "rusted_iron_core": ">=1.5.8"
+    "rusted_iron_core": ">=1.5.9"
   },
   "environment": "*",
   "name": "MITE-ITE",
   "description": "A hard mod for MITE",
-  "authors": ["XiaoYu233", "Xy_Lose"],
+  "authors": ["XiaoYu233", "Xy_Luce"],
   "entrypoints": {
     "preLaunch": ["net.xiaoyu233.mitemod.miteite.EarlyRiser"],
     "main": ["net.xiaoyu233.mitemod.miteite.MITEITEMod"],
-    "emi": ["net.xiaoyu233.mitemod.miteite.compat.MITEITEEmiPlugin"]
+    "emi": ["net.xiaoyu233.mitemod.miteite.compat.emi.MITEITEEmiPlugin"]
   },
   "mixins": [
     "miteite.mixin.json"

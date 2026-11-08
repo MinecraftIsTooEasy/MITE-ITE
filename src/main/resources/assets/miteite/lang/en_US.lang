@@ -56,10 +56,10 @@ enchantment.emergency=Emergency
 enchantment.beheading=Beheading
 enchantment.conqueror=Conqueror
 
-entity.EntityZombieLord.name=Zombie Lord
-entity.EntityZombiePigmanLord.name=Zombie Pigman Lord
-entity.EntityAnnihilationSkeleton.name=Annihilation Skeleton
-entity.EntityWanderingWitch.name=Wandering Witch
+entity.miteite:zombie_lord.name=Zombie Lord
+entity.miteite:zombie_pigman_lord.name=Zombie Pigman Lord
+entity.miteite:annihilation_skeleton.name=Annihilation Skeleton
+entity.miteite:wandering_witch.name=Wandering Witch
 
 gui.forgingTable.start=Start Forging
 gui.forgingTable.item_req=Forging require materials
@@ -107,23 +107,40 @@ miteite.tool.forging.attack=  §9Attack increases:§6
 miteite.tool.forging.dig=  §9Digging speed increases:§6
 
 modifier.armor.durability.name=Durability
+modifier.armor.durability.info=Reduces durability loss by 10% per level.
 modifier.armor.projectile_protection.name=Projectile Protection
+modifier.armor.projectile_protection.info=Grants +0.5 projectile armor per level.
 modifier.armor.explosion_protection.name=Explosion Protection
+modifier.armor.explosion_protection.info=Grants +0.5 explosion armor per level.
 modifier.armor.fire_protection.name=Fire Protection
+modifier.armor.fire_protection.info=Grants +0.5 fire armor per level.
 modifier.armor.protection.name=Protection
+modifier.armor.protection.info=Grants +0.25 armor per level.
 modifier.armor.steady.name=Steady
+modifier.armor.steady.info=Reduces knockback taken by 15% per level.
 modifier.armor.blessed.name=Blessed
+modifier.armor.blessed.info=Grants +1 additional damage reduction per level when attacked by undead.
 modifier.armor.indomitable.name=Indomitable
+modifier.armor.indomitable.info=Increases attack damage while below 50% health; the lower your health, the greater the bonus.
 modifier.armor.immunity.name=Immunity
+modifier.armor.immunity.info=Reduces the duration of negative potion effects by 15% per level.
 
 modifier.tool.efficiency.name=Efficiency
+modifier.tool.efficiency.info=Grants +0.25 harvest efficiency per level.
 modifier.tool.aquaynamic.name=Aquaynamic
+modifier.tool.aquaynamic.info=Grants an additional +1.25 harvest efficiency per level while in water or rain.
 modifier.tool.durability.name=Durability
+modifier.tool.durability.info=Reduces durability loss by 10% per level.
 modifier.tool.damage.name=Damage
+modifier.tool.damage.info=Grants +1 attack damage per level.
 modifier.tool.slowdown.name=Slowdown
-modifier.tool.unnatural.name=Unnatural.
+modifier.tool.slowdown.info=Melee hits slow the target; higher levels increase the slowness and its duration.
+modifier.tool.unnatural.name=Unnatural
+modifier.tool.unnatural.info=When your tool's harvest level is higher than the target block's, grants additional mining speed per level equal to the difference.
 modifier.tool.demon.name=Demon
+modifier.tool.demon.info=Grants +25% attack damage per level in the Nether and other non-Overworld dimensions.
 modifier.tool.geology.name=Geology
+modifier.tool.geology.info=Smeltable blocks drop extra experience when mined.
 
 commands.forging.usage=/forging <PLayer> <set> <Level>
 commands.forging.set.success=Successfully set the item forging grade to %d level.
@@ -132,4 +149,7 @@ commands.itemlevel.set.level.success=Successfully set the item level to %d.
 commands.itemlevel.set.xp.success=Successfully set the item xp to %d.
 commands.itemlevel.add.armor.success=Successfully added %s %d level to the handheld item
 commands.itemlevel.add.tool.success=Successfully added %s %d level to the handheld item
+
+emi.category.miteite.forging=Forging Table
+emi.miteite.forging.grade=Forging grade
 
