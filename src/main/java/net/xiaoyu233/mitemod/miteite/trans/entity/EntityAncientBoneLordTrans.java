@@ -2,8 +2,8 @@ package net.xiaoyu233.mitemod.miteite.trans.entity;
 
 import net.minecraft.*;
 import net.xiaoyu233.mitemod.miteite.api.ITESkeleton;
+import net.xiaoyu233.mitemod.miteite.util.MobOverwritor;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
-import net.xiaoyu233.mitemod.miteite.util.MonsterUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,16 +19,7 @@ public class EntityAncientBoneLordTrans extends EntityBoneLord {
    @Inject(method = "addRandomEquipment", at = @At("HEAD"), cancellable = true)
    protected void addRandomEquipment(CallbackInfo ci) {
       this.addRandomWeapon();
-      int day = this.getWorld() != null ? Math.max(this.getWorld().getDayOfOverworld() - 16, 0) : 0;
-      if (day < 96) {
-         this.setBoots(new ItemStack(Item.bootsAncientMetal).randomizeForMob(this, true));
-         this.setLeggings(new ItemStack(Item.legsAncientMetal).randomizeForMob(this, true));
-         this.setCuirass(new ItemStack(Item.plateAncientMetal).randomizeForMob(this, true));
-         this.setHelmet(new ItemStack(Item.helmetAncientMetal).randomizeForMob(this, true));
-      } else {
-         MonsterUtil.addDefaultArmor(day, this, true);
-      }
-
+      MobOverwritor.setArmor_ITE(this,Item.bootsAncientMetal,Item.legsAncientMetal,Item.plateAncientMetal,Item.helmetAncientMetal,112,0);
       ((ITESkeleton) this).initStockedWeapon();
       ci.cancel();
    }
