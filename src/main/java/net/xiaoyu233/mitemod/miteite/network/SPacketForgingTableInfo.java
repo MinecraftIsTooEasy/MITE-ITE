@@ -1,20 +1,19 @@
 package net.xiaoyu233.mitemod.miteite.network;
 
+import moddedmite.rustedironcore.network.Packet;
+import moddedmite.rustedironcore.network.PacketByteBuf;
 import net.minecraft.*;
-import net.xiaoyu233.mitemod.miteite.api.ITENetHandler;
+import net.xiaoyu233.mitemod.miteite.gui.GuiForgingTable;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
 import net.xiaoyu233.mitemod.miteite.item.recipe.IFaultFeedback;
 
 import javax.annotation.Nullable;
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-public class SPacketForgingTableInfo extends Packet {
+public class SPacketForgingTableInfo implements Packet {
     private int infoTypeIndex;
     private SPacketForgingTableInfo.InfoType info;
 
@@ -26,35 +25,43 @@ public class SPacketForgingTableInfo extends Packet {
         this.infoTypeIndex = this.info.getType().ordinal();
     }
 
-    public SPacketForgingTableInfo.InfoType getInfo() {
-        return this.info;
-    }
-
-    public int getPacketSize() {
-        return 4 + 4 + this.info.getDataLength();
-    }
-
-    public void processPacket(NetHandler var1) {
-        ((ITENetHandler) var1).processForgingTableInfoPacket(this);
-    }
-
-    public void readPacketData(DataInput var1) throws IOException {
-        int infoTypeIndex = var1.readInt();
-        this.infoTypeIndex = infoTypeIndex;
+    public SPacketForgingTableInfo(PacketByteBuf packetByteBuf) {
+        this.infoTypeIndex = packetByteBuf.readInt();
 
         try {
-            SPacketForgingTableInfo.InfoType info = InfoTypes.values()[infoTypeIndex].getCtor().get();
-            info.readData(var1);
+            SPacketForgingTableInfo.InfoType info = InfoTypes.values()[this.infoTypeIndex].getCtor().get();
+            info.readData(packetByteBuf);
             this.info = info;
         } catch (ArrayIndexOutOfBoundsException var5) {
             var5.printStackTrace();
         }
-
     }
 
-    public void writePacketData(DataOutput var1) throws IOException {
-        var1.writeInt(this.infoTypeIndex);
-        this.info.writeData(var1);
+    public SPacketForgingTableInfo.InfoType getInfo() {
+        return this.info;
+    }
+
+    @Override
+    public void write(PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeInt(this.infoTypeIndex);
+        this.info.writeData(packetByteBuf);
+    }
+
+    @Override
+    public void apply(EntityPlayer entityPlayer) {
+        GuiScreen openingGUI = Minecraft.getMinecraft().currentScreen;
+        if (openingGUI instanceof GuiForgingTable guiForgingTable) {
+            if (this.info instanceof SPacketForgingTableInfo.EnhanceInfo info) {
+                guiForgingTable.setEnhanceInfo(info.getChanceOfFailure(), info.getFaultFeedbacks(), info.getDuration(), info.getHammerDurabilityCost(), info.getAxeDurabilityCost());
+            } else {
+                guiForgingTable.setInfo(this.info.asString(), this.info.getColor());
+            }
+        }
+    }
+
+    @Override
+    public ResourceLocation getChannel() {
+        return MITEITENetwork.ForgingTableInfo;
     }
 
     public enum InfoTypes {
@@ -80,13 +87,11 @@ public class SPacketForgingTableInfo extends Packet {
 
         int getColor();
 
-        int getDataLength();
-
         InfoTypes getType();
 
-        void readData(DataInput var1) throws IOException;
+        void readData(PacketByteBuf packetByteBuf);
 
-        void writeData(DataOutput var1) throws IOException;
+        void writeData(PacketByteBuf packetByteBuf);
     }
 
     public static class EnhanceInfo implements SPacketForgingTableInfo.InfoType {
@@ -97,10 +102,6 @@ public class SPacketForgingTableInfo extends Packet {
             private FaultFeedbackData(int data, String name) {
                 this.data = data;
                 this.name = name;
-            }
-
-            public int getDataLength(){
-                return Packet.getPacketSizeOfString(this.name) + 4;
             }
 
             public int getData() {
@@ -145,10 +146,6 @@ public class SPacketForgingTableInfo extends Packet {
             return this.chanceOfFailure;
         }
 
-        public int getDataLength() {
-            return 16 + this.faultFeedbacks.stream().mapToInt(FaultFeedbackData::getDataLength).sum();
-        }
-
         @Override
         public InfoTypes getType() {
             return InfoTypes.Enhance;
@@ -174,27 +171,27 @@ public class SPacketForgingTableInfo extends Packet {
             return this.hammerDurabilityCost;
         }
 
-        public void readData(DataInput dataInput) throws IOException {
-            this.chanceOfFailure = dataInput.readInt();
-            int failFeedbackCount = dataInput.readInt();
+        public void readData(PacketByteBuf packetByteBuf) {
+            this.chanceOfFailure = packetByteBuf.readInt();
+            int failFeedbackCount = packetByteBuf.readInt();
             for (int i = 0; i < failFeedbackCount; i++) {
-                this.faultFeedbacks.add(new FaultFeedbackData(dataInput.readInt(),Packet.readString(dataInput, 32767)));
+                this.faultFeedbacks.add(new FaultFeedbackData(packetByteBuf.readInt(), packetByteBuf.readString()));
             }
-            this.duration = dataInput.readInt();
-            this.hammerDurabilityCost = dataInput.readInt();
-            this.axeDurabilityCost = dataInput.readInt();
+            this.duration = packetByteBuf.readInt();
+            this.hammerDurabilityCost = packetByteBuf.readInt();
+            this.axeDurabilityCost = packetByteBuf.readInt();
         }
 
-        public void writeData(DataOutput dataOutput) throws IOException {
-            dataOutput.writeInt(this.chanceOfFailure);
-            dataOutput.writeInt(this.faultFeedbacks.size());
+        public void writeData(PacketByteBuf packetByteBuf) {
+            packetByteBuf.writeInt(this.chanceOfFailure);
+            packetByteBuf.writeInt(this.faultFeedbacks.size());
             for (FaultFeedbackData faultFeedback : this.faultFeedbacks) {
-                dataOutput.writeInt(faultFeedback.getData());
-                Packet.writeString(faultFeedback.getName(), dataOutput);
+                packetByteBuf.writeInt(faultFeedback.getData());
+                packetByteBuf.writeString(faultFeedback.getName());
             }
-            dataOutput.writeInt(this.duration);
-            dataOutput.writeInt(this.hammerDurabilityCost);
-            dataOutput.writeInt(this.axeDurabilityCost);
+            packetByteBuf.writeInt(this.duration);
+            packetByteBuf.writeInt(this.hammerDurabilityCost);
+            packetByteBuf.writeInt(this.axeDurabilityCost);
         }
     }
 
@@ -215,19 +212,15 @@ public class SPacketForgingTableInfo extends Packet {
             return 11141120;
         }
 
-        public int getDataLength() {
-            return 0;
-        }
-
         @Override
         public InfoTypes getType() {
             return InfoTypes.Failed;
         }
 
-        public void readData(DataInput dataInput) {
+        public void readData(PacketByteBuf packetByteBuf) {
         }
 
-        public void writeData(DataOutput dataOutput) {
+        public void writeData(PacketByteBuf packetByteBuf) {
         }
     }
 
@@ -260,21 +253,11 @@ public class SPacketForgingTableInfo extends Packet {
             return EnumChatFormatting.LIGHT_GRAY.rgb;
         }
 
-        public int getDataLength() {
-            int size = 0;
-
-            for (ItemStack itemStack : this.items) {
-                size += Packet.getPacketSizeOfItemStack(itemStack);
-            }
-
-            return size;
-        }
-
-        public void readData(DataInput dataInput) throws IOException {
-            int i = dataInput.readInt();
+        public void readData(PacketByteBuf packetByteBuf) {
+            int i = packetByteBuf.readInt();
 
             for(int i1 = 0; i1 < i; ++i1) {
-                this.items.add(Packet.readItemStack(dataInput));
+                this.items.add(packetByteBuf.readItemStack());
             }
 
         }
@@ -284,11 +267,11 @@ public class SPacketForgingTableInfo extends Packet {
             return InfoTypes.ReqItems;
         }
 
-        public void writeData(DataOutput out) throws IOException {
-            out.writeInt(this.items.size());
+        public void writeData(PacketByteBuf packetByteBuf) {
+            packetByteBuf.writeInt(this.items.size());
 
             for (ItemStack item : this.items) {
-                Packet.writeItemStack(item, out);
+                packetByteBuf.writeItemStack(item);
             }
 
         }
@@ -310,14 +293,10 @@ public class SPacketForgingTableInfo extends Packet {
             return 5635925;
         }
 
-        public int getDataLength() {
-            return 0;
+        public void readData(PacketByteBuf packetByteBuf) {
         }
 
-        public void readData(DataInput dataInput) {
-        }
-
-        public void writeData(DataOutput dataOutput) {
+        public void writeData(PacketByteBuf packetByteBuf) {
         }
 
         @Override
@@ -349,18 +328,13 @@ public class SPacketForgingTableInfo extends Packet {
         }
 
         @Override
-        public int getDataLength() {
-            return 6;
+        public void readData(PacketByteBuf packetByteBuf) {
+            this.req = ForgingTableLevel.values()[packetByteBuf.readInt()];
         }
 
         @Override
-        public void readData(DataInput var1) throws IOException {
-            this.req = ForgingTableLevel.values()[var1.readInt()];
-        }
-
-        @Override
-        public void writeData(DataOutput var1) throws IOException {
-            var1.writeInt(this.req.ordinal());
+        public void writeData(PacketByteBuf packetByteBuf) {
+            packetByteBuf.writeInt(this.req.ordinal());
         }
 
         @Override
@@ -391,16 +365,12 @@ public class SPacketForgingTableInfo extends Packet {
             return 0xaa0000;
         }
 
-        public int getDataLength() {
-            return 2 + 4;
+        public void readData(PacketByteBuf packetByteBuf) {
+            this.tool = SPacketForgingTableInfo.ToolInfo.Tool.values()[packetByteBuf.readInt()];
         }
 
-        public void readData(DataInput dataInput) throws IOException {
-            this.tool = SPacketForgingTableInfo.ToolInfo.Tool.values()[dataInput.readInt()];
-        }
-
-        public void writeData(DataOutput dataOutput) throws IOException {
-            dataOutput.writeInt(this.tool.ordinal());
+        public void writeData(PacketByteBuf packetByteBuf) {
+            packetByteBuf.writeInt(this.tool.ordinal());
         }
 
         @Override

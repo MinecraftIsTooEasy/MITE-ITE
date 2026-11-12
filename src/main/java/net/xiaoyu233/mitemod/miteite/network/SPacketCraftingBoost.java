@@ -1,14 +1,12 @@
 package net.xiaoyu233.mitemod.miteite.network;
 
-import net.minecraft.NetHandler;
-import net.minecraft.Packet;
-import net.xiaoyu233.mitemod.miteite.api.ITENetHandler;
+import moddedmite.rustedironcore.network.Packet;
+import moddedmite.rustedironcore.network.PacketByteBuf;
+import net.minecraft.EntityPlayer;
+import net.minecraft.ResourceLocation;
+import net.xiaoyu233.mitemod.miteite.api.ITEPlayer;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
-public class SPacketCraftingBoost extends Packet {
+public class SPacketCraftingBoost implements Packet {
     private float factor;
 
     public SPacketCraftingBoost() {
@@ -18,23 +16,26 @@ public class SPacketCraftingBoost extends Packet {
         this.factor = factor;
     }
 
+    public SPacketCraftingBoost(PacketByteBuf packetByteBuf) {
+        this.factor = packetByteBuf.readFloat();
+    }
+
     public float getFactor() {
         return this.factor;
     }
 
-    public int getPacketSize() {
-        return 4;
+    @Override
+    public void write(PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeFloat(this.factor);
     }
 
-    public void processPacket(NetHandler var1) {
-        ((ITENetHandler) var1).handleCraftingBoost(this);
+    @Override
+    public void apply(EntityPlayer entityPlayer) {
+        ((ITEPlayer) entityPlayer).setCraftingBoostFactor(this.factor, null);
     }
 
-    public void readPacketData(DataInput var1) throws IOException {
-        this.factor = var1.readFloat();
-    }
-
-    public void writePacketData(DataOutput var1) throws IOException {
-        var1.writeFloat(this.factor);
+    @Override
+    public ResourceLocation getChannel() {
+        return MITEITENetwork.CraftingBoost;
     }
 }

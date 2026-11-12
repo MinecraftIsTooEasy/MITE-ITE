@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.xiaoyu233.fml.ModResourceManager;
 import net.xiaoyu233.fml.config.ConfigRegistry;
 import net.xiaoyu233.mitemod.miteite.events.EventListeners;
+import net.xiaoyu233.mitemod.miteite.network.MITEITENetwork;
 import net.xiaoyu233.mitemod.miteite.util.CompatUtil;
 import net.xiaoyu233.mitemod.miteite.util.Configs;
 
@@ -18,6 +19,7 @@ public class MITEITEMod implements ModInitializer {
 
     public void onInitialize() {
         EventListeners.registerAllEvents();
+        MITEITENetwork.init();
         ModResourceManager.addResourcePackDomain(ITEID);
     }
 

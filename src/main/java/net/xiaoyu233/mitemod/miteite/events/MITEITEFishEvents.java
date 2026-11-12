@@ -3,6 +3,7 @@ package net.xiaoyu233.mitemod.miteite.events;
 import com.google.common.eventbus.Subscribe;
 import net.minecraft.*;
 import net.xiaoyu233.fml.reload.event.*;
+import net.xiaoyu233.fml.util.ReflectHelper;
 import net.xiaoyu233.fml.reload.event.recipe.ShapedRecipeModifier;
 import net.xiaoyu233.fml.reload.utils.IdUtil;
 import net.xiaoyu233.mitemod.miteite.MITEITEMod;
@@ -141,7 +142,7 @@ public class MITEITEFishEvents {
 
             if (par2Str.startsWith("overlayMsg")) {
                 msg = par2Str.substring("overlayMsg".length());
-                player.sendPacket(new SPacketOverlayMessage(msg, 16777215, 100));
+                MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, player), new SPacketOverlayMessage(msg, 16777215, 100));
                 event.setExecuteSuccess(true);
             }
 
@@ -174,18 +175,6 @@ public class MITEITEFishEvents {
             event.setExecuteSuccess(true);
         }
 
-    }
-
-    @Subscribe
-    public void onPacketRegister(PacketRegisterEvent event) {
-        event.register(false, true, CPacketStartForging.class);
-        event.register(true, false, SPacketFinishForging.class);
-        event.register(true, false, SPacketForgingTableInfo.class);
-        event.register(true, false, SPacketOverlayMessage.class);
-        event.register(false, true, CPacketSyncItems.class);
-        event.register(true, false, SPacketCraftingBoost.class);
-        event.register(true, true, BiPacketUpdateDefense.class);
-//        event.register(true,false, SPacketUpdateNutrition.class);
     }
 
     @Subscribe

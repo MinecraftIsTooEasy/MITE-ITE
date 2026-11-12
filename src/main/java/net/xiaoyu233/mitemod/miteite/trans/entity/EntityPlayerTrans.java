@@ -11,6 +11,7 @@ import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.material.Materials;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.enchantment.MITEITEEnchantmentRegistryInit;
+import net.xiaoyu233.mitemod.miteite.network.MITEITENetwork;
 import net.xiaoyu233.mitemod.miteite.network.SPacketCraftingBoost;
 import net.xiaoyu233.mitemod.miteite.network.SPacketOverlayMessage;
 import net.xiaoyu233.mitemod.miteite.trans.util.EntityDamageResultAccessor;
@@ -396,7 +397,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
             --this.craftingBoostTimer;
          } else if (this.craftingBoostTimer == 0) {
             this.craftingBoostFactor = 0.0F;
-            this.sendPacket(new SPacketCraftingBoost((float)this.craftingBoostTimer));
+            MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketCraftingBoost((float)this.craftingBoostTimer));
             this.craftingBoostTimer = -1;
          }
          if (this.isInRain()) {
@@ -417,11 +418,11 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                   if (this.netherDebuffTime > debuff_time) {
                      this.addPotionEffect(new PotionEffect(4, 3600, 1));
                   } else if (this.netherDebuffTime == debuff_time) {
-                     this.sendPacket(new SPacketOverlayMessage("§n---你在下界中感到疲惫---", EnumChatFormatting.DARK_RED.rgb, 200));
+                     MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§n---你在下界中感到疲惫---", EnumChatFormatting.DARK_RED.rgb, 200));
                   }
                }
             }  else if (this.netherDebuffTime == 1) {
-               this.sendPacket(new SPacketOverlayMessage("§n---你已从地狱的疲惫中恢复---", EnumChatFormatting.DARK_GREEN.rgb, 200));
+               MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§n---你已从地狱的疲惫中恢复---", EnumChatFormatting.DARK_GREEN.rgb, 200));
             }
             if (this.netherDebuffTime > 0) {
                --this.netherDebuffTime;
@@ -432,7 +433,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
             }
 
             if (this.underworldDebuffTime == 1) {
-               this.sendPacket(new SPacketOverlayMessage("§n---你已从地底世界的疲惫中恢复---", EnumChatFormatting.DARK_GREEN.rgb, 200));
+               MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§n---你已从地底世界的疲惫中恢复---", EnumChatFormatting.DARK_GREEN.rgb, 200));
             }
             if (this.underworldDebuffTime > 0) {
                --this.underworldDebuffTime;
@@ -445,13 +446,13 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                int period2 = Configs.GameMechanics.Underworld.UNDERWORLD_DEBUFF_PERIOD2.get();
                if (this.underworldDebuffTime > debuff_time && this.underworldDebuffTime < period2) {
                   if (this.underworldDebuffTime == debuff_time + 1) {
-                     this.sendPacket(new SPacketOverlayMessage("§l---你在地底世界中感到有些疲惫---", EnumChatFormatting.GRAY.rgb, 400));
+                     MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§l---你在地底世界中感到有些疲惫---", EnumChatFormatting.GRAY.rgb, 400));
                   }
 
                   this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 1200, 0));
                } else if (this.underworldDebuffTime > period2) {
                   if (this.underworldDebuffTime == period2 + 1) {
-                     this.sendPacket(new SPacketOverlayMessage("§l---你在地底世界中感到更加疲惫---", EnumChatFormatting.YELLOW.rgb, 400));
+                     MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§l---你在地底世界中感到更加疲惫---", EnumChatFormatting.YELLOW.rgb, 400));
                   }
 
                   this.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 2400, 1));
@@ -463,15 +464,15 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
                ++this.underworldRandomTeleportTime;
                double timeToTeleport = randomTeleportTime - (double)this.underworldRandomTeleportTime;
                if (timeToTeleport == 1200.0D) {
-                  this.sendPacket(new SPacketOverlayMessage("§l---你将于一分钟后被随机传送,请做好准备!!!---", EnumChatFormatting.YELLOW.rgb, 400));
+                  MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§l---你将于一分钟后被随机传送,请做好准备!!!---", EnumChatFormatting.YELLOW.rgb, 400));
                }
 
                if (timeToTeleport == 6000.0D) {
-                  this.sendPacket(new SPacketOverlayMessage("§l---你将于五分钟后被随机传送,请做好准备!!!---", EnumChatFormatting.DARK_AQUA.rgb, 400));
+                  MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§l---你将于五分钟后被随机传送,请做好准备!!!---", EnumChatFormatting.DARK_AQUA.rgb, 400));
                }
 
                if (timeToTeleport <= 200.0D && this.underworldRandomTeleportTime % 20 == 0) {
-                  this.sendPacket(new SPacketOverlayMessage("§l§n!!!你将于" + (int)timeToTeleport / 20 + "秒后被随机传送!!!", EnumChatFormatting.RED.rgb, 200));
+                  MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketOverlayMessage("§l§n!!!你将于" + (int)timeToTeleport / 20 + "秒后被随机传送!!!", EnumChatFormatting.RED.rgb, 200));
                }
 
                if (this.underworldRandomTeleportTime > randomTeleportTime) {
@@ -558,10 +559,6 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
       this.defenseCooldown = time;
    }
 
-   @Shadow
-   public void sendPacket(Packet packet) {
-   }
-
    @Override
    @Unique
    public void setCraftingBoostFactor(float craftingBoostFactor, @Nullable BlockPos currentEffectedBeaconPos) {
@@ -580,7 +577,7 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
 
          if (result != this.craftingBoostFactor) {
             this.craftingBoostFactor = result;
-            this.sendPacket(new SPacketCraftingBoost(this.craftingBoostFactor));
+            MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new SPacketCraftingBoost(this.craftingBoostFactor));
          }
       } else {
          this.craftingBoostFactor = craftingBoostFactor;

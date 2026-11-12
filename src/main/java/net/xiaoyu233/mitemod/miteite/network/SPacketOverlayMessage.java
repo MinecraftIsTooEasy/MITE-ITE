@@ -1,14 +1,13 @@
 package net.xiaoyu233.mitemod.miteite.network;
 
-import net.minecraft.NetHandler;
-import net.minecraft.Packet;
-import net.xiaoyu233.mitemod.miteite.api.ITENetHandler;
+import moddedmite.rustedironcore.network.Packet;
+import moddedmite.rustedironcore.network.PacketByteBuf;
+import net.minecraft.EntityPlayer;
+import net.minecraft.Minecraft;
+import net.minecraft.ResourceLocation;
+import net.xiaoyu233.mitemod.miteite.api.ITEGuiIngame;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
-public class SPacketOverlayMessage extends Packet {
+public class SPacketOverlayMessage implements Packet {
     private int color;
     private String msg;
     private int time;
@@ -22,6 +21,12 @@ public class SPacketOverlayMessage extends Packet {
         this.time = time;
     }
 
+    public SPacketOverlayMessage(PacketByteBuf packetByteBuf) {
+        this.color = packetByteBuf.readInt();
+        this.msg = packetByteBuf.readString();
+        this.time = packetByteBuf.readInt();
+    }
+
     public int getColor() {
         return this.color;
     }
@@ -30,27 +35,24 @@ public class SPacketOverlayMessage extends Packet {
         return this.msg;
     }
 
-    public int getPacketSize() {
-        return 8 + Packet.getPacketSizeOfString(this.msg);
-    }
-
     public int getTime() {
         return this.time;
     }
 
-    public void processPacket(NetHandler var1) {
-        ((ITENetHandler) var1).handleOverlayMessage(this);
+    @Override
+    public void write(PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeInt(this.color);
+        packetByteBuf.writeString(this.msg);
+        packetByteBuf.writeInt(this.time);
     }
 
-    public void readPacketData(DataInput var1) throws IOException {
-        this.color = var1.readInt();
-        this.msg = Packet.readString(var1, 32767);
-        this.time = var1.readInt();
+    @Override
+    public void apply(EntityPlayer entityPlayer) {
+        ((ITEGuiIngame) Minecraft.getMinecraft().ingameGUI).setOverlayMsg(this.msg, this.time, this.color);
     }
 
-    public void writePacketData(DataOutput var1) throws IOException {
-        var1.writeInt(this.color);
-        Packet.writeString(this.msg, var1);
-        var1.writeInt(this.time);
+    @Override
+    public ResourceLocation getChannel() {
+        return MITEITENetwork.OverlayMessage;
     }
 }

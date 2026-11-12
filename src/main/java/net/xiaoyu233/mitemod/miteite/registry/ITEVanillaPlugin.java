@@ -85,7 +85,7 @@ public class ITEVanillaPlugin implements ITEPlugin {
 
         registry.registerForgingSlot(new ResourceLocation(MITEITEMod.ITEID, "forging/up"), ForgingSlot.MATERIAL, 42, 6, slot, stack -> true);
         registry.registerForgingSlot(new ResourceLocation(MITEITEMod.ITEID, "forging/left"), ForgingSlot.MATERIAL, 15, 31, slot, stack -> true);
-        registry.registerForgingSlot(new ResourceLocation(MITEITEMod.ITEID, "forging/right"), ForgingSlot.MATERIAL, 69, 31, slot, stack -> true);
+         registry.registerForgingSlot(new ResourceLocation(MITEITEMod.ITEID, "forging/right"), ForgingSlot.MATERIAL, 69, 31, slot, stack -> true);
         registry.registerForgingSlot(new ResourceLocation(MITEITEMod.ITEID, "forging/down_left"), ForgingSlot.MATERIAL, 24, 62, slot, stack -> true);
         registry.registerForgingSlot(new ResourceLocation(MITEITEMod.ITEID, "forging/down_right"), ForgingSlot.MATERIAL, 60, 62, slot, stack -> true);
         registry.registerForgingSlot(new ResourceLocation(MITEITEMod.ITEID, "forging/tool"), ForgingSlot.TOOL, 42, 34, slot, stack -> stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor);

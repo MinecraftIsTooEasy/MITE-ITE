@@ -1,28 +1,40 @@
 package net.xiaoyu233.mitemod.miteite.network;
 
-import net.minecraft.NetHandler;
-import net.minecraft.Packet;
-import net.xiaoyu233.mitemod.miteite.api.ITENetHandler;
+import moddedmite.rustedironcore.network.Packet;
+import moddedmite.rustedironcore.network.PacketByteBuf;
+import net.minecraft.EntityPlayer;
+import net.minecraft.ItemStack;
+import net.minecraft.ResourceLocation;
+import net.minecraft.ServerPlayer;
+import net.minecraft.Slot;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CPacketSyncItems extends Packet {
+public class CPacketSyncItems implements Packet {
     public CPacketSyncItems() {
     }
 
-    public int getPacketSize() {
-        return 1;
+    public CPacketSyncItems(PacketByteBuf packetByteBuf) {
     }
 
-    public void processPacket(NetHandler var1) {
-        ((ITENetHandler) var1).handleSyncItems(this);
+    @Override
+    public void write(PacketByteBuf packetByteBuf) {
     }
 
-    public void readPacketData(DataInput var1) throws IOException {
+    @Override
+    public void apply(EntityPlayer entityPlayer) {
+        if (entityPlayer instanceof ServerPlayer serverPlayer) {
+            List<ItemStack> itemList = new ArrayList<>();
+            for (Object slot : serverPlayer.openContainer.inventorySlots) {
+                itemList.add(((Slot) slot).getStack());
+            }
+            serverPlayer.sendContainerAndContentsToPlayer(serverPlayer.openContainer, itemList);
+        }
     }
 
-    public void writePacketData(DataOutput var1) throws IOException {
+    @Override
+    public ResourceLocation getChannel() {
+        return MITEITENetwork.SyncItems;
     }
 }

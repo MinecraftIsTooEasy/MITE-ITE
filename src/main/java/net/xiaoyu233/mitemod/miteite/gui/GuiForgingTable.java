@@ -7,6 +7,7 @@ import net.xiaoyu233.mitemod.miteite.inventory.container.ContainerForgingTable;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlot;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
 import net.xiaoyu233.mitemod.miteite.network.CPacketStartForging;
+import net.xiaoyu233.mitemod.miteite.network.MITEITENetwork;
 import net.xiaoyu233.mitemod.miteite.network.SPacketForgingTableInfo.EnhanceInfo.FaultFeedbackData;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
 import org.lwjgl.opengl.GL11;
@@ -142,7 +143,7 @@ public class GuiForgingTable extends GuiContainer implements ICrafting {
     protected void actionPerformed(GuiButton par1GuiButton) {
         super.actionPerformed(par1GuiButton);
         if (par1GuiButton.id == 0) {
-            this.player.sendPacket(new CPacketStartForging());
+            MITEITENetwork.sendToServer(new CPacketStartForging());
             this.startButton.enabled = false;
         }
     }
