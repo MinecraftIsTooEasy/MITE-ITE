@@ -1,37 +1,43 @@
 package net.xiaoyu233.mitemod.miteite.network;
 
-import net.minecraft.NetHandler;
-import net.minecraft.Packet;
-import net.xiaoyu233.mitemod.miteite.api.ITENetHandler;
+import moddedmite.rustedironcore.network.Packet;
+import moddedmite.rustedironcore.network.PacketByteBuf;
+import net.minecraft.EntityPlayer;
+import net.minecraft.GuiScreen;
+import net.minecraft.Minecraft;
+import net.minecraft.ResourceLocation;
+import net.xiaoyu233.mitemod.miteite.gui.GuiForgingTable;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
-public class SPacketFinishForging extends Packet {
-    private SPacketFinishForging.Status finishStatus;
+public class SPacketFinishForging implements Packet {
+    private Status finishStatus;
 
     public SPacketFinishForging() {
     }
 
-    public SPacketFinishForging(SPacketFinishForging.Status status) {
+    public SPacketFinishForging(Status status) {
         this.finishStatus = status;
     }
 
-    public int getPacketSize() {
-        return 4;
+    public SPacketFinishForging(PacketByteBuf packetByteBuf) {
+        this.finishStatus = Status.values()[packetByteBuf.readInt()];
     }
 
-    public void processPacket(NetHandler var1) {
-        ((ITENetHandler) var1).processFinishForgingPacket(this);
+    @Override
+    public void write(PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeInt(this.finishStatus.ordinal());
     }
 
-    public void readPacketData(DataInput var1) throws IOException {
-        this.finishStatus = SPacketFinishForging.Status.values()[var1.readInt()];
+    @Override
+    public void apply(EntityPlayer entityPlayer) {
+        GuiScreen openingGUI = Minecraft.getMinecraft().currentScreen;
+        if (openingGUI instanceof GuiForgingTable guiForgingTable) {
+            guiForgingTable.enableButton();
+        }
     }
 
-    public void writePacketData(DataOutput var1) throws IOException {
-        var1.writeInt(this.finishStatus.ordinal());
+    @Override
+    public ResourceLocation getChannel() {
+        return MITEITENetwork.FinishForging;
     }
 
     public enum Status {

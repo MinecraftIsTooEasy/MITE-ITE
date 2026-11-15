@@ -1,28 +1,31 @@
 package net.xiaoyu233.mitemod.miteite.network;
 
-import net.minecraft.NetHandler;
-import net.minecraft.Packet;
-import net.xiaoyu233.mitemod.miteite.api.ITENetHandler;
+import moddedmite.rustedironcore.network.Packet;
+import moddedmite.rustedironcore.network.PacketByteBuf;
+import net.minecraft.EntityPlayer;
+import net.minecraft.ResourceLocation;
+import net.xiaoyu233.mitemod.miteite.inventory.container.ContainerForgingTable;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
-public class CPacketStartForging extends Packet {
+public class CPacketStartForging implements Packet {
     public CPacketStartForging() {
     }
 
-    public int getPacketSize() {
-        return 3;
+    public CPacketStartForging(PacketByteBuf packetByteBuf) {
     }
 
-    public void processPacket(NetHandler var1) {
-        ((ITENetHandler) var1).processStartForgingPacket(this);
+    @Override
+    public void write(PacketByteBuf packetByteBuf) {
     }
 
-    public void readPacketData(DataInput var1) throws IOException {
+    @Override
+    public void apply(EntityPlayer entityPlayer) {
+        if (entityPlayer.openContainer instanceof ContainerForgingTable containerForgingTable) {
+            containerForgingTable.startForging();
+        }
     }
 
-    public void writePacketData(DataOutput var1) throws IOException {
+    @Override
+    public ResourceLocation getChannel() {
+        return MITEITENetwork.StartForging;
     }
 }

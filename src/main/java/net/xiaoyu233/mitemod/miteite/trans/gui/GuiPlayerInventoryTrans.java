@@ -5,6 +5,7 @@ import net.minecraft.EntityPlayer;
 import net.minecraft.GuiInventory;
 import net.minecraft.InventoryEffectRenderer;
 import net.xiaoyu233.mitemod.miteite.network.CPacketSyncItems;
+import net.xiaoyu233.mitemod.miteite.network.MITEITENetwork;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,6 +19,6 @@ public abstract class GuiPlayerInventoryTrans extends InventoryEffectRenderer {
 
    @Inject(method = "<init>",at = @At("RETURN"))
    private void injectSyncItems(EntityPlayer par1EntityPlayer, CallbackInfo ci){
-      par1EntityPlayer.sendPacket(new CPacketSyncItems());
+      MITEITENetwork.sendToServer(new CPacketSyncItems());
    }
 }

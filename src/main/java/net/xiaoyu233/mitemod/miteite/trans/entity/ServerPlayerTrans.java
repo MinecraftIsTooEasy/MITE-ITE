@@ -6,6 +6,7 @@ import net.xiaoyu233.mitemod.miteite.api.ITEPlayer;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ContainerForgingTable;
 import net.xiaoyu233.mitemod.miteite.inventory.container.ForgingTableSlots;
 import net.xiaoyu233.mitemod.miteite.network.BiPacketUpdateDefense;
+import net.xiaoyu233.mitemod.miteite.network.MITEITENetwork;
 //import net.xiaoyu233.mitemod.miteite.network.SPacketUpdateNutrition;
 import org.spongepowered.asm.mixin.*;
 
@@ -33,7 +34,7 @@ public abstract class ServerPlayerTrans extends EntityPlayer implements ICraftin
    public void setDefenseCooldown(int cooldown) {
       super.setDefenseCooldown(cooldown);
       if (playerNetServerHandler != null) {
-         this.playerNetServerHandler.sendPacketToPlayer(new BiPacketUpdateDefense(cooldown));
+         MITEITENetwork.sendToClient(ReflectHelper.dyCast(ServerPlayer.class, this), new BiPacketUpdateDefense(cooldown));
       }
    }
 }

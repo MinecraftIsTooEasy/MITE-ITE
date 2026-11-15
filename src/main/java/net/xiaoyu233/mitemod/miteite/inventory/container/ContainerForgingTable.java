@@ -9,6 +9,7 @@ import net.xiaoyu233.mitemod.miteite.api.forging.ForgingSlot;
 import net.xiaoyu233.mitemod.miteite.api.forging.IForgingEffect;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
 import net.xiaoyu233.mitemod.miteite.item.recipe.IFaultFeedback;
+import net.xiaoyu233.mitemod.miteite.network.MITEITENetwork;
 import net.xiaoyu233.mitemod.miteite.network.SPacketFinishForging;
 import net.xiaoyu233.mitemod.miteite.network.SPacketForgingTableInfo;
 import net.xiaoyu233.mitemod.miteite.tileentity.TileEntityForgingTable;
@@ -83,14 +84,15 @@ public class ContainerForgingTable extends Container {
 //    }
 
     void finishForging(SPacketFinishForging.Status finishStatus){
-        this.player.sendPacket(new SPacketFinishForging(finishStatus));
         if (!this.world.isRemote){
+            ServerPlayer serverPlayer = (ServerPlayer) this.player;
+            MITEITENetwork.sendToClient(serverPlayer, new SPacketFinishForging(finishStatus));
             switch (finishStatus) {
                 case COMPLETED:
-                    this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.Succeed.getInstance()));
+                    MITEITENetwork.sendToClient(serverPlayer, new SPacketForgingTableInfo(SPacketForgingTableInfo.Succeed.getInstance()));
                     break;
                 case FAILED:
-                    this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.Failed.getInstance()));
+                    MITEITENetwork.sendToClient(serverPlayer, new SPacketForgingTableInfo(SPacketForgingTableInfo.Failed.getInstance()));
                     break;
                 case CANCELED:
                     break;
@@ -143,13 +145,13 @@ public class ContainerForgingTable extends Container {
 
     public void sendToolInfo(SPacketForgingTableInfo.ToolInfo.Tool tool) {
         if (!this.world.isRemote){
-            this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.ToolInfo.of(tool)));
+            MITEITENetwork.sendToClient((ServerPlayer) this.player, new SPacketForgingTableInfo(SPacketForgingTableInfo.ToolInfo.of(tool)));
         }
     }
 
     public void sendTableInfo(SPacketForgingTableInfo.TableLevelInfo info) {
         if (!this.world.isRemote){
-            this.player.sendPacket(new SPacketForgingTableInfo(info));
+            MITEITENetwork.sendToClient((ServerPlayer) this.player, new SPacketForgingTableInfo(info));
         }
     }
 
@@ -164,7 +166,7 @@ public class ContainerForgingTable extends Container {
                 boolean hasTools = (!context.getRecipe().requiresHammer() || this.slots.getHammerItem() != null)
                         && (!context.getRecipe().requiresAxe() || this.slots.getAxeItem() != null);
                 if (this.tileentity.getBlockMetadata() >= requiredLevel.getLevel() && hasTools) {
-                    this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.ReqItems.of(this.slots.getNeedItems(context.getMaterials()))));
+                    MITEITENetwork.sendToClient((ServerPlayer) this.player, new SPacketForgingTableInfo(SPacketForgingTableInfo.ReqItems.of(this.slots.getNeedItems(context.getMaterials()))));
                 }
             }
         }
@@ -252,9 +254,9 @@ public class ContainerForgingTable extends Container {
                         faultFeedbacks.add((IFaultFeedback) effect);
                     }
                 }
-                this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(context.getFailureChance(), faultFeedbacks, context.getTime(), context.getHammerDurabilityCost(), context.getAxeDurabilityCost())));
+                MITEITENetwork.sendToClient((ServerPlayer) this.player, new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(context.getFailureChance(), faultFeedbacks, context.getTime(), context.getHammerDurabilityCost(), context.getAxeDurabilityCost())));
             } else {
-                this.player.sendPacket(new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(0,null,0,0,0)));
+                MITEITENetwork.sendToClient((ServerPlayer) this.player, new SPacketForgingTableInfo(SPacketForgingTableInfo.EnhanceInfo.getInstance(0,null,0,0,0)));
             }
         }
     }
