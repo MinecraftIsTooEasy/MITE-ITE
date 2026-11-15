@@ -7,6 +7,7 @@ import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.api.IUpgradableItem;
 import net.xiaoyu233.mitemod.miteite.item.ModifierUtils;
 import net.xiaoyu233.mitemod.miteite.registry.ITERegistryImpl;
+import net.xiaoyu233.mitemod.miteite.util.CompatUtil;
 import net.xiaoyu233.mitemod.miteite.util.ItemLevelUpHelper;
 import net.xiaoyu233.mitemod.miteite.util.ItemUtil;
 import net.xiaoyu233.mitemod.miteite.util.StringUtil;
@@ -153,7 +154,7 @@ public abstract class ItemArmorTrans extends Item implements IDamageableItem, IU
    }
 
    public int getMaxToolLevel(ItemStack itemStack) {
-      return this.getMaterialForDurability().getMinHarvestLevel() * 3 + itemStack.getForgingGrade();
+      return CompatUtil.getMaxArmorLevel(itemStack);
    }
 
    public boolean isMaxToolLevel(ItemStack itemStack) {

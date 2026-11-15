@@ -66,4 +66,8 @@ public class CompatUtil {
         return 15 + itemStack.getForgingGrade();
     }
 
+   public static int getMaxArmorLevel(ItemStack itemStack) {
+      return itemStack.getItemAsArmor().getMaterialForDurability().getMinHarvestLevel() * 3 + itemStack.getForgingGrade();
+   }
+
 }
