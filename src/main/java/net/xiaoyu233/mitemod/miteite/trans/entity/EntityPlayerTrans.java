@@ -539,21 +539,6 @@ public abstract class EntityPlayerTrans extends EntityLivingBase implements ICom
    }
 
    @Override
-   public boolean knockBack(Entity attacker, float amount) {
-      ItemStack[] itemStacks = this.getWornItems();
-      int i = 0;
-
-      for(int itemStacksLength = itemStacks.length; i < itemStacksLength; ++i) {
-         ItemStack stack = itemStacks[i];
-         if (stack != null) {
-            amount *= Math.max(1.0F - ArmorModifierTypes.STEADY_MODIFIER.getModifierValue(stack.stackTagCompound), 0.0F);
-         }
-      }
-
-      return super.knockBack(attacker, amount);
-   }
-
-   @Override
    @Unique
    public void setDefenseCooldown(int time){
       this.defenseCooldown = time;

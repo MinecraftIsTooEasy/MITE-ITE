@@ -74,6 +74,7 @@ public class MITEITERICEvents extends Handlers {
             });
         });
         Combat.register(new PlayerCombatListener());
+        EntityMobMixin.register(new EntityMobListener());
         Trading.register(event -> {
             event.getForProfession(0).ifPresent(x -> {
                 x.removeBuyEntryForId(Block.cloth.blockID);

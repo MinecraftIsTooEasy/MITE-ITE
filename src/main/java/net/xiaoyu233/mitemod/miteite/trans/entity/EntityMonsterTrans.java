@@ -146,6 +146,16 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
       return 0;
    }
 
+   @Override
+   public boolean ite$hasBurningAttack() {
+      return this.attackCauseFire;
+   }
+
+   @Override
+   public void ite$setBurningAttack(boolean burningAttack) {
+      this.attackCauseFire = burningAttack;
+   }
+
    @Inject(
            locals = LocalCapture.CAPTURE_FAILHARD,
            method = "attackEntityAsMob(Lnet/minecraft/Entity;)Lnet/minecraft/EntityDamageResult;",
@@ -277,14 +287,6 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
       return super.onSpawnWithEgg(par1EntityLivingData);
    }
 
-   @Override
-   public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {
-      super.readEntityFromNBT(par1NBTTagCompound);
-      if (par1NBTTagCompound.hasKey("AttackCauseFire")){
-         this.attackCauseFire = par1NBTTagCompound.getBoolean("AttackCauseFire");
-      }
-   }
-
    @Unique
    protected void tryDisarmTarget(Entity target){
       if (this.onServer() && target instanceof EntityLivingBase) {
@@ -313,9 +315,4 @@ public abstract class EntityMonsterTrans extends EntityLiving implements IMob, I
       }
    }
 
-   @Override
-   public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {
-      super.writeEntityToNBT(par1NBTTagCompound);
-      par1NBTTagCompound.setBoolean("AttackCauseFire",this.attackCauseFire);
-   }
 }
