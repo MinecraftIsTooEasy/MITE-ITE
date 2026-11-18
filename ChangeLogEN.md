@@ -13,6 +13,12 @@
 
 ---
 
+# v2.0.32 Changelog
+## Bug Fixes
+* Restored the legacy forging registration API as deprecated for backward compatibility
+
+---
+
 # v2.0.31 Changelog
 ## Bug Fixes
 * Fixed a client crash when drawing a vibranium arrow with an Infinity-enchanted bow because its registered material was missing from the game's arrow index

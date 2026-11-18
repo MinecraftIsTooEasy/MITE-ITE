@@ -13,6 +13,7 @@ import net.xiaoyu233.mitemod.miteite.item.ArmorModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.ToolModifierTypes;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingRecipe;
 import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableLevel;
+import net.xiaoyu233.mitemod.miteite.item.recipe.ForgingTableRecipes;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,6 +22,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public interface ITERegistry {
+
     @Deprecated
     void registerExpForLevel(Material material, int base, int increase);
 
@@ -33,6 +35,16 @@ public interface ITERegistry {
     void registerMeatCriteria(Predicate<Item> criteria);
 
     void registerEnhanceStone(@Nonnull Material material, int failChance);
+
+    /**
+     * Retains the material-based registration entry point for existing plugins.
+     *
+     * @deprecated Use {@link #registerForgingRecipe(IForgingRecipe)} for custom recipes.
+     */
+    @Deprecated
+    default void registerForgingRecipe(Material material, ForgingTableLevel forgingTableLevel, int maxLevel) {
+        ForgingTableRecipes.registerForgingRecipe(material, forgingTableLevel, maxLevel);
+    }
 
     void registerForgingRecipe(IForgingRecipe recipe);
 
